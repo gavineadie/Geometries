@@ -15,7 +15,7 @@ class ViewController: NSViewController {
         super.viewDidLoad()
         
         let sceneView = self.view as! SCNView
-        sceneView.autoenablesDefaultLighting = true
+//      sceneView.autoenablesDefaultLighting = true
         
         let scene = SCNScene()
         
@@ -26,21 +26,20 @@ class ViewController: NSViewController {
         solarNode.position = SCNVector3Make(0, 100000, 0)
         scene.rootNode.addChildNode(solarNode)
 
-//        let globeMesh = SCNSphere(radius: 6500.0)
-//        let globeNode = SCNNode(geometry: globeMesh)
+//        let globeNode = SCNNode(geometry: SCNSphere(radius: 6300.0))
 //        scene.rootNode.addChildNode(globeNode)
         
-        let coastMesh = SCNGeometry.CoastMesh();
-        let coastNode = SCNNode(geometry: coastMesh)
+        let coastNode = SCNNode(geometry: SCNGeometry.CoastMesh())
         scene.rootNode.addChildNode(coastNode)
         
         let camera = SCNCamera()
-        camera.xFov = 45.0
-        camera.yFov = 45.0
-        camera.zFar = -1000.0
+        camera.xFov = 15.0
+        camera.yFov = 15.0
+        camera.zFar = 50000.0
         let cameraNode = SCNNode()
         cameraNode.camera = camera
-        cameraNode.position = SCNVector3(x: 0, y: 0, z: 25000)
+        cameraNode.position = SCNVector3(x: 0, y: -50000, z: 0)
+        cameraNode.constraints = [SCNLookAtConstraint(target: coastNode)]
         scene.rootNode.addChildNode(cameraNode)
         
         sceneView.scene = scene

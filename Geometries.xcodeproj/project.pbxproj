@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		860341281BB98CB4002DAB73 /* coast.vector in Resources */ = {isa = PBXBuildFile; fileRef = 860341271BB98CB4002DAB73 /* coast.vector */; settings = {ASSET_TAGS = (); }; };
 		8662FB121BB5FB1C004D8CB8 /* Geometries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8662FB111BB5FB1C004D8CB8 /* Geometries.swift */; };
 		868751CE1BB5D57200939585 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 868751CD1BB5D57200939585 /* AppDelegate.swift */; };
 		868751D01BB5D57200939585 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 868751CF1BB5D57200939585 /* ViewController.swift */; };
@@ -15,6 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		860341271BB98CB4002DAB73 /* coast.vector */ = {isa = PBXFileReference; lastKnownFileType = file; path = coast.vector; sourceTree = "<group>"; };
 		8662FB111BB5FB1C004D8CB8 /* Geometries.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Geometries.swift; sourceTree = "<group>"; };
 		868751CA1BB5D57200939585 /* Geometries.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Geometries.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		868751CD1BB5D57200939585 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -35,6 +37,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		860341261BB98C7B002DAB73 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				860341271BB98CB4002DAB73 /* coast.vector */,
+			);
+			name = Assets;
+			sourceTree = "<group>";
+		};
 		868751C11BB5D57200939585 = {
 			isa = PBXGroup;
 			children = (
@@ -57,6 +67,7 @@
 				868751CD1BB5D57200939585 /* AppDelegate.swift */,
 				868751CF1BB5D57200939585 /* ViewController.swift */,
 				8662FB111BB5FB1C004D8CB8 /* Geometries.swift */,
+				860341261BB98C7B002DAB73 /* Assets */,
 				868751D11BB5D57200939585 /* Assets.xcassets */,
 				868751D31BB5D57200939585 /* Main.storyboard */,
 				868751D61BB5D57200939585 /* Info.plist */,
@@ -121,6 +132,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				860341281BB98CB4002DAB73 /* coast.vector in Resources */,
 				868751D21BB5D57200939585 /* Assets.xcassets in Resources */,
 				868751D51BB5D57200939585 /* Main.storyboard in Resources */,
 			);
