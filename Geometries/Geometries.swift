@@ -18,7 +18,7 @@ extension SCNGeometry {
         print("CoastMesh(vectorCount: \(vectorCount))")
         
         let vertexSource = SCNGeometrySource(data: dataContent!,
-            semantic: SCNGeometrySourceSemanticVertex, vectorCount: vectorCount, // 47183,
+            semantic: SCNGeometrySourceSemanticVertex, vectorCount: vectorCount,
             floatComponents: true, componentsPerVector: 3, bytesPerComponent: sizeof(Float32),
             dataOffset: 0, dataStride: 12)
 
@@ -28,13 +28,30 @@ extension SCNGeometry {
         return SCNGeometry(sources: [vertexSource], elements: [element])
     }
     
-    class func GridsMesh() -> SCNGeometry {
+    class func GlobeMesh() -> SCNGeometry {
+        let mainBundle = NSBundle.mainBundle()
+        let resourcePath = mainBundle.pathForResource("globe", ofType: "vector")
+        let dataContent = NSData.init(contentsOfFile: resourcePath!)
+        let vectorCount = (dataContent?.length)! / 12           // count of point pairs
+        print("GlobeMesh(vectorCount: \(vectorCount))")
         
-        return SCNGeometry()
+        let vertexSource = SCNGeometrySource(data: dataContent!,
+            semantic: SCNGeometrySourceSemanticVertex, vectorCount: vectorCount,
+            floatComponents: true, componentsPerVector: 3, bytesPerComponent: sizeof(Float32),
+            dataOffset: 0, dataStride: 12)
+
+        let normalSource = SCNGeometrySource(data: dataContent!,
+            semantic: SCNGeometrySourceSemanticNormal, vectorCount: vectorCount,
+            floatComponents: true, componentsPerVector: 3, bytesPerComponent: sizeof(Float32),
+            dataOffset: 0, dataStride: 12)
         
+        let element = SCNGeometryElement(data: nil, primitiveType: .Point,
+            primitiveCount: vectorCount, bytesPerIndex: sizeof(Int))
+        
+        return SCNGeometry(sources: [vertexSource, normalSource], elements: [element])
     }
     
-    class func XxxxxMesh() -> SCNGeometry {
+    class func GridsMesh() -> SCNGeometry {
         
         return SCNGeometry()
         

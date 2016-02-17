@@ -15,31 +15,43 @@ class ViewController: NSViewController {
         super.viewDidLoad()
         
         let sceneView = self.view as! SCNView
-//      sceneView.autoenablesDefaultLighting = true
+        sceneView.autoenablesDefaultLighting = true
         
         let scene = SCNScene()
-        
-        let solarNode = SCNNode()
-        solarNode.light = SCNLight()
-        solarNode.light!.type = SCNLightTypeDirectional
-        solarNode.light!.color = NSColor(white: 0.75, alpha: 1.0)
-        solarNode.position = SCNVector3Make(0, 100000, 0)
-        scene.rootNode.addChildNode(solarNode)
+    
+//        let solarNode = SCNNode()
+//        solarNode.light = SCNLight()
+//        solarNode.light!.type = SCNLightTypeDirectional
+//        solarNode.light!.color = NSColor.orangeColor()
+//        solarNode.position = SCNVector3Make(0, 100000, 0)
+//        scene.rootNode.addChildNode(solarNode)
 
-//        let globeNode = SCNNode(geometry: SCNSphere(radius: 6300.0))
-//        scene.rootNode.addChildNode(globeNode)
-        
-        let coastNode = SCNNode(geometry: SCNGeometry.CoastMesh())
+        let globeGeom = SCNSphere(radius: 6200.0)
+        globeGeom.geodesic = false
+        globeGeom.segmentCount = 90
+        let globeNode = SCNNode(geometry:globeGeom)
+        scene.rootNode.addChildNode(globeNode)
+
+//        let gridsGeom = SCNGeometry.GlobeMesh()
+//        gridsGeom.firstMaterial?.diffuse.contents = NSColor.blackColor()
+//        let gridsNode = SCNNode(geometry: gridsGeom)
+//        scene.rootNode.addChildNode(gridsNode)
+
+        let coastGeom = SCNGeometry.CoastMesh()
+        coastGeom.firstMaterial?.diffuse.contents = NSColor.blueColor()
+        let coastNode = SCNNode(geometry: coastGeom)
         scene.rootNode.addChildNode(coastNode)
-        
+
         let camera = SCNCamera()
-        camera.xFov = 15.0
-        camera.yFov = 15.0
-        camera.zFar = 50000.0
+        camera.xFov = 10.0
+        camera.yFov = 10.0
+        camera.zFar = 87000.0
+        
         let cameraNode = SCNNode()
         cameraNode.camera = camera
-        cameraNode.position = SCNVector3(x: 0, y: -50000, z: 0)
-        cameraNode.constraints = [SCNLookAtConstraint(target: coastNode)]
+        cameraNode.position = SCNVector3(x: 50000, y: 50000, z: 50000)
+        cameraNode.constraints = [SCNLookAtConstraint(target: globeNode)]
+        
         scene.rootNode.addChildNode(cameraNode)
         
         sceneView.scene = scene
@@ -47,7 +59,7 @@ class ViewController: NSViewController {
 
     override var representedObject: AnyObject? {
         didSet {
-        // Update the view, if already loaded.
+
         }
     }
 
