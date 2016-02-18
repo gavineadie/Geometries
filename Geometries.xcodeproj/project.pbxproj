@@ -8,8 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		8627F4961BCC7E8D0036AA0D /* globe.vector in Resources */ = {isa = PBXBuildFile; fileRef = 8627F4951BCC7E8D0036AA0D /* globe.vector */; };
+		8653382D1C758BBC000A0AEB /* coast.vector in Resources */ = {isa = PBXBuildFile; fileRef = 8653382C1C758BBC000A0AEB /* coast.vector */; };
 		8662FB121BB5FB1C004D8CB8 /* Geometries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8662FB111BB5FB1C004D8CB8 /* Geometries.swift */; };
-		8676649D1BBA49A1007B8033 /* coast.vector in Resources */ = {isa = PBXBuildFile; fileRef = 8676649C1BBA49A1007B8033 /* coast.vector */; };
 		868751CE1BB5D57200939585 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 868751CD1BB5D57200939585 /* AppDelegate.swift */; };
 		868751D01BB5D57200939585 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 868751CF1BB5D57200939585 /* ViewController.swift */; };
 		868751D21BB5D57200939585 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 868751D11BB5D57200939585 /* Assets.xcassets */; };
@@ -18,8 +18,8 @@
 
 /* Begin PBXFileReference section */
 		8627F4951BCC7E8D0036AA0D /* globe.vector */ = {isa = PBXFileReference; lastKnownFileType = file; path = globe.vector; sourceTree = "<group>"; };
+		8653382C1C758BBC000A0AEB /* coast.vector */ = {isa = PBXFileReference; lastKnownFileType = file; path = coast.vector; sourceTree = "<group>"; };
 		8662FB111BB5FB1C004D8CB8 /* Geometries.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Geometries.swift; sourceTree = "<group>"; };
-		8676649C1BBA49A1007B8033 /* coast.vector */ = {isa = PBXFileReference; lastKnownFileType = file; path = coast.vector; sourceTree = "<group>"; };
 		868751CA1BB5D57200939585 /* Geometries.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Geometries.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		868751CD1BB5D57200939585 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		868751CF1BB5D57200939585 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -42,7 +42,7 @@
 		860341261BB98C7B002DAB73 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
-				8676649C1BBA49A1007B8033 /* coast.vector */,
+				8653382C1C758BBC000A0AEB /* coast.vector */,
 				8627F4951BCC7E8D0036AA0D /* globe.vector */,
 			);
 			name = Assets;
@@ -135,8 +135,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8653382D1C758BBC000A0AEB /* coast.vector in Resources */,
 				868751D21BB5D57200939585 /* Assets.xcassets in Resources */,
-				8676649D1BBA49A1007B8033 /* coast.vector in Resources */,
 				8627F4961BCC7E8D0036AA0D /* globe.vector in Resources */,
 				868751D51BB5D57200939585 /* Main.storyboard in Resources */,
 			);
