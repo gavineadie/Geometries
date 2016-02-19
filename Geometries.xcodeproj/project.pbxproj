@@ -10,6 +10,7 @@
 		8627F4961BCC7E8D0036AA0D /* globe.vector in Resources */ = {isa = PBXBuildFile; fileRef = 8627F4951BCC7E8D0036AA0D /* globe.vector */; };
 		8653382D1C758BBC000A0AEB /* coast.vector in Resources */ = {isa = PBXBuildFile; fileRef = 8653382C1C758BBC000A0AEB /* coast.vector */; };
 		8662FB121BB5FB1C004D8CB8 /* Geometries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8662FB111BB5FB1C004D8CB8 /* Geometries.swift */; };
+		86787F4C1C774A6C00CE54F3 /* com.ramsaycons.geometries.scn in Resources */ = {isa = PBXBuildFile; fileRef = 86787F4B1C774A6C00CE54F3 /* com.ramsaycons.geometries.scn */; };
 		868751CE1BB5D57200939585 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 868751CD1BB5D57200939585 /* AppDelegate.swift */; };
 		868751D01BB5D57200939585 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 868751CF1BB5D57200939585 /* ViewController.swift */; };
 		868751D21BB5D57200939585 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 868751D11BB5D57200939585 /* Assets.xcassets */; };
@@ -20,6 +21,7 @@
 		8627F4951BCC7E8D0036AA0D /* globe.vector */ = {isa = PBXFileReference; lastKnownFileType = file; path = globe.vector; sourceTree = "<group>"; };
 		8653382C1C758BBC000A0AEB /* coast.vector */ = {isa = PBXFileReference; lastKnownFileType = file; path = coast.vector; sourceTree = "<group>"; };
 		8662FB111BB5FB1C004D8CB8 /* Geometries.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Geometries.swift; sourceTree = "<group>"; };
+		86787F4B1C774A6C00CE54F3 /* com.ramsaycons.geometries.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = com.ramsaycons.geometries.scn; sourceTree = "<group>"; };
 		868751CA1BB5D57200939585 /* Geometries.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Geometries.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		868751CD1BB5D57200939585 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		868751CF1BB5D57200939585 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -73,6 +75,7 @@
 				860341261BB98C7B002DAB73 /* Assets */,
 				868751D11BB5D57200939585 /* Assets.xcassets */,
 				868751D31BB5D57200939585 /* Main.storyboard */,
+				86787F4B1C774A6C00CE54F3 /* com.ramsaycons.geometries.scn */,
 				868751D61BB5D57200939585 /* Info.plist */,
 			);
 			path = Geometries;
@@ -139,6 +142,7 @@
 				868751D21BB5D57200939585 /* Assets.xcassets in Resources */,
 				8627F4961BCC7E8D0036AA0D /* globe.vector in Resources */,
 				868751D51BB5D57200939585 /* Main.storyboard in Resources */,
+				86787F4C1C774A6C00CE54F3 /* com.ramsaycons.geometries.scn in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -205,7 +209,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
@@ -243,7 +247,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
 			};
@@ -256,6 +260,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = Geometries/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ramsaycons.Geometries;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -268,6 +273,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = Geometries/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ramsaycons.Geometries;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
