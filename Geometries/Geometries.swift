@@ -9,7 +9,7 @@
 import SceneKit
 
 extension SCNGeometry {
-    
+
     class func CoastMesh() -> SCNGeometry {
         let mainBundle = NSBundle.mainBundle()
         let resourcePath = mainBundle.pathForResource("coast", ofType: "vector")
@@ -28,9 +28,9 @@ extension SCNGeometry {
         return SCNGeometry(sources: [vertexSource], elements: [element])
     }
     
-    class func GlobeMesh() -> SCNGeometry {
+    class func GridsMesh() -> SCNGeometry {
         let mainBundle = NSBundle.mainBundle()
-        let resourcePath = mainBundle.pathForResource("globe", ofType: "vector")
+        let resourcePath = mainBundle.pathForResource("grids", ofType: "vector")
         let dataContent = NSData.init(contentsOfFile: resourcePath!)
         let vectorCount = (dataContent?.length)! / 12           // count of point pairs
         print("GlobeMesh(vectorCount: \(vectorCount))")
@@ -49,12 +49,6 @@ extension SCNGeometry {
             primitiveCount: vectorCount, bytesPerIndex: sizeof(Int))
         
         return SCNGeometry(sources: [vertexSource, normalSource], elements: [element])
-    }
-    
-    class func GridsMesh() -> SCNGeometry {
-        
-        return SCNGeometry()
-        
     }
 
 }
