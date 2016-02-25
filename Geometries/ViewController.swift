@@ -46,7 +46,7 @@ class ViewController: NSViewController {
 
     #if true            // read from "scn"
 
-        if let scene = SCNScene.init(named: "com.ramsaycons.geometries.scn") {
+        if let scene = SCNScene(named: "com.ramsaycons.geometries.scn") {
 
             if let frameNode = scene.rootNode.childNodeWithName("frame", recursively: true) {
 
@@ -91,6 +91,8 @@ class ViewController: NSViewController {
 
             sceneView.scene = scene
 
+            sceneView.overlaySKScene = OverlayScene(size: self.view.bounds.size)
+
         }
 
     #else               // write to "scn"
@@ -134,7 +136,7 @@ class ViewController: NSViewController {
         earthNode.addChildNode(coastNode)
 
 /*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
-  ╎ Frame -- contains "earth"                                                                       ╎
+  ╎ Frame -- contains "earth"                                                                        ╎
   ╎          rotated to +x: out; +y: right; +z "up"                                                  ╎
   ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
         let frameNode = SCNNode()
