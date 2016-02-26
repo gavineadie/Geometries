@@ -13,6 +13,7 @@
 		868751D01BB5D57200939585 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 868751CF1BB5D57200939585 /* ViewController.swift */; };
 		868751D21BB5D57200939585 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 868751D11BB5D57200939585 /* Assets.xcassets */; };
 		868751D51BB5D57200939585 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 868751D31BB5D57200939585 /* Main.storyboard */; };
+		86890D6C1C8010820046CF12 /* OverlayScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86890D6B1C8010820046CF12 /* OverlayScene.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,9 @@
 		868751D11BB5D57200939585 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		868751D41BB5D57200939585 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		868751D61BB5D57200939585 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		86890D6B1C8010820046CF12 /* OverlayScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayScene.swift; sourceTree = "<group>"; };
+		86890D6D1C8014A70046CF12 /* coast.vector */ = {isa = PBXFileReference; lastKnownFileType = file; path = coast.vector; sourceTree = "<group>"; };
+		86890D6E1C8014A70046CF12 /* grids.vector */ = {isa = PBXFileReference; lastKnownFileType = file; path = grids.vector; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,10 +62,13 @@
 			children = (
 				868751CD1BB5D57200939585 /* AppDelegate.swift */,
 				868751CF1BB5D57200939585 /* ViewController.swift */,
+				86890D6B1C8010820046CF12 /* OverlayScene.swift */,
 				8662FB111BB5FB1C004D8CB8 /* Geometries.swift */,
 				868751D11BB5D57200939585 /* Assets.xcassets */,
 				868751D31BB5D57200939585 /* Main.storyboard */,
 				86787F4B1C774A6C00CE54F3 /* com.ramsaycons.geometries.scn */,
+				86890D6D1C8014A70046CF12 /* coast.vector */,
+				86890D6E1C8014A70046CF12 /* grids.vector */,
 				868751D61BB5D57200939585 /* Info.plist */,
 			);
 			path = Geometries;
@@ -138,6 +145,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				868751D01BB5D57200939585 /* ViewController.swift in Sources */,
+				86890D6C1C8010820046CF12 /* OverlayScene.swift in Sources */,
 				868751CE1BB5D57200939585 /* AppDelegate.swift in Sources */,
 				8662FB121BB5FB1C004D8CB8 /* Geometries.swift in Sources */,
 			);

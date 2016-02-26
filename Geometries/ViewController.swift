@@ -14,6 +14,10 @@ class ViewController: NSViewController {
     let Rₑ:CGFloat = 6.378135e3                 // equatorial radius (polar radius = 6356.752 Kms)
     let PI:CGFloat = 3.141593e0                 // for now
 
+    var scene:SCNScene!
+
+    @IBOutlet var sceneView: SCNView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -40,46 +44,43 @@ class ViewController: NSViewController {
   │                   positioned in space, moves quickly --> +-- Node("orbit")                       │
   │                                                                                                  │
   └──────────────────────────────────────────────────────────────────────────────────────────────────┘*/
-        let sceneView = self.view as! SCNView
-        sceneView.autoenablesDefaultLighting = true
-        sceneView.allowsCameraControl = true
 
     #if true            // read from "scn"
 
-        if let scene = SCNScene.init(named: "com.ramsaycons.geometries.scn") {
+        scene = SCNScene(named: "com.ramsaycons.geometries.scn")
 
-            if let frameNode = scene.rootNode.childNodeWithName("frame", recursively: true) {
+        if let frameNode = scene!.rootNode.childNodeWithName("frame", recursively: true) {
 
 /*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
   ╎ a spot on the x-axis (points at vernal equinox)                                                  ╎
   ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
-                let spotsGeom = SCNSphere(radius: 100.0)
-                spotsGeom.geodesic = false
-                spotsGeom.segmentCount = 6
+            let spotsGeom = SCNSphere(radius: 100.0)
+            spotsGeom.geodesic = false
+            spotsGeom.segmentCount = 6
 
-                let spotsNode = SCNNode(geometry:spotsGeom)
-                spotsNode.name = "spots"
-                spotsNode.position = SCNVector3Make(Rₑ * 1.1, 0, 0)
-                //spotsNode.pivot = SCNMatrix4MakeTranslation(Rₑ * 1.1 * 2, 0, 0)
-                frameNode.addChildNode(spotsNode)
+            let spotsNode = SCNNode(geometry:spotsGeom)
+            spotsNode.name = "spots"
+            spotsNode.position = SCNVector3Make(Rₑ * 1.1, 0, 0)
+            //spotsNode.pivot = SCNMatrix4MakeTranslation(Rₑ * 1.1 * 2, 0, 0)
+            frameNode.addChildNode(spotsNode)
 
 /*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
   ╎ viewpoint initially on x-axis at 100,000Km with north (z-axis) up                                ╎
   ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
-                let camera = SCNCamera()
-                camera.xFov = 10.0
-                camera.yFov = 10.0
-                camera.zNear = 45000.0
-                camera.zFar = 150000.0
+            let camera = SCNCamera()
+            camera.xFov = 10.0
+            camera.yFov = 10.0
+            camera.zNear = 45000.0
+            camera.zFar = 150000.0
 
-                let cameraNode = SCNNode()
-                cameraNode.name = "camra"
-                cameraNode.camera = camera
-                cameraNode.position = SCNVector3(x: 100000, y: 0, z: 0)
-                cameraNode.rotation = SCNVector4(x: 1.0, y: 0.0, z: 0.0, w: PI/2.0)
-                cameraNode.constraints = [SCNLookAtConstraint(target: frameNode)]
-                frameNode.addChildNode(cameraNode)
-            }
+            let cameraNode = SCNNode()
+            cameraNode.name = "camra"
+            cameraNode.camera = camera
+            cameraNode.position = SCNVector3(x: 100000, y: 0, z: 0)
+            cameraNode.rotation = SCNVector4(x: 1.0, y: 0.0, z: 0.0, w: PI/2.0)
+            cameraNode.constraints = [SCNLookAtConstraint(target: frameNode)]
+            frameNode.addChildNode(cameraNode)
+        }
 
 //            let solarNode = SCNNode()
 //            solarNode.name = "solar"
@@ -89,9 +90,6 @@ class ViewController: NSViewController {
 //            solarNode.position = SCNVector3Make(100000, 0, 100000)
 //            scene.rootNode.addChildNode(solarNode)
 
-            sceneView.scene = scene
-
-        }
 
     #else               // write to "scn"
 
@@ -153,17 +151,21 @@ class ViewController: NSViewController {
             NSKeyedArchiver.archiveRootObject(scene, toFile: archivePath)
         }
 
-        sceneView.scene = scene
-
     #endif
+
+        sceneView.scene = scene
+        sceneView.showsStatistics = true
+        sceneView.backgroundColor = NSColor.blackColor()
+        sceneView.overlaySKScene = OverlayScene(size: self.view.bounds.size)
+        sceneView.autoenablesDefaultLighting = true
+        sceneView.allowsCameraControl = true
 
     }
 
-    @IBAction func startAction(sender: NSButton) {
+    @IBAction func spinAction(sender: NSButton) {
 
         print("spinAction")
 
-        let sceneView = self.view as! SCNView
         let scene = sceneView.scene
 
         if let earthNode = scene!.rootNode.childNodeWithName("earth", recursively: true) {
