@@ -14,9 +14,12 @@ class OverlayScene : SKScene {
         super.init(size: size)
 
         let labelNode = SKLabelNode(text: "SpriteKit Overlay")
-        labelNode.fontSize = 72
+        labelNode.name = "label"
+        labelNode.fontSize = 36
         labelNode.fontColor = SKColor.greenColor()
-        labelNode.position = CGPointMake(320, 300)
+        labelNode.horizontalAlignmentMode = .Left
+        labelNode.position = CGPointMake(20, 30)
+
         self.addChild(labelNode)
 
     }

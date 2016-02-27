@@ -16,8 +16,6 @@ class ViewController: NSViewController {
 
     var scene:SCNScene!
 
-    @IBOutlet var sceneView: SCNView!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -153,12 +151,13 @@ class ViewController: NSViewController {
 
     #endif
 
+        let sceneView = self.view as! SCNView
         sceneView.scene = scene
-        sceneView.showsStatistics = true
+        sceneView.overlaySKScene = OverlayScene(size: sceneView.bounds.size)
         sceneView.backgroundColor = NSColor.blackColor()
-        sceneView.overlaySKScene = OverlayScene(size: self.view.bounds.size)
         sceneView.autoenablesDefaultLighting = true
         sceneView.allowsCameraControl = true
+        sceneView.showsStatistics = true
 
     }
 
@@ -166,6 +165,7 @@ class ViewController: NSViewController {
 
         print("spinAction")
 
+        let sceneView = self.view as! SCNView
         let scene = sceneView.scene
 
         if let earthNode = scene!.rootNode.childNodeWithName("earth", recursively: true) {
