@@ -8,6 +8,7 @@
 
 import Cocoa
 import SceneKit
+import SpriteKit
 
 class ViewController: NSViewController {
 
@@ -151,9 +152,10 @@ class ViewController: NSViewController {
 
     #endif
 
-        let sceneView = self.view as! SCNView
+        let sceneView = self.view as! SceneView
         sceneView.scene = scene
-        sceneView.overlaySKScene = OverlayScene(size: sceneView.bounds.size)
+        sceneView.overlaySKScene = OverlayScene(fileNamed:"OverlayScene")
+        print("ViewController: loaded overlay \(sceneView.overlaySKScene)")
         sceneView.backgroundColor = NSColor.blackColor()
         sceneView.autoenablesDefaultLighting = true
         sceneView.allowsCameraControl = true

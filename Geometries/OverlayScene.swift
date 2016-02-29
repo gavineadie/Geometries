@@ -10,22 +10,40 @@ import SpriteKit
 
 class OverlayScene : SKScene {
 
-    override init(size: CGSize) {
-        super.init(size: size)
+    override func didMoveToView(view: SKView) {
 
-        let labelNode = SKLabelNode(text: "SpriteKit Overlay")
-        labelNode.name = "label"
-        labelNode.fontSize = 36
-        labelNode.fontColor = SKColor.greenColor()
-        labelNode.horizontalAlignmentMode = .Left
-        labelNode.position = CGPointMake(20, 30)
-
-        self.addChild(labelNode)
+        print("  OverlayScene: didMoveToView \(view)")
 
     }
 
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    override func update(currentTime: NSTimeInterval) {
+
+        print("  OverlayScene: currentTime \(currentTime)")
+
+    }
+
+    // NSResponder
+
+    override func mouseUp(theEvent: NSEvent) {
+
+        print("  OverlayScene: mouseUp event at \(theEvent.locationInWindow)")
+
+        let location = theEvent.locationInNode(self)
+        let node = self.nodeAtPoint(location)
+
+        print("  OverlayScene: node hit is \(node)")
+
+        if node.name == "touch" {
+
+            print("  OverlayScene: SKNode 'touch' interactive (click inside)")
+
+        }
+        else {
+
+            print("  OverlayScene: SKNode 'touch' interactive (click missed)")
+
+        }
+
     }
 
 }
