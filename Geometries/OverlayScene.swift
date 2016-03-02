@@ -18,8 +18,6 @@ class OverlayScene : SKScene {
 
     override func update(currentTime: NSTimeInterval) {
 
-        print("  OverlayScene: currentTime \(currentTime)")
-
     }
 
     // NSResponder
