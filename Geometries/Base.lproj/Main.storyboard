@@ -673,6 +673,23 @@
                     <sceneView key="view" wantsMultisampling="NO" preferredRenderingAPI="1" id="dL7-mN-D3x" customClass="SceneView" customModule="Geometries" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <gestureRecognizers>
+                            <clickGestureRecognizer delaysPrimaryMouseButtonEvents="YES" numberOfClicksRequired="2" id="PvV-U7-r9o">
+                                <connections>
+                                    <action selector="clickAction:" target="dL7-mN-D3x" id="7Bg-7x-y2c"/>
+                                </connections>
+                            </clickGestureRecognizer>
+                            <panGestureRecognizer delaysPrimaryMouseButtonEvents="YES" id="Cnh-aP-GMZ">
+                                <connections>
+                                    <action selector="swipeAction:" target="dL7-mN-D3x" id="FQZ-00-a61"/>
+                                </connections>
+                            </panGestureRecognizer>
+                            <magnificationGestureRecognizer delaysMagnificationEvents="YES" magnification="0.0" id="HaQ-C9-8ON">
+                                <connections>
+                                    <action selector="scaleAction:" target="dL7-mN-D3x" id="3Oi-GM-6L5"/>
+                                </connections>
+                            </magnificationGestureRecognizer>
+                        </gestureRecognizers>
                     </sceneView>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
