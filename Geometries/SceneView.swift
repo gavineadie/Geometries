@@ -11,51 +11,46 @@ import SceneKit
 
 class SceneView : SCNView {
 
-    var startPoint = CGPointMake(0, 0)
-
-    var latAngle = 0.0
-    var lonAngle = 0.0
+    var prevXRatio: CGFloat = 0
+    var prevYRatio: CGFloat = 0
 
     @IBAction func swipeAction(sender: NSPanGestureRecognizer) {
 
-        let viewPoint = sender.locationInView(self)     // Get the location in the view
+        if let view = sender.view {
 
-        switch sender.state {
+            let xyMovement = sender.translationInView(view)
 
-        case .Began:
+            let xRatio = prevXRatio + xyMovement.x / view.frame.size.width
+            let yRatio = prevYRatio + xyMovement.y / view.frame.size.height
 
-            startPoint = viewPoint
-            return
-
-        case .Changed:
-
-            let latAngle = (startPoint.y - viewPoint.y) / 3.0
-            let lonAngle = (startPoint.x - viewPoint.x) / 3.0
+            Swift.print("     SceneView: swipeAction - xyMovement \(xyMovement); xRatio \(xRatio), yRatio \(yRatio)")
 
             if let scene = self.scene,
-               let camraNode = scene.rootNode.childNodeWithName("camra", recursively: true) {
+                let orbitNode = scene.rootNode.childNodeWithName("orbit", recursively: true) {
 
-                camraNode.position = SCNVector3Make(120_000, lonAngle * 1000, latAngle * 1000)
+                orbitNode.eulerAngles.y = (-2 * π) * xRatio
+                orbitNode.eulerAngles.z = (  -π  ) * yRatio
 
             }
 
-            return
-
-        case .Ended:
-
-        //  startPoint = CGPointMake(0, 0)
-            return
-
-        default: return
+            if (sender.state == .Ended) {
+                prevXRatio = xRatio % 1
+                prevYRatio = yRatio % 1
+            }
 
         }
+
     }
 
     @IBAction func clickAction(sender: NSClickGestureRecognizer) {
 
-        let viewPoint = sender.locationInView(self)     // Get the location in the view
+        if let scene = self.scene,
+            let orbitNode = scene.rootNode.childNodeWithName("orbit", recursively: true) {
 
-        Swift.print("     SceneView: clickAction - viewPoint \(viewPoint)")
+            orbitNode.eulerAngles.y = 0
+            orbitNode.eulerAngles.z = 0
+
+        }
 
     }
 
