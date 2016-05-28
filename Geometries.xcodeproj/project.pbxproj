@@ -30,8 +30,6 @@
 		868751D41BB5D57200939585 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		868751D61BB5D57200939585 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		86890D6B1C8010820046CF12 /* OverlayScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayScene.swift; sourceTree = "<group>"; };
-		86890D6D1C8014A70046CF12 /* coast.vector */ = {isa = PBXFileReference; lastKnownFileType = file; path = coast.vector; sourceTree = "<group>"; };
-		86890D6E1C8014A70046CF12 /* grids.vector */ = {isa = PBXFileReference; lastKnownFileType = file; path = grids.vector; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,8 +71,6 @@
 				868751D11BB5D57200939585 /* Assets.xcassets */,
 				868751D31BB5D57200939585 /* Main.storyboard */,
 				86787F4B1C774A6C00CE54F3 /* com.ramsaycons.geometries.scn */,
-				86890D6D1C8014A70046CF12 /* coast.vector */,
-				86890D6E1C8014A70046CF12 /* grids.vector */,
 				868751D61BB5D57200939585 /* Info.plist */,
 			);
 			path = Geometries;
