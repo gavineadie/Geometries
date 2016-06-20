@@ -79,12 +79,16 @@ class ViewController: NSViewController {
   ╎ sunlight shines                                                                                  ╎
   ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
             let sunshine = SCNLight()
-            sunshine.type = SCNLightTypeOmni
+            sunshine.type = SCNLightTypeDirectional
 
             let solarNode = SCNNode()
             solarNode.name = "solar"
             solarNode.light = sunshine
-            solarNode.position = SCNVector3Make(1_000_000, 1_000_000, 0)
+         // solarNode.eulerAngles = SCNVector3Make(π/4, π/4, 0.0)
+            solarNode.orientation = SCNVector4Make(1, 0, 0, 0)  // lit from south pole
+            solarNode.orientation = SCNVector4Make(0, 1, 0, 0)  // lit from south pole
+            solarNode.orientation = SCNVector4Make(0, 0, 1, 0)  // lit from north pole
+            solarNode.orientation = SCNVector4Make(0, 0, 0, 1)  // lit from north pole
 
             frameNode.addChildNode(solarNode)                   //           "frame" << "solar"
 
@@ -98,8 +102,9 @@ class ViewController: NSViewController {
             let camera = SCNCamera()
             camera.xFov = 800_000.0 / cameraRange
             camera.yFov = 800_000.0 / cameraRange
-            camera.zNear = cameraRange * 0.2
-            camera.zFar = cameraRange * 1.5
+//            camera.zNear = cameraRange * 0.2
+//            camera.zFar = cameraRange * 1.5
+            camera.automaticallyAdjustsZRange = true
 
             let cameraNode = SCNNode()
             cameraNode.position = SCNVector3(x: 0, y: 0, z: CGFloat(cameraRange))

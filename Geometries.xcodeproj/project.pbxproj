@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		863478001D135B7E0058F510 /* OverlayScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8672CC221C83CC2500E1DD5E /* OverlayScene.sks */; };
 		864A60041C82940D009D6C72 /* SceneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 864A60031C82940D009D6C72 /* SceneView.swift */; };
 		8662FB121BB5FB1C004D8CB8 /* Geometries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8662FB111BB5FB1C004D8CB8 /* Geometries.swift */; };
-		8672CC231C83CC2500E1DD5E /* OverlayScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8672CC221C83CC2500E1DD5E /* OverlayScene.sks */; };
 		86787F4C1C774A6C00CE54F3 /* com.ramsaycons.geometries.scn in Resources */ = {isa = PBXBuildFile; fileRef = 86787F4B1C774A6C00CE54F3 /* com.ramsaycons.geometries.scn */; };
 		868751CE1BB5D57200939585 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 868751CD1BB5D57200939585 /* AppDelegate.swift */; };
 		868751D01BB5D57200939585 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 868751CF1BB5D57200939585 /* ViewController.swift */; };
@@ -135,8 +135,8 @@
 			files = (
 				868751D21BB5D57200939585 /* Assets.xcassets in Resources */,
 				868751D51BB5D57200939585 /* Main.storyboard in Resources */,
+				863478001D135B7E0058F510 /* OverlayScene.sks in Resources */,
 				86787F4C1C774A6C00CE54F3 /* com.ramsaycons.geometries.scn in Resources */,
-				8672CC231C83CC2500E1DD5E /* OverlayScene.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
