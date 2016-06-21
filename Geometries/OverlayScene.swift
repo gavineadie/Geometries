@@ -10,24 +10,24 @@ import SpriteKit
 
 class OverlayScene : SKScene {
 
-    override func didMoveToView(view: SKView) {
+    override func didMove(to view: SKView) {
 
         print("  OverlayScene: didMoveToView \(view)")
 
     }
 
-    override func update(currentTime: NSTimeInterval) {
+    override func update(_ currentTime: TimeInterval) {
 
     }
 
     // NSResponder
 
-    override func mouseUp(theEvent: NSEvent) {
+    override func mouseUp(_ theEvent: NSEvent) {
 
         print("  OverlayScene: mouseUp event at \(theEvent.locationInWindow)")
 
-        let location = theEvent.locationInNode(self)
-        let node = self.nodeAtPoint(location)
+        let location = theEvent.location(in: self)
+        let node = self.atPoint(location)
 
         print("  OverlayScene: node hit is \(node)")
 

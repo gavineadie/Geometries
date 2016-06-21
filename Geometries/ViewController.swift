@@ -58,7 +58,7 @@ class ViewController: NSViewController {
         totalNode!.name = "total"
         
         if let frameScene = SCNScene(named: "com.ramsaycons.geometries.scn"),
-           let frameNode = frameScene.rootNode.childNodeWithName("frame", recursively: true) {
+           let frameNode = frameScene.rootNode.childNode(withName: "frame", recursively: true) {
 
             totalNode?.addChildNode(frameNode)                  // "total << "frame"
 
@@ -66,7 +66,7 @@ class ViewController: NSViewController {
   ╎ a spot on the x-axis (points at vernal equinox)                                                  ╎
   ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
             let spotsGeom = SCNSphere(radius: 100.0)
-            spotsGeom.geodesic = true
+            spotsGeom.isGeodesic = true
             spotsGeom.segmentCount = 6
 
             let spotsNode = SCNNode(geometry:spotsGeom)
@@ -123,7 +123,7 @@ class ViewController: NSViewController {
 
         }
 
-        totalView.backgroundColor = NSColor.blueColor()
+        totalView.backgroundColor = NSColor.blue()
         totalView.autoenablesDefaultLighting = true
         totalView.showsStatistics = true
 
@@ -159,7 +159,7 @@ class ViewController: NSViewController {
 /*┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
   │ (X, Y, X) --> (rad, inc, azi)                                                                    │
   └──────────────────────────────────────────────────────────────────────────────────────────────────┘*/
-func cameraCart2Pole(x:Double, _ y:Double, _ z:Double) -> (Double, Double, Double) {
+func cameraCart2Pole(_ x:Double, _ y:Double, _ z:Double) -> (Double, Double, Double) {
     let rad = sqrt(x*x + y*y + z*z)
     return (rad, acos(z/rad), atan2(y, x))
 }
@@ -167,7 +167,7 @@ func cameraCart2Pole(x:Double, _ y:Double, _ z:Double) -> (Double, Double, Doubl
 /*┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
   │ (lon, lat, alt) --> (X, Y, X)                                                                    │
   └──────────────────────────────────────────────────────────────────────────────────────────────────┘*/
-func cameraPole2Cart(rad:Double, _ inc:Double, _ azi:Double) -> (Double, Double, Double) {
+func cameraPole2Cart(_ rad:Double, _ inc:Double, _ azi:Double) -> (Double, Double, Double) {
     return (rad * sin(inc) * cos(azi), rad * sin(inc) * sin(azi), rad * cos(inc))
 }
 
