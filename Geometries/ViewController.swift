@@ -33,19 +33,19 @@ class ViewController: NSViewController {
 
 /*┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
   │                                                                                                  │
-  │                              +--------------------------------------------------------+          │
-  │                              |                        "com.ramsaycons.geometries.scn" |          │
-  │                          +-- |  Node("frame") --+                                     |          │
-  │                          |   |                  |                                     |          │
-  │                          |   |                  +-- Node("earth") --+                 |          │
-  │ SCNView.scene.rootNode   |   |                  |                   +-- Node("globe") |          │
-  │       == Node("total") --+   |                  |                   +-- Node("grids") |          │
-  │                          |   |                  |                   +-- Node("coast") |          │
-  │                          |   +------------------|-------------------------------------+          │
-  │                          |                      |                                                │
-  │                          +-- Node("orbit") --+  +-- Node("spots")                                │
-  │                                              |  |                                                │
-  │                                              |  +-- Node("solar")                                │
+  │                              +--------------------------------------------------------------+    │
+  │                              |                              "com.ramsaycons.geometries.scn" |    │
+  │                          +-- |  Node("frame") --------+                                     |    │
+  │                          |   |                        |                                     |    │
+  │                          |   |                        +-- Node("earth") --+                 |    │
+  │ SCNView.scene.rootNode   |   |                        |                   +-- Node("globe") |    │
+  │       == Node("total") --+   |                        |                   +-- Node("grids") |    │
+  │                          |   |                        |                   +-- Node("coast") |    │
+  │                          |   +------------------------|-------------------------------------+    │
+  │                          |                            |                                          │
+  │                          +-- Node("orbit") --+        +-- Node("spots")                          │
+  │                                              |        |                                          │
+  │                                              |        +-- Node("solar")                          │
   │                                              |                                                   │
   │                                              +-- Node("camra")                                   │
   │                                                                                                  │
@@ -56,7 +56,7 @@ class ViewController: NSViewController {
 
         let totalNode = totalView.scene?.rootNode
         totalNode!.name = "total"
-        
+
         if let frameScene = SCNScene(named: "com.ramsaycons.geometries.scn"),
            let frameNode = frameScene.rootNode.childNode(withName: "frame", recursively: true) {
 
@@ -84,11 +84,30 @@ class ViewController: NSViewController {
             let solarNode = SCNNode()
             solarNode.name = "solar"
             solarNode.light = sunshine
-         // solarNode.eulerAngles = SCNVector3Make(π/4, π/4, 0.0)
-            solarNode.orientation = SCNVector4Make(1, 0, 0, 0)  // lit from south pole
-            solarNode.orientation = SCNVector4Make(0, 1, 0, 0)  // lit from south pole
-            solarNode.orientation = SCNVector4Make(0, 0, 1, 0)  // lit from north pole
-            solarNode.orientation = SCNVector4Make(0, 0, 0, 1)  // lit from north pole
+
+//          solarNode.eulerAngles = SCNVector3Make(π/4, π/4, 0.0)
+//          solarNode.orientation = SCNVector4Make(1, 0, 0, 0)  // lit from south pole
+//          solarNode.orientation = SCNVector4Make(0, 1, 0, 0)  // lit from south pole
+//          solarNode.orientation = SCNVector4Make(0, 0, 1, 0)  // lit from north pole
+//          solarNode.orientation = SCNVector4Make(0, 0, 0, 1)  // lit from north pole
+//          solarNode.orientation = SCNVector4Make(0, 1, 1, 0)  // lit from south tropics +90°
+//          solarNode.orientation = SCNVector4Make(1, 0, 1, 0)  // lit from south tropics 0°
+//          solarNode.orientation = SCNVector4Make(1, -1, 1, 0)  // lit from south tropics +180°
+
+//          solarNode.rotation = SCNVector4Make(0.0, 1.0, 0.0, 0.0) // top
+//          solarNode.rotation = SCNVector4Make(1.0, 0.0, 0.0, 0.0) // top
+
+//          print("SolarNode.transform: \(solarNode.transform)")
+
+//          SolarNode.transform: CATransform3D(
+//              m11: 1.0, m12: 0.0, m13: 0.0, m14: 0.0,
+//              m21: 0.0, m22: 1.0, m23: 0.0, m24: 0.0,
+//              m31: 0.0, m32: 0.0, m33: 1.0, m34: 0.0,
+//              m41: 0.0, m42: 0.0, m43: 0.0, m44: 1.0)
+
+            solarNode.transform = CATransform3DRotate(solarNode.transform, π/2, 1, 0, 0);
+
+//          print("SolarNode.transform: \(solarNode.transform)")
 
             frameNode.addChildNode(solarNode)                   //           "frame" << "solar"
 
@@ -102,8 +121,6 @@ class ViewController: NSViewController {
             let camera = SCNCamera()
             camera.xFov = 800_000.0 / cameraRange
             camera.yFov = 800_000.0 / cameraRange
-//            camera.zNear = cameraRange * 0.2
-//            camera.zFar = cameraRange * 1.5
             camera.automaticallyAdjustsZRange = true
 
             let cameraNode = SCNNode()
@@ -127,7 +144,7 @@ class ViewController: NSViewController {
         totalView.autoenablesDefaultLighting = true
         totalView.showsStatistics = true
 
-        if let overlay = OverlayScene(fileNamed:"OverlayScene") { totalView.overlaySKScene = overlay }
+//      if let overlay = OverlayScene(fileNamed:"OverlayScene") { totalView.overlaySKScene = overlay }
 
 //        let action = SCNAction.rotateByAngle(π*2, aroundAxis: SCNVector3(x: 0, y: 0.3, z: 1), duration: 5.0)
 //        let earthNode = totalView.scene!.rootNode.childNodeWithName("earth", recursively: true)

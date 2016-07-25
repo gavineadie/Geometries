@@ -40,43 +40,6 @@ class SceneView : SCNView {
 
     }
 
-//    #else
-//
-// /*
-//        ArcBall is imaginary sphere filling the window (ie radius = 300, for now)
-//  */
-//    @IBAction func swipeAction(sender: NSPanGestureRecognizer) {
-//
-//        var xyStart:CGPoint
-//        var xyMoves:CGPoint
-//        var firstMotion = true
-//
-//        if let view = sender.view {
-//
-//            if sender.state == .Began {
-//
-//                xyStart = sender.translationInView(view)
-//                Swift.print("Start: \(xyStart)")
-//
-//            }
-//
-//            if sender.state == .Changed {
-//
-//                xyMoves = sender.translationInView(view)
-//                Swift.print("Moves: \(xyMoves)")
-//
-//            }
-//            
-//            if sender.state == .Ended {
-//
-//            }
-//
-//        }
-//        
-//    }
-//
-//    #endif
-
     @IBAction func clickAction(_ sender: NSClickGestureRecognizer) {
 
         if let scene = self.scene,
