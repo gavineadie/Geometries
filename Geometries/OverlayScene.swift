@@ -22,7 +22,7 @@ class OverlayScene : SKScene {
 
     // NSResponder
 
-    override func mouseUp(_ theEvent: NSEvent) {
+    override func mouseUp(with theEvent: NSEvent) {
 
         print("  OverlayScene: mouseUp event at \(theEvent.locationInWindow)")
 

@@ -79,7 +79,7 @@ class ViewController: NSViewController {
   ╎ sunlight shines                                                                                  ╎
   ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
             let sunshine = SCNLight()
-            sunshine.type = SCNLightTypeDirectional
+            sunshine.type = SCNLight.LightType.directional
 
             let solarNode = SCNNode()
             solarNode.name = "solar"
@@ -129,7 +129,7 @@ class ViewController: NSViewController {
             cameraNode.camera = camera
 
             let cameraConstraint = SCNLookAtConstraint(target: frameNode)
-            cameraConstraint.gimbalLockEnabled = true
+            cameraConstraint.isGimbalLockEnabled = true
             cameraNode.constraints = [cameraConstraint]
 
             let orbitNode = SCNNode()
@@ -140,7 +140,7 @@ class ViewController: NSViewController {
 
         }
 
-        totalView.backgroundColor = NSColor.blue()
+        totalView.backgroundColor = NSColor.blue
         totalView.autoenablesDefaultLighting = true
         totalView.showsStatistics = true
 
