@@ -10,18 +10,18 @@ import Cocoa
 import SceneKit
 import SpriteKit
 
-/*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
-  ╎ Dimensions (Kms):                                                                                ╎
-  ╎             Earth Radius:   6,378                                                                ╎
-  ╎     Geostationary Radius:  42,164                                                                ╎
-  ╎      Camera Point Radius: 120,000                                                                ╎
-  ╎        Moon Orbit Radius: 385,000                                                                ╎
-  ╎                                                                                                  ╎
-  ╎     •---------•---------•---------•---------•---------•---------•---------•---------•---------•  ╎
-  ╎    120       100       80        60        40        20         0       -20       -40       -60  ╎
-  ╎     0864208642086420864208642086420864208642086420864208642086420864208642086420864208642086420  ╎
-  ╎     C                   N                  |                 |EEEEE|                          F  ╎
-  ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
+/*╔══════════════════════════════════════════════════════════════════════════════════════════════════╗
+  ║ Dimensions (Kms):                                                                                ║
+  ║             Earth Radius:   6,378                                                                ║
+  ║     Geostationary Radius:  42,164                                                                ║
+  ║      Camera Point Radius: 120,000                                                                ║
+  ║        Moon Orbit Radius: 385,000                                                                ║
+  ║                                                                                                  ║
+  ║     •---------•---------•---------•---------•---------•---------•---------•---------•---------•  ║
+  ║    120       100       80        60        40        20         0       -20       -40       -60  ║
+  ║     0864208642086420864208642086420864208642086420864208642086420864208642086420864208642086420  ║
+  ║     C                   N                  |                 |EEEEE|                          F  ║
+  ╚══════════════════════════════════════════════════════════════════════════════════════════════════╝*/
 
 let Rₑ:CGFloat = 6.378135e3                 // equatorial radius (polar radius = 6356.752 Kms)
 let π:CGFloat = 3.1415926e0                 // for now
@@ -45,7 +45,7 @@ class ViewController: NSViewController {
   │                          |                            |                                          │
   │                          +-- Node("orbit") --+        +-- Node("spots")                          │
   │                                              |        |                                          │
-  │                                              |        +-- Node("solar")                          │
+  │                                              |        +-- Node("light")                          │
   │                                              |                                                   │
   │                                              +-- Node("camra")                                   │
   │                                                                                                  │
@@ -57,10 +57,37 @@ class ViewController: NSViewController {
         let totalNode = totalView.scene?.rootNode
         totalNode!.name = "total"
 
+/*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
+  ╎ attach camera to the edge of a non-rendering node centered on (0, 0, 0) ..                       ╎
+  ╎ viewpoint initially on x-axis at 120,000Km with north (z-axis) up                                ╎
+  ╎                                                      http://stackoverflow.com/questions/25654772 ╎
+  ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
+        let cameraRange = 120_000.0
+
+        let camera = SCNCamera()
+        camera.xFov = 800_000.0 / cameraRange
+        camera.yFov = 800_000.0 / cameraRange
+        camera.automaticallyAdjustsZRange = true
+
+        let cameraNode = SCNNode()
+        cameraNode.camera = camera
+        cameraNode.position = SCNVector3(x: 0, y: 0, z: CGFloat(cameraRange))
+        cameraNode.name = "camra"
+
+        let cameraConstraint = SCNLookAtConstraint(target: totalNode)
+        cameraConstraint.isGimbalLockEnabled = true
+        cameraNode.constraints = [cameraConstraint]
+
+        let orbitNode = SCNNode()
+        orbitNode.name = "orbit"
+
+        orbitNode.addChildNode(cameraNode)                  //            "orbit" << "camra"
+        totalNode!.addChildNode(orbitNode)                  // "total" << "orbit"
+
         if let frameScene = SCNScene(named: "com.ramsaycons.geometries.scn"),
            let frameNode = frameScene.rootNode.childNode(withName: "frame", recursively: true) {
 
-            totalNode?.addChildNode(frameNode)                  // "total << "frame"
+            totalNode?.addChildNode(frameNode)              // "total << "frame"
 
 /*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
   ╎ a spot on the x-axis (points at vernal equinox)                                                  ╎
@@ -73,71 +100,31 @@ class ViewController: NSViewController {
             spotsNode.name = "spots"
             spotsNode.position = SCNVector3Make(Rₑ * 1.1, 0, 0)
 
-            frameNode.addChildNode(spotsNode)                   //           "frame" << "spots"
+            frameNode.addChildNode(spotsNode)               //           "frame" << "spots"
 
 /*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
   ╎ sunlight shines                                                                                  ╎
   ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
-            let sunshine = SCNLight()
-            sunshine.type = SCNLight.LightType.directional
+            let sunLight = SCNLight()
+            sunLight.type = SCNLight.LightType.directional  // make a directional light
 
-            let solarNode = SCNNode()
-            solarNode.name = "solar"
-            solarNode.light = sunshine
+            let lightNode = SCNNode()
+            lightNode.name = "light"
+            lightNode.light = sunLight
 
-//          solarNode.eulerAngles = SCNVector3Make(π/4, π/4, 0.0)
-//          solarNode.orientation = SCNVector4Make(1, 0, 0, 0)  // lit from south pole
-//          solarNode.orientation = SCNVector4Make(0, 1, 0, 0)  // lit from south pole
-//          solarNode.orientation = SCNVector4Make(0, 0, 1, 0)  // lit from north pole
-//          solarNode.orientation = SCNVector4Make(0, 0, 0, 1)  // lit from north pole
-//          solarNode.orientation = SCNVector4Make(0, 1, 1, 0)  // lit from south tropics +90°
-//          solarNode.orientation = SCNVector4Make(1, 0, 1, 0)  // lit from south tropics 0°
-//          solarNode.orientation = SCNVector4Make(1, -1, 1, 0)  // lit from south tropics +180°
-
-//          solarNode.rotation = SCNVector4Make(0.0, 1.0, 0.0, 0.0) // top
-//          solarNode.rotation = SCNVector4Make(1.0, 0.0, 0.0, 0.0) // top
-
-//          print("SolarNode.transform: \(solarNode.transform)")
-
-//          SolarNode.transform: CATransform3D(
-//              m11: 1.0, m12: 0.0, m13: 0.0, m14: 0.0,
-//              m21: 0.0, m22: 1.0, m23: 0.0, m24: 0.0,
-//              m31: 0.0, m32: 0.0, m33: 1.0, m34: 0.0,
-//              m41: 0.0, m42: 0.0, m43: 0.0, m44: 1.0)
-
-            solarNode.transform = CATransform3DRotate(solarNode.transform, π/2, 1, 0, 0);
-
-//          print("SolarNode.transform: \(solarNode.transform)")
-
-            frameNode.addChildNode(solarNode)                   //           "frame" << "solar"
+            frameNode.addChildNode(lightNode)               //           "frame" << "light"
 
 /*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
-  ╎ attach camera to the edge of a non-rendering node centered on (0, 0, 0) ..                       ╎
-  ╎ viewpoint initially on x-axis at 120,000Km with north (z-axis) up                                ╎
-  ╎                                                      http://stackoverflow.com/questions/25654772 ╎
+  ╎ sunlight shines                                                                                  ╎
   ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
-            let cameraRange = 120_000.0
 
-            let camera = SCNCamera()
-            camera.xFov = 800_000.0 / cameraRange
-            camera.yFov = 800_000.0 / cameraRange
-            camera.automaticallyAdjustsZRange = true
+            let solarNode = SCNNode()                       // position of sun in (x,y,z)
+            frameNode.addChildNode(solarNode)
 
-            let cameraNode = SCNNode()
-            cameraNode.position = SCNVector3(x: 0, y: 0, z: CGFloat(cameraRange))
-            cameraNode.name = "camra"
-            cameraNode.camera = camera
+            solarNode.position = SCNVector3((-1000.0, -1000.0, 0.0))
 
-            let cameraConstraint = SCNLookAtConstraint(target: frameNode)
-            cameraConstraint.isGimbalLockEnabled = true
-            cameraNode.constraints = [cameraConstraint]
-
-            let orbitNode = SCNNode()
-            orbitNode.name = "orbit"
-
-            orbitNode.addChildNode(cameraNode)                  //            "orbit" << "camra"
-            totalNode!.addChildNode(orbitNode)                  // "total" << "orbit"
-
+            let solarConstraint = SCNLookAtConstraint(target: solarNode)
+            lightNode.constraints = [solarConstraint]       // keep the light coming from the sun
         }
 
         totalView.backgroundColor = NSColor.blue
