@@ -12,7 +12,7 @@ class OverlayScene : SKScene {
 
     override func didMove(to view: SKView) {
 
-        print("  OverlayScene: didMoveToView \(view)")
+    //  print("  OverlayScene: didMoveToView \(view)")
 
     }
 
@@ -24,21 +24,21 @@ class OverlayScene : SKScene {
 
     override func mouseUp(with theEvent: NSEvent) {
 
-        print("  OverlayScene: mouseUp event at \(theEvent.locationInWindow)")
+    //  print("  OverlayScene: mouseUp event at \(theEvent.locationInWindow)")
 
         let location = theEvent.location(in: self)
         let node = self.atPoint(location)
 
-        print("  OverlayScene: node hit is \(node)")
+    //  print("  OverlayScene: node hit is \(node)")
 
         if node.name == "touch" {
 
-            print("  OverlayScene: SKNode 'touch' interactive (click inside)")
+    //      print("  OverlayScene: SKNode 'touch' interactive (click inside)")
 
         }
         else {
 
-            print("  OverlayScene: SKNode 'touch' interactive (click missed)")
+    //      print("  OverlayScene: SKNode 'touch' interactive (click missed)")
 
         }
 
