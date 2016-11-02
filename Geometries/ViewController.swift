@@ -10,6 +10,8 @@ import Cocoa
 import SceneKit
 import SpriteKit
 
+import SatKit
+
 extension SCNVector3 {
     public init(_ t: (Double, Double, Double)) {
         x = CGFloat(t.0)
@@ -87,11 +89,9 @@ class ViewController: NSViewController {
                                                             recursively: true) else { return }
 
         // rotate frame to time of day
-        let siderealTime = ZeroMeanSiderealTimeDegrees(julianDate: JulianDaysNow())
+        let siderealTime = ZeroMeanSiderealTime(JulianDaysNow())
 
-        var eulerAngles = earthNode.eulerAngles
-        eulerAngles.z += CGFloat(siderealTime * 1000.0 /* *deg2rad */)
-        earthNode.eulerAngles = eulerAngles
+        earthNode.eulerAngles.z += CGFloat(siderealTime * deg2rad)
 
         totalNode.name = "total"
 
@@ -160,7 +160,7 @@ func addSolarLight(_ parentNode:SCNNode) -> Void {
 
     let solarNode = SCNNode()                           // position of sun in (x,y,z)
 
-    let sunVector = solarCel(julianDate: JulianDaysNow())
+    let sunVector:(Double,Double,Double) = solarCel(julianDate: JulianDaysNow())
     solarNode.position = SCNVector3((-sunVector.0, -sunVector.1, -sunVector.2))
 
     let solarConstraint = SCNLookAtConstraint(target: solarNode)
@@ -201,52 +201,6 @@ func cameraPole2Cart(_ rad:Double, _ inc:Double, _ azi:Double) -> (Double, Doubl
     return (rad * sin(inc) * cos(azi), rad * sin(inc) * sin(azi), rad * cos(inc))
 }
 
-public let  π₀:Double = 3.141_592_653_589_793_238_462_643_383_279_502_884_197_169_399_375_105_820_975
-public let  deg2rad:Double = π₀/180.0
-public let  sec2day:Double = 1.0 / (24.0 * 60.0 * 60.0)
-public let  day2sec:Double = (24.0 * 60.0 * 60.0)
-
-
-let JD_2000 = 2451545.0
-let JD_CORE = 2451910.5
-
-public func JulianDaysNow() -> Double {
-    return JD_CORE + CFAbsoluteTimeGetCurrent() * sec2day
-}
-
-public func solarCel (julianDate:Double) -> (Double, Double, Double) {
-    let     daysSinceJD2000 = julianDate - JD_2000
-
-    let     solarMeanAnom = (357.529 + 0.98560028 * daysSinceJD2000) * deg2rad
-
-    let     aberration1 = 1.915 * sin(1.0 * solarMeanAnom)
-    let     aberration2 = 0.020 * sin(2.0 * solarMeanAnom)
-
-    let     solarEclpLong = ((280.459 + 0.98564736 * daysSinceJD2000) + aberration1 + aberration2) * deg2rad
-
-    let     eclipticInclin = (23.439 - 0.00000036 * daysSinceJD2000) * deg2rad
-
-    return (cos(solarEclpLong),
-            sin(solarEclpLong) * cos(eclipticInclin),
-            sin(solarEclpLong) * sin(eclipticInclin))
-}
-
-let     JulianCentury = 36525.0
-let     eRotation = 1.00273790934                               // Earth rotations/sidereal day
-
-
-public func ZeroMeanSiderealTimeDegrees(julianDate:Double) -> Double {
-    let     fractionalDay = fmod(julianDate + 0.5, 1.0)         // fractional part of JD + half a day
-    let     adjustedJD = julianDate - fractionalDay
-    let     timespanCenturies = (adjustedJD - JD_2000) / JulianCentury
-    var     GreenwichSiderealSeconds = 24110.54841 +            // Greenwich Mean Sidereal Time (secs)
-        timespanCenturies * (8640184.812866 +
-            timespanCenturies * (0.093104 -
-                timespanCenturies * 0.0000062))
-    GreenwichSiderealSeconds = fmod(GreenwichSiderealSeconds + fractionalDay * eRotation * day2sec, day2sec)
-
-    return (360.0 * GreenwichSiderealSeconds * sec2day)
-}
 
 func schedule(repeatInterval interval: TimeInterval,
               closure: @escaping ((Timer?) -> Void)) -> Timer! {
@@ -259,6 +213,9 @@ func schedule(repeatInterval interval: TimeInterval,
 
     return runTimer
 }
+
+
+
 
 /*
 
