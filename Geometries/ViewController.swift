@@ -36,10 +36,26 @@ extension SCNVector3 {
 let Rₑ:CGFloat = 6.378135e3                 // equatorial radius (polar radius = 6356.752 Kms)
 let π:CGFloat = 3.1415926e0                 // for now
 
-class ViewController: NSViewController {
+class ViewController: NSViewController, SCNSceneRendererDelegate {
 
+    @IBOutlet weak var totalView: SceneView!
+
+/*┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+  ┃ "viewDidLoad" (10.10+), called once,                                                             ┃
+  ┃  .. sets some properties on the window's NSView (SceneView) including an overlayed SpriteKit     ┃
+  ┃     placard (which will display data).                                                           ┃
+  ┃  .. gets the rootNode in that SceneView ("total") to which will be attached various other nodes: ┃
+  ┃     "frame" is a top node from SceneKit file "com.ramsaycons.geometries.scn"; it represents the  ┃
+  ┃         inertial frame and it never transformed; it contains some nodes which will be animated.  ┃
+  ┃     "earth" -- will rotate once a day                                                            ┃
+  ┃  .. adds the following constructed nodes:                                                        ┃
+  ┃     "light" -- the light of the sun -- will rotates once a year                                  ┃
+  ┃     "spots" -- various other objects -- markers, satellites, etc                                 ┃
+  ┃                                                                                                  ┃
+  ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛*/
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("ViewController.viewDidLoad()")
 
 /*┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
   │                                                                                                  │
@@ -61,23 +77,10 @@ class ViewController: NSViewController {
   │                                                                                                  │
   └──────────────────────────────────────────────────────────────────────────────────────────────────┘*/
 
-        guard let totalView = self.view as? SceneView else { return }
-
         totalView.scene = SCNScene()
         totalView.backgroundColor = NSColor.blue
         totalView.autoenablesDefaultLighting = true
         totalView.showsStatistics = true
-
-        print("totalView: \(totalView)")
-
-/*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
-  ╎ this timer refreshes the view every second                                                       ╎
-  ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
-        _ = schedule(repeatInterval: 1.0) { timer in
-
-            totalView.needsDisplay = true
-            
-        }
 
         if let overlay = OverlayScene(fileNamed:"OverlayScene") { totalView.overlaySKScene = overlay }
 
@@ -87,24 +90,72 @@ class ViewController: NSViewController {
                                                             recursively: true),
               let earthNode = frameScene.rootNode.childNode(withName: "earth",
                                                             recursively: true) else { return }
-
-        // rotate frame to time of day
-        let siderealTime = ZeroMeanSiderealTime(JulianDaysNow())
-
-        earthNode.eulerAngles.z += CGFloat(siderealTime * deg2rad)
-
         totalNode.name = "total"
-
         totalNode.addChildNode(frameNode)              // "total << "frame"
+
+        // rotate earth to time of day
+        earthNode.eulerAngles.z += CGFloat(ZeroMeanSiderealTime(JulianDaysNow()) * deg2rad)
 
         addViewCamera(totalNode)
 
         addSolarLight(frameNode)
 
-        addMarkerSpot(frameNode, color: NSColor.magenta, at:(6.378135e3 * 1.05,0.0,0.0))
-        addMarkerSpot(frameNode, color: NSColor.green, at:(0.0,6.378135e3 * 1.05,0.0))
-        addMarkerSpot(frameNode, color: NSColor.yellow, at:(0.0,0.0,6.378135e3 * 1.05))
+        addMarkerSpot(frameNode, color: NSColor.magenta, at:(eRadiusKms * 1.05,0.0,0.0))
+        addMarkerSpot(frameNode, color: NSColor.green, at:(0.0,eRadiusKms * 1.05,0.0))
+        addMarkerSpot(frameNode, color: NSColor.yellow, at:(0.0,0.0,eRadiusKms * 1.05))
+    }
 
+    override func viewDidAppear() {
+        super.viewDidAppear()
+        print("ViewController.viewDidAppear()")
+
+        totalView.delegate = self
+
+        if let earthNode = totalView.scene?.rootNode.childNode(withName: "earth", recursively: true) {
+
+            let action = SCNAction.rotate(by: π/60,
+                                          around: SCNVector3(x: 0, y: 0, z: 1),
+                                          duration: 1.0)
+            earthNode.runAction(SCNAction.repeatForever(action))
+
+        }
+        else {
+            print("node 'earth' not found in model")
+        }
+    }
+
+
+
+/*┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+  ┃  SCNSceneRendererDelegate calls : sixty per second which is far too fast for our needs ..        ┃
+  ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛*/
+    var frameCount = 0
+
+    public func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
+
+        if let earthNode = totalView.scene?.rootNode.childNode(withName: "earth", recursively: true) {
+
+            if frameCount % 60 == 0 {
+                frameCount = 0
+                Swift.print("earth node: \(earthNode.rotation)")
+            }
+
+            if frameCount % 180 == 0 {
+                earthNode.eulerAngles.z = CGFloat(ZeroMeanSiderealTime(JulianDaysNow()) * deg2rad)
+            }
+            
+            frameCount += 1
+
+        }
+
+    }
+
+    public func renderer(_ renderer: SCNSceneRenderer, didApplyAnimationsAtTime time: TimeInterval) {
+
+    }
+
+    public func renderer(_ renderer: SCNSceneRenderer, didSimulatePhysicsAtTime time: TimeInterval) {
+        
     }
 
 }
@@ -200,48 +251,3 @@ func cameraCart2Pole(_ x:Double, _ y:Double, _ z:Double) -> (Double, Double, Dou
 func cameraPole2Cart(_ rad:Double, _ inc:Double, _ azi:Double) -> (Double, Double, Double) {
     return (rad * sin(inc) * cos(azi), rad * sin(inc) * sin(azi), rad * cos(inc))
 }
-
-
-func schedule(repeatInterval interval: TimeInterval,
-              closure: @escaping ((Timer?) -> Void)) -> Timer! {
-
-    let fireDate = interval + CFAbsoluteTimeGetCurrent()
-
-    let runTimer = CFRunLoopTimerCreateWithHandler(kCFAllocatorDefault, fireDate, interval, 0, 0, closure)
-
-    CFRunLoopAddTimer(CFRunLoopGetCurrent(), runTimer, CFRunLoopMode.commonModes)
-
-    return runTimer
-}
-
-
-
-
-/*
-
- //        let action = SCNAction.rotateByAngle(π*2, aroundAxis: SCNVector3(x: 0, y: 0.3, z: 1), duration: 5.0)
- //        let earthNode = totalView.scene!.rootNode.childNodeWithName("earth", recursively: true)
- //        earthNode!.runAction(action)
-
- }
-
- //    @IBAction func spinAction(sender: NSButton) {
- //
- //        print("spinAction")
- //
- //        let sceneView = self.view as! SCNView
- //        let scene = sceneView.scene
- //
- //        if let earthNode = scene!.rootNode.childNodeWithName("earth", recursively: true) {
- //
- //            let action = SCNAction.rotateByAngle(π*2.0, aroundAxis: SCNVector3(x: 0, y: 0.3, z: 1), duration: 10.0)
- //            earthNode.runAction(action)
- //
- //        }
- //        else {
- //            print("node 'earth' not found in model")
- //        }
- //
- //    }
- 
- */
