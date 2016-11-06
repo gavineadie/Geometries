@@ -12,6 +12,11 @@ import SpriteKit
 
 import SatKit
 
+let  AnnArborLatitude = +42.2755
+let AnnArborLongitude = -83.7521
+let  AnnArborAltitude =   0.1
+let          AnnArbor = (AnnArborLatitude, AnnArborLongitude, AnnArborAltitude)
+
 extension SCNVector3 {
     public init(_ t: (Double, Double, Double)) {
         x = CGFloat(t.0)
@@ -102,7 +107,6 @@ class ViewController: NSViewController, SCNSceneRendererDelegate {
 
         addMarkerSpot(frameNode, color: NSColor.magenta, at:(eRadiusKms * 1.05,0.0,0.0))
         addMarkerSpot(frameNode, color: NSColor.green, at:(0.0,eRadiusKms * 1.05,0.0))
-        addMarkerSpot(frameNode, color: NSColor.yellow, at:(0.0,0.0,eRadiusKms * 1.05))
     }
 
     override func viewDidAppear() {
@@ -113,7 +117,7 @@ class ViewController: NSViewController, SCNSceneRendererDelegate {
 
         if let earthNode = totalView.scene?.rootNode.childNode(withName: "earth", recursively: true) {
 
-            let action = SCNAction.rotate(by: π/60,
+            let action = SCNAction.rotate(by: 0.0,
                                           around: SCNVector3(x: 0, y: 0, z: 1),
                                           duration: 1.0)
             earthNode.runAction(SCNAction.repeatForever(action))
@@ -137,10 +141,9 @@ class ViewController: NSViewController, SCNSceneRendererDelegate {
 
             if frameCount % 60 == 0 {
                 frameCount = 0
-                Swift.print("earth node: \(earthNode.rotation)")
             }
 
-            if frameCount % 180 == 0 {
+            if frameCount % 300 == 0 {
                 earthNode.eulerAngles.z = CGFloat(ZeroMeanSiderealTime(JulianDaysNow()) * deg2rad)
             }
             
@@ -148,6 +151,14 @@ class ViewController: NSViewController, SCNSceneRendererDelegate {
 
         }
 
+        if let frameNode = totalView.scene?.rootNode.childNode(withName: "frame", recursively: true) {
+            if let satellite = satellites["25544"] {
+                let satCel = satellite.positionᴱᴾ(satellite.minsAfterEpoch)
+                addSatellite(frameNode,
+                             color: NSColor.yellow,
+                             at:(satCel.x,satCel.y,satCel.z))
+            }
+        }
     }
 
     public func renderer(_ renderer: SCNSceneRenderer, didApplyAnimationsAtTime time: TimeInterval) {
@@ -235,6 +246,26 @@ func addMarkerSpot(_ parentNode:SCNNode, color:NSColor, at:(Double, Double, Doub
     spotsNode.position = SCNVector3(at)
 
     parentNode.addChildNode(spotsNode)              //           "frame" << "spots"
+}
+
+/*┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+  ┃ a satellite ..                                                                                   ┃
+  ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛*/
+func addSatellite(_ parentNode:SCNNode, color:NSColor, at:(Double, Double, Double)) -> Void {
+    if let trailNode = parentNode.childNode(withName: "trail", recursively: true) {
+        trailNode.removeFromParentNode()
+    }
+
+    let trailGeom = SCNSphere(radius: 40.0)
+    trailGeom.isGeodesic = true
+    trailGeom.segmentCount = 6
+    trailGeom.firstMaterial?.diffuse.contents = color
+
+    let trailNode = SCNNode(geometry:trailGeom)
+    trailNode.name = "trail"
+    trailNode.position = SCNVector3(at)
+
+    parentNode.addChildNode(trailNode)              //           "frame" << "trail"
 }
 
 /*┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
