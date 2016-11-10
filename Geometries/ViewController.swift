@@ -15,7 +15,6 @@ import SatKit
 let  AnnArborLatitude = +42.2755
 let AnnArborLongitude = -83.7521
 let  AnnArborAltitude =   0.1
-let          AnnArbor = (AnnArborLatitude, AnnArborLongitude, AnnArborAltitude)
 
 extension SCNVector3 {
     public init(_ t: (Double, Double, Double)) {
@@ -73,10 +72,10 @@ class ViewController: NSViewController, SCNSceneRendererDelegate {
   │       == Node("total") --+   |                        |                   +-- Node("grids") |    │
   │                          |   |                        |                   +-- Node("coast") |    │
   │                          |   +------------------------|-------------------------------------+    │
-  │                          |                            |                                          │
-  │                          +-- Node("orbit") --+        +-- Node("spots")                          │
+  │                          |                            |                   |                      │
+  │                          +-- Node("orbit") --+        +-- Node("spots")   +-- Node("viewr")      │
   │                                              |        |                                          │
-  │                                              |        +-- Node("light")                          │
+  │                                              |        +-- Node("light"+"solar")                  │
   │                                              |                                                   │
   │                                              +-- Node("camra")                                   │
   │                                                                                                  │
@@ -98,6 +97,12 @@ class ViewController: NSViewController, SCNSceneRendererDelegate {
         totalNode.name = "total"
         totalNode.addChildNode(frameNode)              // "total << "frame"
 
+        let obsCelestial = geo2eciᴶᴰ(julianDate: -1.0,
+                                         geodetic: Vector(x: AnnArborLatitude,
+                                                          y: AnnArborLongitude,
+                                                          z: AnnArborAltitude))
+        addViewer(earthNode, at:(obsCelestial.x, obsCelestial.y, obsCelestial.z))
+
         // rotate earth to time of day
         earthNode.eulerAngles.z += CGFloat(ZeroMeanSiderealTime(JulianDaysNow()) * deg2rad)
 
@@ -105,8 +110,8 @@ class ViewController: NSViewController, SCNSceneRendererDelegate {
 
         addSolarLight(frameNode)
 
-        addMarkerSpot(frameNode, color: NSColor.magenta, at:(eRadiusKms * 1.05,0.0,0.0))
-        addMarkerSpot(frameNode, color: NSColor.green, at:(0.0,eRadiusKms * 1.05,0.0))
+//      addMarkerSpot(frameNode, color: NSColor.magenta, at:(eRadiusKms * 1.05,0.0,0.0))
+
     }
 
     override func viewDidAppear() {
@@ -137,28 +142,40 @@ class ViewController: NSViewController, SCNSceneRendererDelegate {
 
     public func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
 
-        if let earthNode = totalView.scene?.rootNode.childNode(withName: "earth", recursively: true) {
+        if let earthNode = totalView.scene?.rootNode.childNode(withName: "earth",
+                                                               recursively: true) {
 
             if frameCount % 60 == 0 {
-                frameCount = 0
+
+                if let frameNode = totalView.scene?.rootNode.childNode(withName: "frame",
+                                                                       recursively: true) {
+                    for (satNumber,satellite) in satellites {
+                        //          if let satellite = satellites["25544"] {
+                        let satCel = satellite.positionᴱᴾ(satellite.minsAfterEpoch)
+                        addSatellite(frameNode, name:satNumber, at:(satCel.x,satCel.y,satCel.z))
+                    }
+                }
             }
 
             if frameCount % 300 == 0 {
                 earthNode.eulerAngles.z = CGFloat(ZeroMeanSiderealTime(JulianDaysNow()) * deg2rad)
             }
-            
+
+            if frameCount % 3600 == 0 {             // once a minute
+                if let solarNode = totalView.scene?.rootNode.childNode(withName: "solar",
+                                                                       recursively: true) {
+
+                let sunVector:(Double,Double,Double) = solarCel(julianDate: JulianDaysNow())
+                solarNode.position = SCNVector3((-sunVector.0, -sunVector.1, -sunVector.2))
+                }
+
+                frameCount = 0
+            }
+
             frameCount += 1
 
         }
 
-        if let frameNode = totalView.scene?.rootNode.childNode(withName: "frame", recursively: true) {
-            if let satellite = satellites["25544"] {
-                let satCel = satellite.positionᴱᴾ(satellite.minsAfterEpoch)
-                addSatellite(frameNode,
-                             color: NSColor.yellow,
-                             at:(satCel.x,satCel.y,satCel.z))
-            }
-        }
     }
 
     public func renderer(_ renderer: SCNSceneRenderer, didApplyAnimationsAtTime time: TimeInterval) {
@@ -209,6 +226,7 @@ func addSolarLight(_ parentNode:SCNNode) -> Void {
   ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
     let sunLight = SCNLight()
     sunLight.type = SCNLight.LightType.directional      // make a directional light
+    sunLight.castsShadow = true
 
     let lightNode = SCNNode()
     lightNode.name = "light"
@@ -221,6 +239,7 @@ func addSolarLight(_ parentNode:SCNNode) -> Void {
   ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
 
     let solarNode = SCNNode()                           // position of sun in (x,y,z)
+    solarNode.name = "solar"
 
     let sunVector:(Double,Double,Double) = solarCel(julianDate: JulianDaysNow())
     solarNode.position = SCNVector3((-sunVector.0, -sunVector.1, -sunVector.2))
@@ -240,7 +259,7 @@ func addMarkerSpot(_ parentNode:SCNNode, color:NSColor, at:(Double, Double, Doub
     spotsGeom.isGeodesic = true
     spotsGeom.segmentCount = 6
     spotsGeom.firstMaterial?.diffuse.contents = color
-
+                                                                                                                                                                                                                                                                                                                                                   
     let spotsNode = SCNNode(geometry:spotsGeom)
     spotsNode.name = "spots"
     spotsNode.position = SCNVector3(at)
@@ -249,20 +268,41 @@ func addMarkerSpot(_ parentNode:SCNNode, color:NSColor, at:(Double, Double, Doub
 }
 
 /*┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+  ┃ a spot on the x-axis (points at vernal equinox)                                                  ┃
+  ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛*/
+func addViewer(_ parentNode:SCNNode, at:(Double, Double, Double)) -> Void {
+    let viewrGeom = SCNSphere(radius: 50.0)
+    viewrGeom.isGeodesic = true
+    viewrGeom.segmentCount = 18
+    viewrGeom.firstMaterial?.emission.contents = NSColor.green
+
+    let viewrNode = SCNNode(geometry:viewrGeom)
+    viewrNode.name = "obsvr"
+    viewrNode.position = SCNVector3(at)
+
+    parentNode.addChildNode(viewrNode)              //           "frame" << "viewr"
+
+    Swift.print("obsvr radius: \(magnitude(at))")   //                6349.33949467588 Kms
+                                                    //   eRadiusKms = 6378.135
+                                                    // polar radius = 6356.752 Kms
+
+}
+
+/*┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
   ┃ a satellite ..                                                                                   ┃
   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛*/
-func addSatellite(_ parentNode:SCNNode, color:NSColor, at:(Double, Double, Double)) -> Void {
-    if let trailNode = parentNode.childNode(withName: "trail", recursively: true) {
+func addSatellite(_ parentNode:SCNNode, name:String, at:(Double, Double, Double)) -> Void {
+    if let trailNode = parentNode.childNode(withName: name, recursively: true) {
         trailNode.removeFromParentNode()
     }
 
-    let trailGeom = SCNSphere(radius: 40.0)
+    let trailGeom = SCNSphere(radius: 25.0)
     trailGeom.isGeodesic = true
     trailGeom.segmentCount = 6
-    trailGeom.firstMaterial?.diffuse.contents = color
+    trailGeom.firstMaterial?.emission.contents = NSColor.white
 
     let trailNode = SCNNode(geometry:trailGeom)
-    trailNode.name = "trail"
+    trailNode.name = name
     trailNode.position = SCNVector3(at)
 
     parentNode.addChildNode(trailNode)              //           "frame" << "trail"

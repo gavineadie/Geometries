@@ -11,19 +11,6 @@ import SceneKit
 
 class SceneView : SCNView {
 
-//    override func updateLayer() {
-//        Swift.print("SceneView.updateLayer -- sceneView: \(self)")
-//    }
-
-    override func draw(_ dirtyRect: NSRect) {
-        super.draw(dirtyRect)
-        Swift.print("SceneView.draw -- dirtyRect: \(dirtyRect)")
-    }
-
-//    override func display() {
-//        Swift.print("SceneView.display -- sceneView: \(self)")
-//    }
-
     var prevXRatio: CGFloat = 0.0
     var prevYRatio: CGFloat = 0.0
 
