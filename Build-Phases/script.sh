@@ -3,5 +3,4 @@
 
 set -x
 
-echo "script.sh running"
-
+echo "warning: script.sh running"
