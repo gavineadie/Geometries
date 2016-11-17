@@ -7,12 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		86280CBD1DDD5A2300BE3B6F /* Fire.scnp in Resources */ = {isa = PBXBuildFile; fileRef = 86280CBB1DDD5A2300BE3B6F /* Fire.scnp */; };
+		86280CBE1DDD5A2300BE3B6F /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = 86280CBC1DDD5A2300BE3B6F /* spark.png */; };
 		863478001D135B7E0058F510 /* OverlayScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8672CC221C83CC2500E1DD5E /* OverlayScene.sks */; };
 		864A60041C82940D009D6C72 /* SceneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 864A60031C82940D009D6C72 /* SceneView.swift */; };
 		8654A2D81DCEA70300D72606 /* Satellites.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8654A2D71DCEA70300D72606 /* Satellites.swift */; };
 		8654A2DA1DCEA72D00D72606 /* SatDownload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8654A2D91DCEA72D00D72606 /* SatDownload.swift */; };
 		8654A2DC1DCEA73D00D72606 /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8654A2DB1DCEA73D00D72606 /* CacheManager.swift */; };
-		86787F4C1C774A6C00CE54F3 /* com.ramsaycons.geometries.scn in Resources */ = {isa = PBXBuildFile; fileRef = 86787F4B1C774A6C00CE54F3 /* com.ramsaycons.geometries.scn */; };
+		86787F4C1C774A6C00CE54F3 /* com.ramsaycons.frame.scn in Resources */ = {isa = PBXBuildFile; fileRef = 86787F4B1C774A6C00CE54F3 /* com.ramsaycons.frame.scn */; };
 		868751CE1BB5D57200939585 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 868751CD1BB5D57200939585 /* AppDelegate.swift */; };
 		868751D01BB5D57200939585 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 868751CF1BB5D57200939585 /* ViewController.swift */; };
 		868751D21BB5D57200939585 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 868751D11BB5D57200939585 /* Assets.xcassets */; };
@@ -61,12 +63,14 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		86280CBB1DDD5A2300BE3B6F /* Fire.scnp */ = {isa = PBXFileReference; lastKnownFileType = file.scp; path = Fire.scnp; sourceTree = "<group>"; };
+		86280CBC1DDD5A2300BE3B6F /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
 		864A60031C82940D009D6C72 /* SceneView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneView.swift; sourceTree = "<group>"; };
 		8654A2D71DCEA70300D72606 /* Satellites.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Satellites.swift; path = ../../DEMOS/DemosKit/Satellites.swift; sourceTree = "<group>"; };
 		8654A2D91DCEA72D00D72606 /* SatDownload.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SatDownload.swift; path = ../../DEMOS/DemosKit/SatDownload.swift; sourceTree = "<group>"; };
 		8654A2DB1DCEA73D00D72606 /* CacheManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CacheManager.swift; path = ../../DEMOS/DemosKit/CacheManager.swift; sourceTree = "<group>"; };
 		8672CC221C83CC2500E1DD5E /* OverlayScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = OverlayScene.sks; sourceTree = "<group>"; };
-		86787F4B1C774A6C00CE54F3 /* com.ramsaycons.geometries.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = com.ramsaycons.geometries.scn; sourceTree = "<group>"; };
+		86787F4B1C774A6C00CE54F3 /* com.ramsaycons.frame.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = com.ramsaycons.frame.scn; sourceTree = "<group>"; };
 		868751CA1BB5D57200939585 /* Geometries.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Geometries.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		868751CD1BB5D57200939585 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		868751CF1BB5D57200939585 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -90,6 +94,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		86280CB91DDD590B00BE3B6F /* Particles */ = {
+			isa = PBXGroup;
+			children = (
+				86280CBB1DDD5A2300BE3B6F /* Fire.scnp */,
+				86280CBC1DDD5A2300BE3B6F /* spark.png */,
+			);
+			name = Particles;
+			sourceTree = "<group>";
+		};
 		864801B51DD643D8003C49CB /* Build-Phases */ = {
 			isa = PBXGroup;
 			children = (
@@ -138,7 +151,8 @@
 				8672CC221C83CC2500E1DD5E /* OverlayScene.sks */,
 				868751D11BB5D57200939585 /* Assets.xcassets */,
 				868751D31BB5D57200939585 /* Main.storyboard */,
-				86787F4B1C774A6C00CE54F3 /* com.ramsaycons.geometries.scn */,
+				86787F4B1C774A6C00CE54F3 /* com.ramsaycons.frame.scn */,
+				86280CB91DDD590B00BE3B6F /* Particles */,
 				868751D61BB5D57200939585 /* Info.plist */,
 			);
 			path = Geometries;
@@ -240,9 +254,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				868751D21BB5D57200939585 /* Assets.xcassets in Resources */,
+				86280CBE1DDD5A2300BE3B6F /* spark.png in Resources */,
 				868751D51BB5D57200939585 /* Main.storyboard in Resources */,
 				863478001D135B7E0058F510 /* OverlayScene.sks in Resources */,
-				86787F4C1C774A6C00CE54F3 /* com.ramsaycons.geometries.scn in Resources */,
+				86280CBD1DDD5A2300BE3B6F /* Fire.scnp in Resources */,
+				86787F4C1C774A6C00CE54F3 /* com.ramsaycons.frame.scn in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

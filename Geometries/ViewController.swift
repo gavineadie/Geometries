@@ -1,10 +1,8 @@
-//
-//  ViewController.swift
-//  Geometries
-//
-//  Created by Gavin Eadie on 9/25/15.
-//  Copyright © 2015 Gavin Eadie. All rights reserved.
-//
+/*╔══════════════════════════════════════════════════════════════════════════════════════════════════╗
+  ║ ViewController.swift                                                                  Geometries ║
+  ║                                                                                                  ║
+  ║ Created by Gavin Eadie on Sep25/15.         Copyright © 2015-6 Gavin Eadie. All rights reserved. ║
+  ╚══════════════════════════════════════════════════════════════════════════════════════════════════╝*/
 
 import Cocoa
 import SceneKit
@@ -89,7 +87,7 @@ class ViewController: NSViewController, SCNSceneRendererDelegate {
         if let overlay = OverlayScene(fileNamed:"OverlayScene") { totalView.overlaySKScene = overlay }
 
         guard let totalNode = totalView.scene?.rootNode,
-              let frameScene = SCNScene(named: "com.ramsaycons.geometries.scn"),
+              let frameScene = SCNScene(named: "com.ramsaycons.frame.scn"),
               let frameNode = frameScene.rootNode.childNode(withName: "frame",
                                                             recursively: true),
               let earthNode = frameScene.rootNode.childNode(withName: "earth",
@@ -119,21 +117,8 @@ class ViewController: NSViewController, SCNSceneRendererDelegate {
         print("ViewController.viewDidAppear()")
 
         totalView.delegate = self
-
-        if let earthNode = totalView.scene?.rootNode.childNode(withName: "earth", recursively: true) {
-
-            let action = SCNAction.rotate(by: 0.0,
-                                          around: SCNVector3(x: 0, y: 0, z: 1),
-                                          duration: 1.0)
-            earthNode.runAction(SCNAction.repeatForever(action))
-
-        }
-        else {
-            print("node 'earth' not found in model")
-        }
+        totalView.isPlaying = true
     }
-
-
 
 /*┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
   ┃  SCNSceneRendererDelegate calls : sixty per second which is far too fast for our needs ..        ┃
@@ -149,10 +134,11 @@ class ViewController: NSViewController, SCNSceneRendererDelegate {
 
                 if let frameNode = totalView.scene?.rootNode.childNode(withName: "frame",
                                                                        recursively: true) {
-                    for (satNumber,satellite) in satellites {
-                        //          if let satellite = satellites["25544"] {
-                        let satCel = satellite.positionᴱᴾ(satellite.minsAfterEpoch)
-                        addSatellite(frameNode, name:satNumber, at:(satCel.x,satCel.y,satCel.z))
+//                    for (_,satellite) in satellites {
+//                        addSatellite(frameNode, sat:satellite)
+//                    }
+                    if let satellite = satellites["25544"] {
+                        addSatellite(frameNode, sat:satellite)
                     }
                 }
             }
@@ -165,8 +151,8 @@ class ViewController: NSViewController, SCNSceneRendererDelegate {
                 if let solarNode = totalView.scene?.rootNode.childNode(withName: "solar",
                                                                        recursively: true) {
 
-                let sunVector:(Double,Double,Double) = solarCel(julianDate: JulianDaysNow())
-                solarNode.position = SCNVector3((-sunVector.0, -sunVector.1, -sunVector.2))
+                    let sunVector:(Double,Double,Double) = solarCel(julianDate: JulianDaysNow())
+                    solarNode.position = SCNVector3((-sunVector.0, -sunVector.1, -sunVector.2))
                 }
 
                 frameCount = 0
@@ -285,14 +271,15 @@ func addViewer(_ parentNode:SCNNode, at:(Double, Double, Double)) -> Void {
     Swift.print("obsvr radius: \(magnitude(at))")   //                6349.33949467588 Kms
                                                     //   eRadiusKms = 6378.135
                                                     // polar radius = 6356.752 Kms
-
 }
 
 /*┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
   ┃ a satellite ..                                                                                   ┃
   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛*/
-func addSatellite(_ parentNode:SCNNode, name:String, at:(Double, Double, Double)) -> Void {
-    if let trailNode = parentNode.childNode(withName: name, recursively: true) {
+func addSatellite(_ parentNode:SCNNode, sat:Satellite) -> Void {
+    let satCel:Vector = sat.positionᴱᴾ(sat.minsAfterEpoch)
+
+    if let trailNode = parentNode.childNode(withName: sat.catalogNum, recursively: true) {
         trailNode.removeFromParentNode()
     }
 
@@ -302,10 +289,24 @@ func addSatellite(_ parentNode:SCNNode, name:String, at:(Double, Double, Double)
     trailGeom.firstMaterial?.emission.contents = NSColor.white
 
     let trailNode = SCNNode(geometry:trailGeom)
-    trailNode.name = name
-    trailNode.position = SCNVector3(at)
+    trailNode.name = sat.catalogNum
+
+//    let trailEmitter = createTrail(trailGeom)
+//    trailNode.addParticleSystem(trailEmitter)
+
+    trailNode.position = SCNVector3((satCel.x,satCel.y,satCel.z))
 
     parentNode.addChildNode(trailNode)              //           "frame" << "trail"
+}
+
+
+func createTrail(_ geometry: SCNGeometry) -> SCNParticleSystem {
+
+    let trail = SCNParticleSystem(named: "Fire.scnp", inDirectory: nil)!
+
+    trail.emitterShape = geometry
+
+    return trail
 }
 
 /*┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
