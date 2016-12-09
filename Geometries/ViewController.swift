@@ -124,43 +124,57 @@ class ViewController: NSViewController, SCNSceneRendererDelegate {
   ┃  SCNSceneRendererDelegate calls : sixty per second which is far too fast for our needs ..        ┃
   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛*/
     var frameCount = 0
+    var satelliteIterator = satellites.makeIterator()
 
     public func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
 
-        if let earthNode = totalView.scene?.rootNode.childNode(withName: "earth",
-                                                               recursively: true) {
+        guard let earthNode = totalView.scene?.rootNode.childNode(withName: "earth",
+                                                                  recursively: true) else { return }
 
-            if frameCount % 60 == 0 {
+//        if frameCount % 5 == 2 {                // twelve times a second, off the beat
+//
+//            if let frameNode = totalView.scene?.rootNode.childNode(withName: "frame",
+//                                                                   recursively: true) {
+//                if let (_, nextSatellite) = satelliteIterator.next() {
+//                    addSatellite(frameNode, sat:nextSatellite)
+//                }
+//                else {
+//                    satelliteIterator = satellites.makeIterator()
+//                }
+//
+//            }
+//
+//        }
 
-                if let frameNode = totalView.scene?.rootNode.childNode(withName: "frame",
-                                                                       recursively: true) {
-//                    for (_,satellite) in satellites {
-//                        addSatellite(frameNode, sat:satellite)
-//                    }
-                    if let satellite = satellites["25544"] {
-                        addSatellite(frameNode, sat:satellite)
-                    }
+        if frameCount % 60 == 0 {               // once a second
+
+            if let frameNode = totalView.scene?.rootNode.childNode(withName: "frame",
+                                                                   recursively: true) {
+
+                if let satellite = satellites["25544"] {
+                    addSatellite(frameNode, sat:satellite)
                 }
+
             }
-
-            if frameCount % 300 == 0 {
-                earthNode.eulerAngles.z = CGFloat(ZeroMeanSiderealTime(JulianDaysNow()) * deg2rad)
-            }
-
-            if frameCount % 3600 == 0 {             // once a minute
-                if let solarNode = totalView.scene?.rootNode.childNode(withName: "solar",
-                                                                       recursively: true) {
-
-                    let sunVector:(Double,Double,Double) = solarCel(julianDate: JulianDaysNow())
-                    solarNode.position = SCNVector3((-sunVector.0, -sunVector.1, -sunVector.2))
-                }
-
-                frameCount = 0
-            }
-
-            frameCount += 1
 
         }
+
+        if frameCount % 300 == 0 {              // every five seconds
+            earthNode.eulerAngles.z = CGFloat(ZeroMeanSiderealTime(JulianDaysNow()) * deg2rad)
+        }
+
+        if frameCount % 3600 == 0 {             // once a minute
+            if let solarNode = totalView.scene?.rootNode.childNode(withName: "solar",
+                                                                   recursively: true) {
+
+                let sunVector:(Double,Double,Double) = solarCel(julianDate: JulianDaysNow())
+                solarNode.position = SCNVector3((-sunVector.0, -sunVector.1, -sunVector.2))
+            }
+
+            frameCount = 0
+        }
+
+        frameCount += 1
 
     }
 
@@ -277,26 +291,42 @@ func addViewer(_ parentNode:SCNNode, at:(Double, Double, Double)) -> Void {
   ┃ a satellite ..                                                                                   ┃
   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛*/
 func addSatellite(_ parentNode:SCNNode, sat:Satellite) -> Void {
-    let satCel:Vector = sat.positionᴱᴾ(sat.minsAfterEpoch)
 
     if let trailNode = parentNode.childNode(withName: sat.catalogNum, recursively: true) {
         trailNode.removeFromParentNode()
     }
 
-    let trailGeom = SCNSphere(radius: 25.0)
-    trailGeom.isGeodesic = true
-    trailGeom.segmentCount = 6
-    trailGeom.firstMaterial?.emission.contents = NSColor.white
-
-    let trailNode = SCNNode(geometry:trailGeom)
+    let trailNode = SCNNode()
     trailNode.name = sat.catalogNum
-
-//    let trailEmitter = createTrail(trailGeom)
-//    trailNode.addParticleSystem(trailEmitter)
-
-    trailNode.position = SCNVector3((satCel.x,satCel.y,satCel.z))
-
     parentNode.addChildNode(trailNode)              //           "frame" << "trail"
+
+    let timeDelta = 15                              // seconds between ticks on orbit path
+
+//    SCNTransaction.begin()
+
+    for index in -30...30 {
+        let satCel:Vector = sat.positionᴱᴾ(sat.minsAfterEpoch + Double(timeDelta*index) / 60.0)
+
+        let dottyGeom = SCNSphere(radius: 25.0)
+        dottyGeom.isGeodesic = true
+        dottyGeom.segmentCount = 6
+
+        if index == 0 {
+            dottyGeom.radius = 50
+            dottyGeom.firstMaterial?.emission.contents = NSColor.red
+        }
+        else {
+            dottyGeom.firstMaterial?.emission.contents = NSColor.white
+        }
+
+        let dottyNode = SCNNode(geometry:dottyGeom)
+        dottyNode.position = SCNVector3((satCel.x,satCel.y,satCel.z))
+
+        trailNode.addChildNode(dottyNode)              //        "frame" << "trail"
+    }
+
+//    SCNTransaction.commit()
+
 }
 
 
@@ -322,4 +352,34 @@ func cameraCart2Pole(_ x:Double, _ y:Double, _ z:Double) -> (Double, Double, Dou
   └──────────────────────────────────────────────────────────────────────────────────────────────────┘*/
 func cameraPole2Cart(_ rad:Double, _ inc:Double, _ azi:Double) -> (Double, Double, Double) {
     return (rad * sin(inc) * cos(azi), rad * sin(inc) * sin(azi), rad * cos(inc))
+}
+
+/*┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+  ┃ reads a binary file (x,y,z),(x,y,z), (x,y,z),(x,y,z), .. and makes a SceneKit object ..          ┃
+  ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛*/
+func trailMesh(sat:Satellite) -> SCNGeometry? {
+
+    if let dataContent = try? Data.init(contentsOf: URL(fileURLWithPath: "/tmp/coast.vector")) {
+        let vectorCount = (dataContent.count) / 12           // count of vertices (two per line)
+
+        let vertexSource = SCNGeometrySource(data: dataContent,
+                                             semantic: SCNGeometrySource.Semantic.vertex,
+                                             vectorCount: vectorCount,
+                                             usesFloatComponents: true,
+                                             componentsPerVector: 3,
+                                             bytesPerComponent: MemoryLayout<Float>.size,
+                                             dataOffset: 0,
+                                             dataStride: 12)
+
+        let element = SCNGeometryElement(data: nil,
+                                         primitiveType: .line,
+                                         primitiveCount: vectorCount,
+                                         bytesPerIndex: MemoryLayout<Int>.size)
+
+        return SCNGeometry(sources: [vertexSource], elements: [element])
+    }
+    else {
+        print("CoastMesh file missing")
+        return nil
+    }
 }
