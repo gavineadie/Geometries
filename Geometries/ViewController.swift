@@ -1,7 +1,7 @@
 /*╔══════════════════════════════════════════════════════════════════════════════════════════════════╗
   ║ ViewController.swift                                                                  Geometries ║
   ║                                                                                                  ║
-  ║ Created by Gavin Eadie on Sep25/15.         Copyright © 2015-6 Gavin Eadie. All rights reserved. ║
+  ║ Created by Gavin Eadie on Sep25/15 ... Copyright 2015-17 Ramsay Consulting. All rights reserved. ║
   ╚══════════════════════════════════════════════════════════════════════════════════════════════════╝*/
 
 import Cocoa
@@ -95,7 +95,7 @@ class ViewController: NSViewController, SCNSceneRendererDelegate {
         totalNode.name = "total"
         totalNode.addChildNode(frameNode)              // "total << "frame"
 
-        let obsCelestial = geo2eciᴶᴰ(julianDate: -1.0,
+        let obsCelestial = geo2eciᴶᴰ(-1.0,
                                          geodetic: Vector(x: AnnArborLatitude,
                                                           y: AnnArborLongitude,
                                                           z: AnnArborAltitude))
@@ -126,7 +126,7 @@ class ViewController: NSViewController, SCNSceneRendererDelegate {
     var frameCount = 0
     var satelliteIterator = satellites.makeIterator()
 
-    public func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
+    open func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
 
         guard let earthNode = totalView.scene?.rootNode.childNode(withName: "earth",
                                                                   recursively: true) else { return }
@@ -167,8 +167,8 @@ class ViewController: NSViewController, SCNSceneRendererDelegate {
             if let solarNode = totalView.scene?.rootNode.childNode(withName: "solar",
                                                                    recursively: true) {
 
-                let sunVector:(Double,Double,Double) = solarCel(julianDate: JulianDaysNow())
-                solarNode.position = SCNVector3((-sunVector.0, -sunVector.1, -sunVector.2))
+                let sunVector = solarCel(JulianDaysNow())
+                solarNode.position = SCNVector3((-sunVector.x, -sunVector.y, -sunVector.z))
             }
 
             frameCount = 0
@@ -178,11 +178,11 @@ class ViewController: NSViewController, SCNSceneRendererDelegate {
 
     }
 
-    public func renderer(_ renderer: SCNSceneRenderer, didApplyAnimationsAtTime time: TimeInterval) {
+    open func renderer(_ renderer: SCNSceneRenderer, didApplyAnimationsAtTime time: TimeInterval) {
 
     }
 
-    public func renderer(_ renderer: SCNSceneRenderer, didSimulatePhysicsAtTime time: TimeInterval) {
+    open func renderer(_ renderer: SCNSceneRenderer, didSimulatePhysicsAtTime time: TimeInterval) {
         
     }
 
@@ -241,8 +241,8 @@ func addSolarLight(_ parentNode:SCNNode) -> Void {
     let solarNode = SCNNode()                           // position of sun in (x,y,z)
     solarNode.name = "solar"
 
-    let sunVector:(Double,Double,Double) = solarCel(julianDate: JulianDaysNow())
-    solarNode.position = SCNVector3((-sunVector.0, -sunVector.1, -sunVector.2))
+    let sunVector = solarCel(JulianDaysNow())
+    solarNode.position = SCNVector3((-sunVector.x, -sunVector.y, -sunVector.z))
 
     let solarConstraint = SCNLookAtConstraint(target: solarNode)
     lightNode.constraints = [solarConstraint]           // keep the light coming from the sun
@@ -281,10 +281,6 @@ func addViewer(_ parentNode:SCNNode, at:(Double, Double, Double)) -> Void {
     viewrNode.position = SCNVector3(at)
 
     parentNode.addChildNode(viewrNode)              //           "frame" << "viewr"
-
-    Swift.print("obsvr radius: \(magnitude(at))")   //                6349.33949467588 Kms
-                                                    //   eRadiusKms = 6378.135
-                                                    // polar radius = 6356.752 Kms
 }
 
 /*┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
@@ -298,31 +294,31 @@ func addSatellite(_ parentNode:SCNNode, sat:Satellite) -> Void {
 
     let trailNode = SCNNode()
     trailNode.name = sat.catalogNum
-    parentNode.addChildNode(trailNode)              //           "frame" << "trail"
+    parentNode.addChildNode(trailNode)                  //           "frame" << "trail"
 
-    let timeDelta = 15                              // seconds between ticks on orbit path
+    let timeDelta = 15                                  // seconds between ticks on orbit path
 
 //    SCNTransaction.begin()
 
-    for index in -30...30 {
+    for index in -30...0 {
         let satCel:Vector = sat.positionᴱᴾ(sat.minsAfterEpoch + Double(timeDelta*index) / 60.0)
 
         let dottyGeom = SCNSphere(radius: 25.0)
         dottyGeom.isGeodesic = true
         dottyGeom.segmentCount = 6
 
-        if index == 0 {
-            dottyGeom.radius = 50
-            dottyGeom.firstMaterial?.emission.contents = NSColor.red
-        }
-        else {
-            dottyGeom.firstMaterial?.emission.contents = NSColor.white
-        }
+//        if index == 0 {
+//            dottyGeom.radius = 50
+//            dottyGeom.firstMaterial?.emission.contents = #colorLiteral(red: 1, green: 0.1491314173, blue: 0, alpha: 1)              // NSColor.red
+//        }
+//        else {
+//            dottyGeom.firstMaterial?.emission.contents = #colorLiteral(red: 0.9999960065, green: 1, blue: 1, alpha: 1)              // NSColor.white (!!CPU!!)
+//        }
 
         let dottyNode = SCNNode(geometry:dottyGeom)
         dottyNode.position = SCNVector3((satCel.x,satCel.y,satCel.z))
 
-        trailNode.addChildNode(dottyNode)              //        "frame" << "trail"
+        trailNode.addChildNode(dottyNode)               //        "frame" << "trail"
     }
 
 //    SCNTransaction.commit()
@@ -357,7 +353,7 @@ func cameraPole2Cart(_ rad:Double, _ inc:Double, _ azi:Double) -> (Double, Doubl
 /*┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
   ┃ reads a binary file (x,y,z),(x,y,z), (x,y,z),(x,y,z), .. and makes a SceneKit object ..          ┃
   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛*/
-func trailMesh(sat:Satellite) -> SCNGeometry? {
+func trailMesh(_ sat:Satellite) -> SCNGeometry? {
 
     if let dataContent = try? Data.init(contentsOf: URL(fileURLWithPath: "/tmp/coast.vector")) {
         let vectorCount = (dataContent.count) / 12           // count of vertices (two per line)

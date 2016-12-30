@@ -1,7 +1,7 @@
 /*╔══════════════════════════════════════════════════════════════════════════════════════════════════╗
   ║ SceneView.swift                                                                       Geometries ║
   ║                                                                                                  ║
-  ║ Created by Gavin Eadie on Feb27/15.           Copyright © 2016 Gavin Eadie. All rights reserved. ║
+  ║ Created by Gavin Eadie on Feb27/15 ... Copyright 2015-17 Ramsay Consulting. All rights reserved. ║
   ╚══════════════════════════════════════════════════════════════════════════════════════════════════╝*/
 
 import Cocoa
