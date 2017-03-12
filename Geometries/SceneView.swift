@@ -7,7 +7,7 @@
 import Cocoa
 import SceneKit
 
-class SceneView : SCNView {
+class SceneView: SCNView {
 
     var prevXRatio: CGFloat = 0.0
     var prevYRatio: CGFloat = 0.0
@@ -29,7 +29,7 @@ class SceneView : SCNView {
 
             }
 
-            if (sender.state == .ended) {
+            if sender.state == .ended {
                 prevXRatio = xRatio.truncatingRemainder(dividingBy: 1)
                 prevYRatio = yRatio.truncatingRemainder(dividingBy: 1)
             }
@@ -57,7 +57,7 @@ class SceneView : SCNView {
     @IBAction func scaleAction(_ sender: NSMagnificationGestureRecognizer) {
 
 //      Swift.print("     SceneView: scaleAction - viewPoint \(sender.magnification)")
-        
+
     }
 
 }

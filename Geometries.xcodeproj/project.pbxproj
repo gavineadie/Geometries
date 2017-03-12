@@ -10,10 +10,12 @@
 		86280CBD1DDD5A2300BE3B6F /* Fire.scnp in Resources */ = {isa = PBXBuildFile; fileRef = 86280CBB1DDD5A2300BE3B6F /* Fire.scnp */; };
 		86280CBE1DDD5A2300BE3B6F /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = 86280CBC1DDD5A2300BE3B6F /* spark.png */; };
 		863478001D135B7E0058F510 /* OverlayScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8672CC221C83CC2500E1DD5E /* OverlayScene.sks */; };
+		86386F441E1A1468003B018D /* Satellite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86386F431E1A1468003B018D /* Satellite.swift */; };
 		864A60041C82940D009D6C72 /* SceneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 864A60031C82940D009D6C72 /* SceneView.swift */; };
 		8654A2D81DCEA70300D72606 /* Satellites.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8654A2D71DCEA70300D72606 /* Satellites.swift */; };
 		8654A2DA1DCEA72D00D72606 /* SatDownload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8654A2D91DCEA72D00D72606 /* SatDownload.swift */; };
 		8654A2DC1DCEA73D00D72606 /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8654A2DB1DCEA73D00D72606 /* CacheManager.swift */; };
+		86757FAB1E46832500DD6780 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86757FAA1E46832500DD6780 /* Extensions.swift */; };
 		86787F4C1C774A6C00CE54F3 /* com.ramsaycons.frame.scn in Resources */ = {isa = PBXBuildFile; fileRef = 86787F4B1C774A6C00CE54F3 /* com.ramsaycons.frame.scn */; };
 		868751CE1BB5D57200939585 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 868751CD1BB5D57200939585 /* AppDelegate.swift */; };
 		868751D01BB5D57200939585 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 868751CF1BB5D57200939585 /* ViewController.swift */; };
@@ -22,6 +24,7 @@
 		86890D6C1C8010820046CF12 /* OverlayScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86890D6B1C8010820046CF12 /* OverlayScene.swift */; };
 		86AC768C1DC96A91002CFFD7 /* SatKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86AC76891DC96A71002CFFD7 /* SatKit.framework */; };
 		86AC768D1DC96A91002CFFD7 /* SatKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 86AC76891DC96A71002CFFD7 /* SatKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		86B5D1401E751260002DB9B1 /* SceneConstruction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86B5D13F1E751260002DB9B1 /* SceneConstruction.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,11 +68,13 @@
 /* Begin PBXFileReference section */
 		86280CBB1DDD5A2300BE3B6F /* Fire.scnp */ = {isa = PBXFileReference; lastKnownFileType = file.scp; path = Fire.scnp; sourceTree = "<group>"; };
 		86280CBC1DDD5A2300BE3B6F /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
+		86386F431E1A1468003B018D /* Satellite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Satellite.swift; sourceTree = "<group>"; };
 		864A60031C82940D009D6C72 /* SceneView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneView.swift; sourceTree = "<group>"; };
 		8654A2D71DCEA70300D72606 /* Satellites.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Satellites.swift; path = ../../DEMOS/DemosKit/Satellites.swift; sourceTree = "<group>"; };
 		8654A2D91DCEA72D00D72606 /* SatDownload.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SatDownload.swift; path = ../../DEMOS/DemosKit/SatDownload.swift; sourceTree = "<group>"; };
 		8654A2DB1DCEA73D00D72606 /* CacheManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CacheManager.swift; path = ../../DEMOS/DemosKit/CacheManager.swift; sourceTree = "<group>"; };
 		8672CC221C83CC2500E1DD5E /* OverlayScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = OverlayScene.sks; sourceTree = "<group>"; };
+		86757FAA1E46832500DD6780 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		86787F4B1C774A6C00CE54F3 /* com.ramsaycons.frame.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = com.ramsaycons.frame.scn; sourceTree = "<group>"; };
 		868751CA1BB5D57200939585 /* Geometries.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Geometries.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		868751CD1BB5D57200939585 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -80,6 +85,7 @@
 		86890D6B1C8010820046CF12 /* OverlayScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayScene.swift; sourceTree = "<group>"; };
 		86AC52D61DD648240004CBFC /* script.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; name = script.sh; path = "Build-Phases/script.sh"; sourceTree = SOURCE_ROOT; };
 		86AC76831DC96A71002CFFD7 /* SatKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SatKit.xcodeproj; path = ../SatKit/SatKit.xcodeproj; sourceTree = "<group>"; };
+		86B5D13F1E751260002DB9B1 /* SceneConstruction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneConstruction.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,8 +151,11 @@
 			children = (
 				868751CD1BB5D57200939585 /* AppDelegate.swift */,
 				868751CF1BB5D57200939585 /* ViewController.swift */,
+				86B5D13F1E751260002DB9B1 /* SceneConstruction.swift */,
+				86386F431E1A1468003B018D /* Satellite.swift */,
 				864A60031C82940D009D6C72 /* SceneView.swift */,
 				86890D6B1C8010820046CF12 /* OverlayScene.swift */,
+				86757FAA1E46832500DD6780 /* Extensions.swift */,
 				8654A2D51DCEA6E700D72606 /* DemosKit */,
 				8672CC221C83CC2500E1DD5E /* OverlayScene.sks */,
 				868751D11BB5D57200939585 /* Assets.xcassets */,
@@ -179,6 +188,7 @@
 				868751C71BB5D57200939585 /* Frameworks */,
 				868751C81BB5D57200939585 /* Resources */,
 				86AC76901DC96A91002CFFD7 /* Embed Frameworks */,
+				8613487B1E3CD83000195B6F /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -265,6 +275,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		8613487B1E3CD83000195B6F /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n   swiftlint\nelse\n   echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
+		};
 		864801B31DD64256003C49CB /* Setup Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -287,8 +310,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				868751D01BB5D57200939585 /* ViewController.swift in Sources */,
+				86757FAB1E46832500DD6780 /* Extensions.swift in Sources */,
+				86386F441E1A1468003B018D /* Satellite.swift in Sources */,
 				864A60041C82940D009D6C72 /* SceneView.swift in Sources */,
 				8654A2DA1DCEA72D00D72606 /* SatDownload.swift in Sources */,
+				86B5D1401E751260002DB9B1 /* SceneConstruction.swift in Sources */,
 				8654A2D81DCEA70300D72606 /* Satellites.swift in Sources */,
 				86890D6C1C8010820046CF12 /* OverlayScene.swift in Sources */,
 				868751CE1BB5D57200939585 /* AppDelegate.swift in Sources */,

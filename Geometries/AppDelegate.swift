@@ -24,7 +24,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛*/
     func applicationShouldTerminateAfterLastWindowClosed(_ app: NSApplication) -> Bool {
 
-        return true;
+        return true
 
     }
 
@@ -32,7 +32,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
   ┃     Insert code here to tear down your application                                               ┃
   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛*/
     func applicationWillTerminate(_ aNotification: Notification) {
-        
+
     }
 
 }

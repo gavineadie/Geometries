@@ -1,33 +1,20 @@
 /*╔══════════════════════════════════════════════════════════════════════════════════════════════════╗
-  ║ OverlayScene.swift                                                                    Geometries ║
+  ║ Extensions.swift                                                                      Geometries ║
   ║                                                                                                  ║
-  ║ Created by Gavin Eadie on Feb25/15 ... Copyright 2015-17 Ramsay Consulting. All rights reserved. ║
+  ║ Created by Gavin Eadie on Feb04/17  ..  Copyright © 2017 Ramsay Consulting. All rights reserved. ║
   ╚══════════════════════════════════════════════════════════════════════════════════════════════════╝*/
 
+// swiftlint:disable large_tuple
+// swiftlint:disable variable_name
 // swiftlint:disable statement_position
 
-import SpriteKit
+import Foundation
+import SceneKit
 
-class OverlayScene: SKScene {
-
-    override func mouseUp(with theEvent: NSEvent) {
-
-        let location = theEvent.location(in: self)
-        let node = self.atPoint(location)
-
-        print("  OverlayScene: node hit is \(node)")
-
-        if node.name == "touch" {
-
-            print("  OverlayScene: SKNode 'touch' interactive (click inside)")
-
-        }
-        else {
-
-            print("  OverlayScene: SKNode 'touch' interactive (click missed)")
-
-        }
-
+extension SCNVector3 {
+    public init(_ t: (Double, Double, Double)) {
+        x = CGFloat(t.0)
+        y = CGFloat(t.1)
+        z = CGFloat(t.2)
     }
-
 }
