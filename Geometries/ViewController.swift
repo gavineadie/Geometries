@@ -28,12 +28,22 @@ let  AnnArborAltitude =   0.1
   ┃     C                   N                  |                 |EEEEE|                          F  ┃
   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛*/
 
-let Rₑ: CGFloat = 6.378135e3                 // equatorial radius (polar radius = 6356.752 Kms)
-let π: CGFloat = 3.1415926e0                 // for now
+let Rₑ: CGFloat = 6.378135e3                // equatorial radius (polar radius = 6356.752 Kms)
+let π: CGFloat = 3.1415926e0                // for now
+
+let orbTickDelta = 15                       // seconds between ticks on orbit path
+let orbTickRange = -10...330                //
 
 class ViewController: NSViewController, SCNSceneRendererDelegate {
 
     @IBOutlet weak var totalView: SceneView!
+
+    var totalNode: SCNNode!                 // set in "viewDidLoad()" after scene constructed ..
+    var frameNode: SCNNode!
+    var earthNode: SCNNode!
+    var solarNode: SCNNode!
+    var trailNode: SCNNode!
+    var tickNodes: [SCNNode]!
 
 /*┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
   │ "viewDidLoad" (10.10+), called once,                                                             │
@@ -43,6 +53,14 @@ class ViewController: NSViewController, SCNSceneRendererDelegate {
         print("ViewController.viewDidLoad()")
 
         construct(scene: totalView)
+        totalNode = totalView.scene?.rootNode
+        frameNode = totalNode.childNode(withName: "frame", recursively: true)
+        earthNode = frameNode.childNode(withName: "earth", recursively: true)
+        solarNode = frameNode.childNode(withName: "solar", recursively: true)
+
+        trailNode = construct(orbTickRange: orbTickRange, orbTickDelta: orbTickDelta)
+        frameNode <<< trailNode
+        tickNodes = trailNode.childNodes
     }
 
 /*┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
@@ -52,8 +70,16 @@ class ViewController: NSViewController, SCNSceneRendererDelegate {
         super.viewDidAppear()
         print("ViewController.viewDidAppear()")
 
-        totalView.delegate = self
+        totalView.delegate = self           // renderer won't start running till now ..
         totalView.isPlaying = true
+        if #available(OSX 10.12, *) {
+            totalView.preferredFramesPerSecond = 15
+        } else {
+
+        }
+
+//      earthNode.removeFromParentNode()
+//      trailNode.removeFromParentNode()
     }
 
 // MARK: - Rendering callback delegate ..
@@ -67,13 +93,8 @@ class ViewController: NSViewController, SCNSceneRendererDelegate {
 
     open func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
 
-        guard let earthNode = totalView.scene?.rootNode.childNode(withName: "earth",
-                                                                  recursively: true) else { return }
-
 //        if frameCount % 5 == 2 {                // twelve times a second, off the beat
 //
-//            if let frameNode = totalView.scene?.rootNode.childNode(withName: "frame",
-//                                                                   recursively: true) {
 //                if let (_, nextSatellite) = satelliteIterator.next() {
 //                    addSatellite(frameNode, sat:nextSatellite)
 //                }
@@ -81,34 +102,66 @@ class ViewController: NSViewController, SCNSceneRendererDelegate {
 //                    satelliteIterator = satellites.makeIterator()
 //                }
 //
-//            }
-//
 //        }
 
-        if frameCount % 60 == 0 {               // once a second
+/*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
+  ╎ if the frame exists (the construction succeeded) ..                                              ╎
+  ╎                                                          .. once a second: remodel the satellite ╎
+  ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
+        guard trailNode != nil else { return }
 
-            if let frameNode = totalView.scene?.rootNode.childNode(withName: "frame",
-                                                                   recursively: true) {
+        if frameCount % 10 == 0 {                   // once a second
+            if let satellite = satellites["25544"] {
+                trailNode.name = satellite.catalogNum
 
-                if let satellite = satellites["25544"] {
-                    addSatellite(frameNode, sat:satellite)
+                for index in orbTickRange {
+                    let satCel = satellite.position(minsAfterEpoch: satellite.minsAfterEpoch +
+                                                                    Double(orbTickDelta*index) / 60.0)
+
+/*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
+  ╎ is satellite in sunlight ?                                                                       ╎
+  ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
+                    let horizonAngle = acos(eRadiusKms/magnitude(satCel)) * rad2deg
+                    let sunCel =  solarCel(julianDays: julianDaysNow())
+                    let eclipseDepth = (horizonAngle + 90.0) - separation(satCel, sunCel)
+
+                    let tickIndex = index - orbTickRange.lowerBound
+                    tickNodes[tickIndex].position = SCNVector3((satCel.x, satCel.y, satCel.z))
+
+                    if let tickGeom = tickNodes[tickIndex].geometry as? SCNSphere {
+                        if index == 0 {
+                            tickGeom.radius = 50
+                            tickGeom.firstMaterial?.emission.contents = #colorLiteral(red: 1, green: 0.1491314173, blue: 0, alpha: 1)              // NSColor.red
+                        }
+                        else {
+                            tickGeom.radius = eclipseDepth < 0 ? 10.0 : 20.0
+//                            tickGeom.firstMaterial?.emission.contents = #colorLiteral(red: 0.9999960065, green: 1, blue: 1, alpha: 1)              // NSColor.white (!!CPU!!)
+                        }
+                    }
+
                 }
-
             }
-
         }
 
-        if frameCount % 300 == 0 {              // every five seconds
+/*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
+  ╎ if the earth exists (the construction succeeded) ..                                              ╎
+  ╎                                                               .. once a minute: rotate the earth ╎
+  ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
+        guard earthNode != nil else { return }
+
+        if frameCount % 3600 == 0 {                 // every a minute
             earthNode.eulerAngles.z = CGFloat(ZeroMeanSiderealTime(julianDaysNow()) * deg2rad)
         }
 
-        if frameCount % 3600 == 0 {             // once a minute
-            if let solarNode = totalView.scene?.rootNode.childNode(withName: "solar",
-                                                                   recursively: true) {
+/*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
+  ╎ if the sun exists (the construction succeeded) ..                                                ╎
+  ╎                                                          .. once every ten minutes: move the sun ╎
+  ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
+        guard solarNode != nil else { return }
 
-                let sunVector = solarCel(julianDays: julianDaysNow())
-                solarNode.position = SCNVector3((-sunVector.x, -sunVector.y, -sunVector.z))
-            }
+        if frameCount % 36000 == 0 {                // once every ten minutes
+            let sunVector = solarCel(julianDays: julianDaysNow())
+            solarNode.position = SCNVector3((-sunVector.x, -sunVector.y, -sunVector.z))
 
             frameCount = 0
         }

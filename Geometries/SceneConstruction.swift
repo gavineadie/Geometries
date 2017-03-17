@@ -59,7 +59,7 @@ import SatKit
 /*┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
   └──────────────────────────────────────────────────────────────────────────────────────────────────┘*/
 func construct(scene totalView: SceneView) {
-    print("ViewController.sceneConstruction()")
+    print("SceneConstruction.construct()")
 
     totalView.scene = SCNScene()
     totalView.backgroundColor = NSColor.blue
@@ -72,38 +72,33 @@ func construct(scene totalView: SceneView) {
           let frameScene = SCNScene(named: "com.ramsaycons.frame.scn"),
           let frameNode = frameScene.rootNode.childNode(withName: "frame", recursively: true),
           let earthNode = frameNode.childNode(withName: "earth", recursively: true) else { return }
-
 /*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
   ╎ by here we have "frameNode" and "earthNode" ..                                                   ╎
   ╎ .. next, label "frameNode" as "frame"                                                            ╎
   ╎ .. and make "earthNode" a subnode of "frameNode"                                                 ╎
   ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
     totalNode.name = "total"
-    totalNode.addChildNode(frameNode)              // "total << "frame"
-
+    totalNode <<< frameNode                     // "total << "frame"
 /*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
   ╎ get the observer's position ..                                                                   ╎
   ╎ .. and attach "obsvrNode" to "earthNode"                                                         ╎
   ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
-    let obsCelestial = geo2eci(julianDays:-1.0, geodetic: Vector(AnnArborLatitude,
-                                                                 AnnArborLongitude,
-                                                                 AnnArborAltitude))
-    addViewer(earthNode, at:(obsCelestial.x, obsCelestial.y, obsCelestial.z))
-
+    let obsCelestial = geo2eci(julianDays:-1.0,
+                               geodetic: Vector(AnnArborLatitude, AnnArborLongitude, AnnArborAltitude))
+    addObserver(earthNode, at:(obsCelestial.x, obsCelestial.y, obsCelestial.z))
 /*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
   ╎ rotate "earthNode" for time of day                                                               ╎
   ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
     earthNode.eulerAngles.z += CGFloat(ZeroMeanSiderealTime(julianDaysNow()) * deg2rad)
-
 /*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
   ╎ .. and attach "camraNode" to "totalNode" and "lightNode" to "earthNode"                          ╎
   ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
     addViewCamera(totalNode)
     addSolarLight(frameNode)
 
-//      addMarkerSpot(frameNode, color: NSColor.magenta, at:(eRadiusKms * 1.05,0.0,0.0))
+//  addMarkerSpot(frameNode, color: NSColor.magenta, at:(eRadiusKms * 1.05,0.0,0.0))
 
-    }
+}
 
 /*┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
   │ attach the camera a long way from the center of a (non-rendering node) and pointed at (0, 0, 0)  │
@@ -111,6 +106,7 @@ func construct(scene totalView: SceneView) {
   │                                                      http://stackoverflow.com/questions/25654772 │
   └──────────────────────────────────────────────────────────────────────────────────────────────────┘*/
 func addViewCamera(_ parentNode: SCNNode) {
+    print("               ...addViewCamera()")
 
     let orbitNode = SCNNode()                           // non-rendering node, holds the camera
     orbitNode.name = "orbit"
@@ -130,13 +126,14 @@ func addViewCamera(_ parentNode: SCNNode) {
     cameraConstraint.isGimbalLockEnabled = true
     cameraNode.constraints = [cameraConstraint]
 
-    orbitNode.addChildNode(cameraNode)                  //            "orbit" << "camra"
-    parentNode.addChildNode(orbitNode)                  // "total" << "orbit"
+    orbitNode <<< cameraNode                            //            "orbit" << "camra"
+    parentNode <<< orbitNode                            // "total" << "orbit"
 }
 
 /*┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
   └──────────────────────────────────────────────────────────────────────────────────────────────────┘*/
 func addSolarLight(_ parentNode: SCNNode) {
+    print("               ...addSolarLight()")
 /*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
   ╎ sunlight shines                                                                                  ╎
   ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
@@ -148,12 +145,10 @@ func addSolarLight(_ parentNode: SCNNode) {
     lightNode.name = "light"
     lightNode.light = sunLight
 
-    parentNode.addChildNode(lightNode)                  //           "frame" << "light"
-
+    parentNode <<< lightNode                            //           "frame" << "light"
 /*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
   ╎ sunlight shines                                                                                  ╎
   ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
-
     let solarNode = SCNNode()                           // position of sun in (x,y,z)
     solarNode.name = "solar"
 
@@ -163,13 +158,15 @@ func addSolarLight(_ parentNode: SCNNode) {
     let solarConstraint = SCNLookAtConstraint(target: solarNode)
     lightNode.constraints = [solarConstraint]           // keep the light coming from the sun
 
-    parentNode.addChildNode(solarNode)
+    parentNode <<< solarNode
 }
 
 /*┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
   │ a spot on the x-axis (points at vernal equinox)                                                  │
   └──────────────────────────────────────────────────────────────────────────────────────────────────┘*/
 func addMarkerSpot(_ parentNode: SCNNode, color: NSColor, at: (Double, Double, Double)) {
+    print("               ...addMarkerSpot()")
+
     let spotsGeom = SCNSphere(radius: 100.0)
     spotsGeom.isGeodesic = true
     spotsGeom.segmentCount = 6
@@ -179,13 +176,15 @@ func addMarkerSpot(_ parentNode: SCNNode, color: NSColor, at: (Double, Double, D
     spotsNode.name = "spots"
     spotsNode.position = SCNVector3(at)
 
-    parentNode.addChildNode(spotsNode)              //           "frame" << "spots"
+    parentNode <<< spotsNode                            //           "frame" << "spots"
 }
 
 /*┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
   │ a spot on the x-axis (points at vernal equinox)                                                  │
   └──────────────────────────────────────────────────────────────────────────────────────────────────┘*/
-func addViewer(_ parentNode: SCNNode, at: (Double, Double, Double)) {
+func addObserver(_ parentNode: SCNNode, at: (Double, Double, Double)) {
+    print("               ...addObserver()")
+
     let viewrGeom = SCNSphere(radius: 50.0)
     viewrGeom.isGeodesic = true
     viewrGeom.segmentCount = 18
@@ -195,48 +194,32 @@ func addViewer(_ parentNode: SCNNode, at: (Double, Double, Double)) {
     viewrNode.name = "obsvr"
     viewrNode.position = SCNVector3(at)
 
-    parentNode.addChildNode(viewrNode)              //           "frame" << "viewr"
+    parentNode <<< viewrNode                            //           "frame" << "viewr"
 }
 
 /*┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
-  │ a satellite ..                                                                                   │
+  │ ...
   └──────────────────────────────────────────────────────────────────────────────────────────────────┘*/
-func addSatellite(_ parentNode: SCNNode, sat: Satellite) {
-
-    if let trailNode = parentNode.childNode(withName: sat.catalogNum, recursively: true) {
-        trailNode.removeFromParentNode()
-    }
+func construct(orbTickRange: CountableClosedRange<Int>, orbTickDelta: Int) -> SCNNode {
+    print("               ...construct.ticks()")
 
     let trailNode = SCNNode()
-    trailNode.name = sat.catalogNum
-    parentNode.addChildNode(trailNode)                  //           "frame" << "trail"
+    trailNode.name = "trail"
 
-    let timeDelta = 15                                  // seconds between ticks on orbit path
-
-//    SCNTransaction.begin()
-
-    for index in -30...0 {
-        let satCel = sat.position(minsAfterEpoch: sat.minsAfterEpoch + Double(timeDelta*index) / 60.0)
-
-        let dottyGeom = SCNSphere(radius: 25.0)
+    for _ in 0...orbTickRange.count {
+        let dottyGeom = SCNSphere(radius: 10.0)         //
         dottyGeom.isGeodesic = true
         dottyGeom.segmentCount = 6
+        dottyGeom.firstMaterial?.emission.contents = #colorLiteral(red: 0.9999960065, green: 1, blue: 1, alpha: 1)              // NSColor.white (!!CPU!!)
 
-//        if index == 0 {
-//            dottyGeom.radius = 50
-//            dottyGeom.firstMaterial?.emission.contents = #colorLiteral(red: 1, green: 0.1491314173, blue: 0, alpha: 1)              // NSColor.red
-//        }
-//        else {
-//            dottyGeom.firstMaterial?.emission.contents = #colorLiteral(red: 0.9999960065, green: 1, blue: 1, alpha: 1)              // NSColor.white (!!CPU!!)
-//        }
+        let dottyNode = SCNNode(geometry: dottyGeom)
+        dottyNode.position = SCNVector3((0.0, 0.0, 0.0))
 
-        let dottyNode = SCNNode(geometry:dottyGeom)
-        dottyNode.position = SCNVector3((satCel.x, satCel.y, satCel.z))
-
-        trailNode.addChildNode(dottyNode)               //        "frame" << "trail"
+        trailNode <<< dottyNode                         //                      "trail" << "dotty"
     }
 
-//    SCNTransaction.commit()
+    print("               ... \(trailNode.childNodes.count) ticks added")
+    return trailNode
 
 }
 
@@ -252,7 +235,7 @@ func createTrail(_ geometry: SCNGeometry) -> SCNParticleSystem {
 /*┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
   │ (X, Y, X) --> (rad, inc, azi)                                                                    │
   └──────────────────────────────────────────────────────────────────────────────────────────────────┘*/
-func cameraCart2Pole(_ x: Double, _ y: Double, _ z: Double) -> (Double, Double, Double) {
+func cart2Pole(_ x: Double, _ y: Double, _ z: Double) -> (Double, Double, Double) {
     let rad = sqrt(x*x + y*y + z*z)
     return (rad, acos(z/rad), atan2(y, x))
 }
@@ -260,30 +243,27 @@ func cameraCart2Pole(_ x: Double, _ y: Double, _ z: Double) -> (Double, Double, 
 /*┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
   │ (lon, lat, alt) --> (X, Y, X)                                                                    │
   └──────────────────────────────────────────────────────────────────────────────────────────────────┘*/
-func cameraPole2Cart(_ rad: Double, _ inc: Double, _ azi: Double) -> (Double, Double, Double) {
+func pole2Cart(_ rad: Double, _ inc: Double, _ azi: Double) -> (Double, Double, Double) {
     return (rad * sin(inc) * cos(azi), rad * sin(inc) * sin(azi), rad * cos(inc))
 }
 
 /*┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
   │ reads a binary file (x,y,z), (x,y,z), (x,y,z), (x,y,z), .. and makes a SceneKit object ..        │
+  │                                                          .. trailMesh(from: "/tmp/coast.vector") │
   └──────────────────────────────────────────────────────────────────────────────────────────────────┘*/
-func trailMesh() -> SCNGeometry? {
+func trailMesh(from filePath: String) -> SCNGeometry? {
 
-    if let dataContent = try? Data.init(contentsOf: URL(fileURLWithPath: "/tmp/coast.vector")) {
+    if let dataContent = try? Data.init(contentsOf: URL(fileURLWithPath: filePath)) {
         let vectorCount = (dataContent.count) / 12           // count of vertices (two per line)
 
         let vertexSource = SCNGeometrySource(data: dataContent,
                                              semantic: SCNGeometrySource.Semantic.vertex,
                                              vectorCount: vectorCount,
-                                             usesFloatComponents: true,
-                                             componentsPerVector: 3,
+                                             usesFloatComponents: true, componentsPerVector: 3,
                                              bytesPerComponent: MemoryLayout<Float>.size,
-                                             dataOffset: 0,
-                                             dataStride: 12)
+                                             dataOffset: 0, dataStride: 12)
 
-        let element = SCNGeometryElement(data: nil,
-                                         primitiveType: .line,
-                                         primitiveCount: vectorCount,
+        let element = SCNGeometryElement(data: nil, primitiveType: .line, primitiveCount: vectorCount,
                                          bytesPerIndex: MemoryLayout<Int>.size)
 
         return SCNGeometry(sources: [vertexSource], elements: [element])

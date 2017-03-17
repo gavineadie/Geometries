@@ -18,3 +18,13 @@ extension SCNVector3 {
         z = CGFloat(t.2)
     }
 }
+
+infix operator <<<
+
+extension SCNNode {
+
+    static func <<< (lhs: SCNNode, rhs: SCNNode) {
+        lhs.addChildNode(rhs)
+    }
+
+}
