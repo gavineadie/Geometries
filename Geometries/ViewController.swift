@@ -7,6 +7,7 @@
 // swiftlint:disable large_tuple
 // swiftlint:disable variable_name
 // swiftlint:disable statement_position
+// swiftlint:disable cyclomatic_complexity
 
 import SceneKit
 import SatKit
@@ -57,10 +58,6 @@ class ViewController: NSViewController, SCNSceneRendererDelegate {
         frameNode = totalNode.childNode(withName: "frame", recursively: true)
         earthNode = frameNode.childNode(withName: "earth", recursively: true)
         solarNode = frameNode.childNode(withName: "solar", recursively: true)
-
-        trailNode = construct(orbTickRange: orbTickRange, orbTickDelta: orbTickDelta)
-        frameNode <<< trailNode
-        tickNodes = trailNode.childNodes
     }
 
 /*┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
@@ -70,16 +67,8 @@ class ViewController: NSViewController, SCNSceneRendererDelegate {
         super.viewDidAppear()
         print("ViewController.viewDidAppear()")
 
-        totalView.delegate = self           // renderer won't start running till now ..
+        totalView.delegate = self                   // renderer won't start running till now ..
         totalView.isPlaying = true
-        if #available(OSX 10.12, *) {
-            totalView.preferredFramesPerSecond = 15
-        } else {
-
-        }
-
-//      earthNode.removeFromParentNode()
-//      trailNode.removeFromParentNode()
     }
 
 // MARK: - Rendering callback delegate ..
@@ -89,30 +78,24 @@ class ViewController: NSViewController, SCNSceneRendererDelegate {
   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛*/
 
     var frameCount = 0
-    var satelliteIterator = satellites.makeIterator()
 
     open func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
 
-//        if frameCount % 5 == 2 {                // twelve times a second, off the beat
-//
-//                if let (_, nextSatellite) = satelliteIterator.next() {
-//                    addSatellite(frameNode, sat:nextSatellite)
-//                }
-//                else {
-//                    satelliteIterator = satellites.makeIterator()
-//                }
-//
-//        }
-
 /*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
-  ╎ if the frame exists (the construction succeeded) ..                                              ╎
-  ╎                                                          .. once a second: remodel the satellite ╎
+  ╎ guard for satellites available ..                                                                ╎
+  ╎                                                 .. once a second: reposition the satellite trail ╎
   ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
-        guard trailNode != nil else { return }
+        guard satellites.count > 0 else { return }
 
         if frameCount % 10 == 0 {                   // once a second
+
             if let satellite = satellites["25544"] {
-                trailNode.name = satellite.catalogNum
+
+                if frameNode.childNode(withName: "25544", recursively: true) == nil {
+                    trailNode = satellite.trailNode; frameNode <<< trailNode
+                }
+
+                tickNodes = trailNode.childNodes
 
                 for index in orbTickRange {
                     let satCel = satellite.position(minsAfterEpoch: satellite.minsAfterEpoch +
@@ -131,11 +114,9 @@ class ViewController: NSViewController, SCNSceneRendererDelegate {
                     if let tickGeom = tickNodes[tickIndex].geometry as? SCNSphere {
                         if index == 0 {
                             tickGeom.radius = 50
-                            tickGeom.firstMaterial?.emission.contents = #colorLiteral(red: 1, green: 0.1491314173, blue: 0, alpha: 1)              // NSColor.red
-                        }
-                        else {
+                            tickGeom.firstMaterial?.emission.contents = #colorLiteral(red: 1, green: 0.1491314173, blue: 0, alpha: 1)       // NSColor.red
+                        } else {
                             tickGeom.radius = eclipseDepth < 0 ? 10.0 : 20.0
-//                            tickGeom.firstMaterial?.emission.contents = #colorLiteral(red: 0.9999960065, green: 1, blue: 1, alpha: 1)              // NSColor.white (!!CPU!!)
                         }
                     }
 
@@ -170,12 +151,12 @@ class ViewController: NSViewController, SCNSceneRendererDelegate {
 
     }
 
-    open func renderer(_ renderer: SCNSceneRenderer, didApplyAnimationsAtTime time: TimeInterval) {
-
-    }
-
-    open func renderer(_ renderer: SCNSceneRenderer, didSimulatePhysicsAtTime time: TimeInterval) {
-
-    }
+//    open func renderer(_ renderer: SCNSceneRenderer, didApplyAnimationsAtTime time: TimeInterval) {
+//
+//    }
+//
+//    open func renderer(_ renderer: SCNSceneRenderer, didSimulatePhysicsAtTime time: TimeInterval) {
+//
+//    }
 
 }

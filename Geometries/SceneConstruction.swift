@@ -96,6 +96,9 @@ func construct(scene totalView: SceneView) {
     addViewCamera(totalNode)
     addSolarLight(frameNode)
 
+//    let frameLOD = SCNLevelOfDetail(geometry: earthNode.geometry, worldSpaceDistance: 200_000.0)
+//    earthNode.geometry?.levelsOfDetail = [frameLOD]
+
 //  addMarkerSpot(frameNode, color: NSColor.magenta, at:(eRadiusKms * 1.05,0.0,0.0))
 
 }
@@ -115,6 +118,10 @@ func addViewCamera(_ parentNode: SCNNode) {
     let cameraRange = 120_000.0
     camera.xFov = 800_000.0 / cameraRange
     camera.yFov = 800_000.0 / cameraRange
+
+//  camera.zNear = 110_000.0
+//  camera.zFar = 130_000.0
+
     camera.automaticallyAdjustsZRange = true
 
     let cameraNode = SCNNode()
