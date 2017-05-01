@@ -62,11 +62,10 @@ func construct(scene totalView: SceneView) {
     print("SceneConstruction.construct()")
 
     totalView.scene = SCNScene()
-    totalView.backgroundColor = NSColor.blue
-    totalView.autoenablesDefaultLighting = true
-    totalView.showsStatistics = true
+    totalView.backgroundColor = #colorLiteral(red: 0.0, green: 0.0, blue: 0.5, alpha: 1)
 
-    if let overlay = OverlayScene(fileNamed:"OverlayScene") { totalView.overlaySKScene = overlay }
+//  if let overlay = OverlayScene(fileNamed:"OverlayScene") { totalView.overlaySKScene = overlay }
+//  totalView.overlaySKScene = constructSpriteView()
 
     guard let totalNode = totalView.scene?.rootNode,
           let frameScene = SCNScene(named: "com.ramsaycons.frame.scn"),
@@ -89,17 +88,12 @@ func construct(scene totalView: SceneView) {
 /*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
   ╎ rotate "earthNode" for time of day                                                               ╎
   ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
-    earthNode.eulerAngles.z += CGFloat(ZeroMeanSiderealTime(julianDaysNow()) * deg2rad)
+    earthNode.eulerAngles.z += CGFloat(zeroMeanSiderealTime(julianDaysNow()) * deg2rad)
 /*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
   ╎ .. and attach "camraNode" to "totalNode" and "lightNode" to "earthNode"                          ╎
   ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
     addViewCamera(totalNode)
     addSolarLight(frameNode)
-
-//    let frameLOD = SCNLevelOfDetail(geometry: earthNode.geometry, worldSpaceDistance: 200_000.0)
-//    earthNode.geometry?.levelsOfDetail = [frameLOD]
-
-//  addMarkerSpot(frameNode, color: NSColor.magenta, at:(eRadiusKms * 1.05,0.0,0.0))
 
 }
 
@@ -118,9 +112,6 @@ func addViewCamera(_ parentNode: SCNNode) {
     let cameraRange = 120_000.0
     camera.xFov = 800_000.0 / cameraRange
     camera.yFov = 800_000.0 / cameraRange
-
-//  camera.zNear = 110_000.0
-//  camera.zFar = 130_000.0
 
     camera.automaticallyAdjustsZRange = true
 
@@ -195,7 +186,8 @@ func addObserver(_ parentNode: SCNNode, at: (Double, Double, Double)) {
     let viewrGeom = SCNSphere(radius: 50.0)
     viewrGeom.isGeodesic = true
     viewrGeom.segmentCount = 18
-    viewrGeom.firstMaterial?.emission.contents = NSColor.green
+    viewrGeom.firstMaterial?.emission.contents = #colorLiteral(red: 0, green: 1.0, blue: 0, alpha: 1)
+    viewrGeom.firstMaterial?.diffuse.contents = #colorLiteral(red: 0, green: 1.0, blue: 0, alpha: 1)
 
     let viewrNode = SCNNode(geometry:viewrGeom)
     viewrNode.name = "obsvr"
@@ -217,7 +209,8 @@ func construct(orbTickRange: CountableClosedRange<Int>, orbTickDelta: Int) -> SC
         let dottyGeom = SCNSphere(radius: 10.0)         //
         dottyGeom.isGeodesic = true
         dottyGeom.segmentCount = 6
-        dottyGeom.firstMaterial?.emission.contents = #colorLiteral(red: 0.9999960065, green: 1, blue: 1, alpha: 1)              // NSColor.white (!!CPU!!)
+        dottyGeom.firstMaterial?.emission.contents = #colorLiteral(red: 0.9999960065, green: 1, blue: 1, alpha: 1)  // NSColor.white (!!CPU!!)
+        dottyGeom.firstMaterial?.diffuse.contents = #colorLiteral(red: 1.0, green: 1, blue: 1, alpha: 1)
 
         let dottyNode = SCNNode(geometry: dottyGeom)
         dottyNode.position = SCNVector3((0.0, 0.0, 0.0))
@@ -279,4 +272,43 @@ func trailMesh(from filePath: String) -> SCNGeometry? {
         print("CoastMesh file missing")
         return nil
     }
+}
+
+import SpriteKit
+
+func constructSpriteView() -> OverlayScene {
+
+    let overlay = OverlayScene(size: CGSize(width: 600, height: 600))
+
+    let baseNode = SKNode()
+    baseNode.name = "BASE"
+    overlay.addChild(baseNode)
+
+    let rectNodeA = SKSpriteNode(color: #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1), size: CGSize(width: 80, height: 80))
+    rectNodeA.position = CGPoint(x: 50, y: 50)
+    rectNodeA.name = "BotL"
+    overlay.addChild(rectNodeA)
+
+    let rectNodeB = SKSpriteNode(color: #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1), size: CGSize(width: 80, height: 80))
+    rectNodeB.position = CGPoint(x: 550, y: 50)
+    rectNodeB.name = "BotR"
+    overlay.addChild(rectNodeB)
+
+    let rectNodeC = SKSpriteNode(color: #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1), size: CGSize(width: 80, height: 80))
+    rectNodeC.position = CGPoint(x: 50, y: 550)
+    rectNodeC.name = "TopL"
+    overlay.addChild(rectNodeC)
+
+    let rectNodeD = SKSpriteNode(color: #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1), size: CGSize(width: 80, height: 80))
+    rectNodeD.position = CGPoint(x: 550, y: 550)
+    rectNodeD.name = "TopR"
+    overlay.addChild(rectNodeD)
+
+    let word = SKLabelNode(fontNamed: "HelveticaNeue-Bold")
+    word.position = CGPoint(x: 300, y: 10)
+    word.name = "WORD"
+    word.text = "Geometries"
+    baseNode.addChild(word)
+
+    return overlay
 }

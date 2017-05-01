@@ -58,6 +58,11 @@ class ViewController: NSViewController, SCNSceneRendererDelegate {
         frameNode = totalNode.childNode(withName: "frame", recursively: true)
         earthNode = frameNode.childNode(withName: "earth", recursively: true)
         solarNode = frameNode.childNode(withName: "solar", recursively: true)
+
+        NotificationCenter.default.addObserver(self, selector: #selector(self.ApplicationAwake),
+                                               name: .NSApplicationWillBecomeActive, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.ApplicationSleep),
+                                               name: .NSApplicationWillResignActive, object: nil)
     }
 
 /*┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
@@ -69,6 +74,24 @@ class ViewController: NSViewController, SCNSceneRendererDelegate {
 
         totalView.delegate = self                   // renderer won't start running till now ..
         totalView.isPlaying = true
+    }
+
+// MARK: - AWAKE/SLEEP notification callbacks ..
+
+    func ApplicationAwake(notification: Notification) {
+
+        print(notification.name)
+        totalView.isPlaying = true
+//      totalView.scene?.isPaused = false
+
+    }
+
+    func ApplicationSleep(notification: Notification) {
+
+        print(notification.name)
+        totalView.isPlaying = false
+//      totalView.scene?.isPaused = true
+
     }
 
 // MARK: - Rendering callback delegate ..
@@ -85,11 +108,12 @@ class ViewController: NSViewController, SCNSceneRendererDelegate {
   ╎ guard for satellites available ..                                                                ╎
   ╎                                                 .. once a second: reposition the satellite trail ╎
   ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
-        guard satellites.count > 0 else { return }
+        guard let visualCollection = satelliteStore["visual.txt"],
+                  visualCollection.count > 0 else { return }
 
         if frameCount % 10 == 0 {                   // once a second
 
-            if let satellite = satellites["25544"] {
+            if let satellite = visualCollection["25544"] {
 
                 if frameNode.childNode(withName: "25544", recursively: true) == nil {
                     trailNode = satellite.trailNode; frameNode <<< trailNode
@@ -115,8 +139,9 @@ class ViewController: NSViewController, SCNSceneRendererDelegate {
                         if index == 0 {
                             tickGeom.radius = 50
                             tickGeom.firstMaterial?.emission.contents = #colorLiteral(red: 1, green: 0.1491314173, blue: 0, alpha: 1)       // NSColor.red
+                            tickGeom.firstMaterial?.diffuse.contents = #colorLiteral(red: 1, green: 0.1491314173, blue: 0, alpha: 1)        // NSColor.red
                         } else {
-                            tickGeom.radius = eclipseDepth < 0 ? 10.0 : 20.0
+                            tickGeom.radius = eclipseDepth < 0 ? 10.0 : 25.0
                         }
                     }
 
@@ -131,7 +156,7 @@ class ViewController: NSViewController, SCNSceneRendererDelegate {
         guard earthNode != nil else { return }
 
         if frameCount % 3600 == 0 {                 // every a minute
-            earthNode.eulerAngles.z = CGFloat(ZeroMeanSiderealTime(julianDaysNow()) * deg2rad)
+            earthNode.eulerAngles.z = CGFloat(zeroMeanSiderealTime(julianDaysNow()) * deg2rad)
         }
 
 /*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮

@@ -15,7 +15,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛*/
     func applicationDidFinishLaunching(_ aNotification: Notification) {
 
-        downloadTLEs("visual")
+        downloadTLEs("http://www.celestrak.com/NORAD/elements/visual.txt")
+
+//      downloadTLEs("https://www.prismnet.com/~mmccants/programs/qsmag.zip")
 
     }
 
@@ -35,6 +37,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     }
 
+/*┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+  ┃     Insert code here to to request that the file filename be opened as a linked file             ┃
+  ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛*/
+    func application(_ sender: Any, openFileWithoutUI filename: String) -> Bool {
+
+        print("application.openFileWithoutUI: \(filename) from \(sender)")
+
+        return true
+
+    }
 }
 
 /*╔══════════════════════════════════════════════════════════════════════════════════════════════════╗

@@ -15,6 +15,7 @@
 		8654A2D81DCEA70300D72606 /* Satellites.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8654A2D71DCEA70300D72606 /* Satellites.swift */; };
 		8654A2DA1DCEA72D00D72606 /* SatDownload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8654A2D91DCEA72D00D72606 /* SatDownload.swift */; };
 		8654A2DC1DCEA73D00D72606 /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8654A2DB1DCEA73D00D72606 /* CacheManager.swift */; };
+		866B422F1EB3BD6B0010D973 /* SatStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 866B422E1EB3BD6B0010D973 /* SatStore.swift */; };
 		86757FAB1E46832500DD6780 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86757FAA1E46832500DD6780 /* Extensions.swift */; };
 		86787F4C1C774A6C00CE54F3 /* com.ramsaycons.frame.scn in Resources */ = {isa = PBXBuildFile; fileRef = 86787F4B1C774A6C00CE54F3 /* com.ramsaycons.frame.scn */; };
 		868751CE1BB5D57200939585 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 868751CD1BB5D57200939585 /* AppDelegate.swift */; };
@@ -73,6 +74,7 @@
 		8654A2D71DCEA70300D72606 /* Satellites.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Satellites.swift; path = ../../DEMOS/DemosKit/Satellites.swift; sourceTree = "<group>"; };
 		8654A2D91DCEA72D00D72606 /* SatDownload.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SatDownload.swift; path = ../../DEMOS/DemosKit/SatDownload.swift; sourceTree = "<group>"; };
 		8654A2DB1DCEA73D00D72606 /* CacheManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CacheManager.swift; path = ../../DEMOS/DemosKit/CacheManager.swift; sourceTree = "<group>"; };
+		866B422E1EB3BD6B0010D973 /* SatStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SatStore.swift; path = ../../DEMOS/DemosKit/SatStore.swift; sourceTree = "<group>"; };
 		8672CC221C83CC2500E1DD5E /* OverlayScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = OverlayScene.sks; sourceTree = "<group>"; };
 		86757FAA1E46832500DD6780 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		86787F4B1C774A6C00CE54F3 /* com.ramsaycons.frame.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = com.ramsaycons.frame.scn; sourceTree = "<group>"; };
@@ -122,6 +124,7 @@
 			isa = PBXGroup;
 			children = (
 				8654A2D71DCEA70300D72606 /* Satellites.swift */,
+				866B422E1EB3BD6B0010D973 /* SatStore.swift */,
 				8654A2D91DCEA72D00D72606 /* SatDownload.swift */,
 				8654A2DB1DCEA73D00D72606 /* CacheManager.swift */,
 			);
@@ -314,6 +317,7 @@
 				86386F441E1A1468003B018D /* Satellite.swift in Sources */,
 				864A60041C82940D009D6C72 /* SceneView.swift in Sources */,
 				8654A2DA1DCEA72D00D72606 /* SatDownload.swift in Sources */,
+				866B422F1EB3BD6B0010D973 /* SatStore.swift in Sources */,
 				86B5D1401E751260002DB9B1 /* SceneConstruction.swift in Sources */,
 				8654A2D81DCEA70300D72606 /* Satellites.swift in Sources */,
 				86890D6C1C8010820046CF12 /* OverlayScene.swift in Sources */,

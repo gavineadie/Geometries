@@ -38,7 +38,7 @@ public extension Satellite {
 
         var result = [Vector]()
 
-        for (_, epochMin) in epochStride.enumerated() {
+        for epochMin in epochStride {
             result.append(self.position(minsAfterEpoch:epochMin))
         }
 
