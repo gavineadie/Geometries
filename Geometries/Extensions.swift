@@ -8,16 +8,11 @@
 // swiftlint:disable variable_name
 // swiftlint:disable statement_position
 
-import Foundation
 import SceneKit
 
-extension SCNVector3 {
-    public init(_ t: (Double, Double, Double)) {
-        x = CGFloat(t.0)
-        y = CGFloat(t.1)
-        z = CGFloat(t.2)
-    }
-}
+let Rₑ: Double = 6.378135e3                // equatorial radius (polar radius = 6356.752 Kms)
+let π: Double = 3.141_592_653_589_793_238_462_643_383_279_502_884_197_169_399_375_105_820_975
+let deg2rad = Double(π / 180.0)
 
 infix operator <<<
 
@@ -26,5 +21,11 @@ extension SCNNode {
     static func <<< (lhs: SCNNode, rhs: SCNNode) {
         lhs.addChildNode(rhs)
     }
+
+}
+
+extension CGFloat {
+
+    static let π: CGFloat = 3.1415926
 
 }

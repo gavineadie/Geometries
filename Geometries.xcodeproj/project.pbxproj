@@ -25,7 +25,8 @@
 		86890D6C1C8010820046CF12 /* OverlayScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86890D6B1C8010820046CF12 /* OverlayScene.swift */; };
 		86AC768C1DC96A91002CFFD7 /* SatKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86AC76891DC96A71002CFFD7 /* SatKit.framework */; };
 		86AC768D1DC96A91002CFFD7 /* SatKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 86AC76891DC96A71002CFFD7 /* SatKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		86B5D1401E751260002DB9B1 /* SceneConstruction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86B5D13F1E751260002DB9B1 /* SceneConstruction.swift */; };
+		86BE7E241EEC876700475431 /* coast.vector in Resources */ = {isa = PBXBuildFile; fileRef = 86BE7E221EEC876700475431 /* coast.vector */; };
+		86BE7E251EEC876700475431 /* grids.vector in Resources */ = {isa = PBXBuildFile; fileRef = 86BE7E231EEC876700475431 /* grids.vector */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -88,6 +89,8 @@
 		86AC52D61DD648240004CBFC /* script.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; name = script.sh; path = "Build-Phases/script.sh"; sourceTree = SOURCE_ROOT; };
 		86AC76831DC96A71002CFFD7 /* SatKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SatKit.xcodeproj; path = ../SatKit/SatKit.xcodeproj; sourceTree = "<group>"; };
 		86B5D13F1E751260002DB9B1 /* SceneConstruction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneConstruction.swift; sourceTree = "<group>"; };
+		86BE7E221EEC876700475431 /* coast.vector */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = coast.vector; sourceTree = "<group>"; };
+		86BE7E231EEC876700475431 /* grids.vector */ = {isa = PBXFileReference; lastKnownFileType = file; path = grids.vector; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,9 +157,9 @@
 			children = (
 				868751CD1BB5D57200939585 /* AppDelegate.swift */,
 				868751CF1BB5D57200939585 /* ViewController.swift */,
+				864A60031C82940D009D6C72 /* SceneView.swift */,
 				86B5D13F1E751260002DB9B1 /* SceneConstruction.swift */,
 				86386F431E1A1468003B018D /* Satellite.swift */,
-				864A60031C82940D009D6C72 /* SceneView.swift */,
 				86890D6B1C8010820046CF12 /* OverlayScene.swift */,
 				86757FAA1E46832500DD6780 /* Extensions.swift */,
 				8654A2D51DCEA6E700D72606 /* DemosKit */,
@@ -164,6 +167,8 @@
 				868751D11BB5D57200939585 /* Assets.xcassets */,
 				868751D31BB5D57200939585 /* Main.storyboard */,
 				86787F4B1C774A6C00CE54F3 /* com.ramsaycons.frame.scn */,
+				86BE7E221EEC876700475431 /* coast.vector */,
+				86BE7E231EEC876700475431 /* grids.vector */,
 				86280CB91DDD590B00BE3B6F /* Particles */,
 				868751D61BB5D57200939585 /* Info.plist */,
 			);
@@ -266,11 +271,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				86BE7E241EEC876700475431 /* coast.vector in Resources */,
 				868751D21BB5D57200939585 /* Assets.xcassets in Resources */,
 				86280CBE1DDD5A2300BE3B6F /* spark.png in Resources */,
 				868751D51BB5D57200939585 /* Main.storyboard in Resources */,
 				863478001D135B7E0058F510 /* OverlayScene.sks in Resources */,
 				86280CBD1DDD5A2300BE3B6F /* Fire.scnp in Resources */,
+				86BE7E251EEC876700475431 /* grids.vector in Resources */,
 				86787F4C1C774A6C00CE54F3 /* com.ramsaycons.frame.scn in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -318,7 +325,6 @@
 				864A60041C82940D009D6C72 /* SceneView.swift in Sources */,
 				8654A2DA1DCEA72D00D72606 /* SatDownload.swift in Sources */,
 				866B422F1EB3BD6B0010D973 /* SatStore.swift in Sources */,
-				86B5D1401E751260002DB9B1 /* SceneConstruction.swift in Sources */,
 				8654A2D81DCEA70300D72606 /* Satellites.swift in Sources */,
 				86890D6C1C8010820046CF12 /* OverlayScene.swift in Sources */,
 				868751CE1BB5D57200939585 /* AppDelegate.swift in Sources */,

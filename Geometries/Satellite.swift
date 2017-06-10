@@ -23,7 +23,7 @@ public extension Satellite {
             dottyGeom.firstMaterial?.emission.contents = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1) // NSColor.white (!!CPU!!)
 
             let dottyNode = SCNNode(geometry: dottyGeom)
-            dottyNode.position = SCNVector3((0.0, 0.0, 0.0))
+            dottyNode.position = SCNVector3(0.0, 0.0, 0.0)
 
             basicNode <<< dottyNode                         //                      "trail" << "dotty"
         }

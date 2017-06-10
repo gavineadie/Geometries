@@ -9,7 +9,7 @@ import SceneKit
 
 class SceneView: SCNView {
 
-    lazy var orbitNode: SCNNode! = self.scene!.rootNode.childNode(withName: "orbit", recursively: true)
+    lazy var orbitNode: SCNNode! = self.scene!.rootNode.childNode(withName: "viewr", recursively: true)
     lazy var camraNode: SCNNode! = self.scene!.rootNode.childNode(withName: "camra", recursively: true)
 
     var prevXRatio: CGFloat = 0.0
@@ -24,8 +24,8 @@ class SceneView: SCNView {
             let xRatio = prevXRatio + xyMovement.x / view.frame.size.width
             let yRatio = prevYRatio + xyMovement.y / view.frame.size.height
 
-            orbitNode.eulerAngles.x =  ( π ) * yRatio       // screen height is π (±90°) rotation
-            orbitNode.eulerAngles.y = -(2*π) * xRatio       // screen width is 2π (360°) rotation
+            orbitNode.eulerAngles.x =  ( CGFloat.π ) * yRatio       // screen height is π (±90°) rotation
+            orbitNode.eulerAngles.y = -(2*CGFloat.π) * xRatio       // screen width is 2π (360°) rotation
 
             if sender.state == .ended {
                 prevXRatio = xRatio.truncatingRemainder(dividingBy: 1)
