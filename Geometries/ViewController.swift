@@ -108,11 +108,11 @@ class ViewController: NSViewController, SCNSceneRendererDelegate {
   ┃             node at a fixed distant radius ("viewr"), with a camera ("camra") pointing to the    ┃
   ┃             the frame center.                                                                    ┃
   ┃                                                                                                  ┃
-  ┃                         |                                                                        ┃
-  ┃                         |                                                                        ┃
-  ┃                         +-- Node("viewr") --+        +-- Node("spots")   +-- Node("obsvr")       ┃
-  ┃                                             |        |                                           ┃
-  ┃                                             |        +-- Node("light"+"solar")                   ┃
+  ┃                         |                             |                   |                      ┃
+  ┃                         |                             |                   |                      ┃
+  ┃                         +-- Node("viewr") --+         +-- Node("spots")   +-- Node("obsvr")      ┃
+  ┃                                             |         |                                          ┃
+  ┃                                             |         +-- Node("solar")                          ┃
   ┃                                             |                                                    ┃
   ┃                                             +-- Node("camra")                                    ┃
   ┃                                                                                                  ┃
@@ -135,7 +135,7 @@ class ViewController: NSViewController, SCNSceneRendererDelegate {
         frameNode.name = "frame"                            // frameNode
         sceneNode <<< frameNode
 
-        MakeEarth()                                         // earthNode
+        earthNode = MakeEarth()                             // earthNode
         frameNode <<< earthNode
 /*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
   ╎ get the observer's position ..                                                                   ╎
@@ -152,17 +152,16 @@ class ViewController: NSViewController, SCNSceneRendererDelegate {
   ╎ .. and attach "camra" node to "scene" and "light" node to "earth" ..                             ╎
   ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
         addViewCamera(scene: scene)
-        addSolarLight(scene: scene)
+        addSolarLight(to: frameNode)
 
+        frameNode.eulerAngles = SCNVector3(x: -CGFloat.π/2.0, y: -CGFloat.π/2.0, z: 0.0)    //
+        frameNode.scale = SCNVector3(1.0, 1.0, 6356.752/6378.135)             // flatten the earth slightly !
     }
 
 /*┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
   │                                                                                                  │
   │                              +--------------------------------------------------------+          │
-  │                              |                        "com.ramsaycons.geometries.scn" |          │
-  │                              |  Node("frame") --+                                     |          │
-  │                              |                  |                                     |          │
-  │                              |                  +-- Node("earth") --+                 |          │
+  │                              |                   -- Node("earth") --+                 |          │
   │                              |                                      +-- Node("globe") |          │
   │                              |                                      +-- Node("grids") |          │
   │                              |                                      +-- Node("coast") |          │
@@ -170,49 +169,48 @@ class ViewController: NSViewController, SCNSceneRendererDelegate {
   │                                                                                                  │
   └──────────────────────────────────────────────────────────────────────────────────────────────────┘*/
 
-    func MakeEarth() {
+    func MakeEarth() -> SCNNode {
 
 /*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
   ╎ Earth -- contains "globe" + "grids" + "coast"                                                    ╎
   ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
+        let earthNode = SCNNode()
         earthNode.name = "earth"
 
 /*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
   ╎ Earth's surface -- a globe of ~Rₑ                                                                ╎
   ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
-        let globeGeom = SCNSphere(radius: CGFloat(Rₑ - 20.0))
+        let globeGeom = SCNSphere(radius: CGFloat(Rₑ - 10.0))
         globeGeom.isGeodesic = false
         globeGeom.segmentCount = 90
 
         let globeNode = SCNNode(geometry: globeGeom)
         globeNode.name = "globe"
-
         earthNode <<< globeNode
 
 /*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
-  ╎ Earth's lat/lon grid dots --                                                                     ╎
+  ╎ Earth's lat/lon grid dots -- build the "grids" node and add it to "earth" ..                     ╎
   ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
         if let gridsGeom = GridsMesh() {
-            gridsGeom.firstMaterial?.diffuse.contents = NSColor.black
+            gridsGeom.firstMaterial?.diffuse.contents = Color.black
 
             let gridsNode = SCNNode(geometry: gridsGeom)
             gridsNode.name = "grids"
-
             earthNode <<< gridsNode
         }
 
 /*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
-  ╎ build the "coast" node and add it to "earth" ..                                                  ╎
+  ╎ Earth's coastline vectors -- build the "coast" node and add it to "earth" ..                     ╎
   ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
         if let coastGeom = CoastMesh() {
-            coastGeom.firstMaterial?.diffuse.contents = NSColor.blue
+            coastGeom.firstMaterial?.diffuse.contents = Color.blue
 
             let coastNode = SCNNode(geometry: coastGeom)
             coastNode.name = "coast"
-
             earthNode <<< coastNode
         }
 
+        return earthNode
     }
 
 /*┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
@@ -266,33 +264,32 @@ class ViewController: NSViewController, SCNSceneRendererDelegate {
 
 /*┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
   └──────────────────────────────────────────────────────────────────────────────────────────────────┘*/
-	func addSolarLight(scene: SCNScene) {
+	func addSolarLight(to node: SCNNode) {
 		print("               ...addSolarLight()")
+
 /*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
-  ╎ sunlight shines                                                                                  ╎
+  ╎ put a node in the direction of the sun ..                                                        ╎
   ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
-		let sunLight = SCNLight()
-		sunLight.type = SCNLight.LightType.directional      // make a directional light
-		sunLight.castsShadow = true
+        let solarNode = SCNNode()                           // position of sun in (x,y,z)
+        solarNode.name = "solar"
 
-		let lightNode = SCNNode()
-		lightNode.name = "light"
-		lightNode.light = sunLight
+        let sunVector = solarCel(julianDays: julianDaysNow())
+        solarNode.position = SCNVector3(sunVector.x, sunVector.y, sunVector.z)
 
-		scene.rootNode <<< lightNode                        //           "frame" << "light"
+        node <<< solarNode                                  //           "frame" << "solar"
 /*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
-  ╎ sunlight shines                                                                                  ╎
+  ╎ make a bright light ..                                                                           ╎
   ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
-		let solarNode = SCNNode()                           // position of sun in (x,y,z)
-		solarNode.name = "solar"
+        let sunLight = SCNLight()
+        sunLight.type = SCNLight.LightType.directional  // make a directional light
+        sunLight.castsShadow = true
 
-		let sunVector = solarCel(julianDays: julianDaysNow())
-		solarNode.position = SCNVector3(-sunVector.x, -sunVector.y, -sunVector.z)
+        let lightNode = SCNNode()
+        lightNode.name = "light"
+        lightNode.light = sunLight
+        lightNode.constraints = [SCNLookAtConstraint(target: node)]
 
-		let solarConstraint = SCNLookAtConstraint(target: solarNode)
-		lightNode.constraints = [solarConstraint]           // keep the light coming from the sun
-
-		scene.rootNode <<< solarNode
+        solarNode <<< lightNode                             //                      "solar" << "light"
 	}
 
 struct Vertex {
@@ -373,7 +370,7 @@ struct Vertex {
 
 	// MARK: - AWAKE/SLEEP notification callbacks ..
 
-    @objc func ApplicationAwake(notification: Notification) {
+    func ApplicationAwake(notification: Notification) {
 
         print(notification.name)
         totalView.isPlaying = true
@@ -381,7 +378,7 @@ struct Vertex {
 
     }
 
-    @objc func ApplicationSleep(notification: Notification) {
+    func ApplicationSleep(notification: Notification) {
 
         print(notification.name)
         totalView.isPlaying = false
