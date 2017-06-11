@@ -153,14 +153,14 @@ class ViewController: NSViewController, SCNSceneRendererDelegate {
 /*┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
   ╎ notification callbacks ..                                                                        ╎
   └──────────────────────────────────────────────────────────────────────────────────────────────────┘*/
-    func ApplicationAwake(notification: Notification) {
+    @objc func ApplicationAwake(notification: Notification) {
 
         print(notification.name)
         sceneView.isPlaying = true
 
     }
 
-    func ApplicationSleep(notification: Notification) {
+    @objc func ApplicationSleep(notification: Notification) {
 
         print(notification.name)
         sceneView.isPlaying = false
