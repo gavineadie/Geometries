@@ -129,9 +129,9 @@ class ViewController: NSViewController, SCNSceneRendererDelegate {
 /*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
   ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
         NotificationCenter.default.addObserver(self, selector: #selector(self.ApplicationAwake),
-                                               name: .NSApplicationWillBecomeActive, object: nil)
+                                               name: NSApplication.willBecomeActiveNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.ApplicationSleep),
-                                               name: .NSApplicationWillResignActive, object: nil)
+                                               name: NSApplication.willResignActiveNotification, object: nil)
 /*┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
   ┃  .. sets some properties on the window's NSView (SceneView) including an overlayed SpriteKit     ┃
   ┃     placard which will display data and take hits.                                               ┃
