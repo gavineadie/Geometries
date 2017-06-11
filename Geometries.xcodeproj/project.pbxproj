@@ -24,6 +24,7 @@
 		86890D6C1C8010820046CF12 /* OverlayScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86890D6B1C8010820046CF12 /* OverlayScene.swift */; };
 		86AC768C1DC96A91002CFFD7 /* SatKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86AC76891DC96A71002CFFD7 /* SatKit.framework */; };
 		86AC768D1DC96A91002CFFD7 /* SatKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 86AC76891DC96A71002CFFD7 /* SatKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		86AF6AE61EECE3AD004EBEFA /* SceneConstruction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86B5D13F1E751260002DB9B1 /* SceneConstruction.swift */; };
 		86BE7E241EEC876700475431 /* coast.vector in Resources */ = {isa = PBXBuildFile; fileRef = 86BE7E221EEC876700475431 /* coast.vector */; };
 		86BE7E251EEC876700475431 /* grids.vector in Resources */ = {isa = PBXBuildFile; fileRef = 86BE7E231EEC876700475431 /* grids.vector */; };
 		86D31DE21EECDCAA00577042 /* Geometries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86D31DE11EECDCAA00577042 /* Geometries.swift */; };
@@ -337,6 +338,7 @@
 				868751D01BB5D57200939585 /* ViewController.swift in Sources */,
 				86757FAB1E46832500DD6780 /* Extensions.swift in Sources */,
 				86D31DE21EECDCAA00577042 /* Geometries.swift in Sources */,
+				86AF6AE61EECE3AD004EBEFA /* SceneConstruction.swift in Sources */,
 				86386F441E1A1468003B018D /* Satellite.swift in Sources */,
 				864A60041C82940D009D6C72 /* SceneView.swift in Sources */,
 				8654A2DA1DCEA72D00D72606 /* SatDownload.swift in Sources */,

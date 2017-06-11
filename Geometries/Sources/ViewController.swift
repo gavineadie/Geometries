@@ -42,7 +42,7 @@ class ViewController: NSViewController, SCNSceneRendererDelegate {
     var trailNode: SCNNode!
     var tickNodes: [SCNNode]!
 
-    @IBOutlet weak var totalView: SceneView!
+    @IBOutlet weak var sceneView: SceneView!
 
 /*┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
   │ "viewDidLoad" (10.10+), called once,                                                             │
@@ -51,38 +51,13 @@ class ViewController: NSViewController, SCNSceneRendererDelegate {
         super.viewDidLoad()
         print("ViewController.viewDidLoad()")
 
-        totalView.backgroundColor = #colorLiteral(red: 0.0, green: 0.0, blue: 0.5, alpha: 1)
-        totalView.scene = SCNScene()
+        sceneView.backgroundColor = #colorLiteral(red: 0.0, green: 0.0, blue: 0.5, alpha: 1)
+        sceneView.scene = SCNScene()
 
-        sceneNode = (totalView.scene?.rootNode)!
+        sceneNode = (sceneView.scene?.rootNode)!
         sceneNode.name = "scene"
 
-        construct(scene: totalView.scene!)
-
-        NotificationCenter.default.addObserver(self, selector: #selector(self.ApplicationAwake),
-                                               name: .NSApplicationWillBecomeActive, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.ApplicationSleep),
-                                               name: .NSApplicationWillResignActive, object: nil)
-    }
-
-/*┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
-  │ "viewDidAppear" (10.10+), called once,                                                           │
-  └──────────────────────────────────────────────────────────────────────────────────────────────────┘*/
-    override func viewDidAppear() {
-        super.viewDidAppear()
-        print("ViewController.viewDidAppear()")
-
-        totalView.delegate = self                   // renderer won't start running till now ..
-        totalView.isPlaying = true
-    }
-
-// MARK: - Scene construction functions ..
-
 /*┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-  ┃ "construct(scene:)"                                                                              ┃
-  ┃                                                                                                  ┃
-  ┃  .. sets some properties on the window's NSView (SceneView) including an overlayed SpriteKit     ┃
-  ┃     placard which will display data and take hits.                                               ┃
   ┃                                                                                                  ┃
   ┃  .. gets the rootNode in that SceneView ("scene") and attaches various other nodes:              ┃
   ┃     "frame" is a comes from the SceneKit file "com.ramsaycons.geometries.scn" and represents     ┃
@@ -91,7 +66,7 @@ class ViewController: NSViewController, SCNSceneRendererDelegate {
   ┃             geographic coastlines, lakes , rivers, etc ("coast").                                ┃
   ┃                                                                                                  ┃
   ┃                              +--------------------------------------------------------------+    ┃
-  ┃ SCNView.scene.rootNode       |                              "com.ramsaycons.geometries.scn" |    ┃
+  ┃ SCNView.scene.rootNode       |                                                              |    ┃
   ┃     == Node("scene") ---+----|  Node("frame") --------+                                     |    ┃
   ┃                         |    |                        |                                     |    ┃
   ┃                         |    |                        +-- Node("earth") --+                 |    ┃
@@ -112,7 +87,7 @@ class ViewController: NSViewController, SCNSceneRendererDelegate {
   ┃                         |                             |                   |                      ┃
   ┃                         +-- Node("viewr") --+         +-- Node("spots")   +-- Node("obsvr")      ┃
   ┃                                             |         |                                          ┃
-  ┃                                             |         +-- Node("solar")                          ┃
+  ┃                                             |         +-- Node("solar"+"light")                  ┃
   ┃                                             |                                                    ┃
   ┃                                             +-- Node("camra")                                    ┃
   ┃                                                                                                  ┃
@@ -123,15 +98,9 @@ class ViewController: NSViewController, SCNSceneRendererDelegate {
 
 /*┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
   ╎ contruct the "frame" node ("earth", ("globe", "grids", coast")) ..                               ╎
-  ╎                                                       .. and attach it to the given "scene" node ╎
+  ╎                                                             .. and attach it to the "scene" node ╎
   └──────────────────────────────────────────────────────────────────────────────────────────────────┘*/
-    func construct(scene: SCNScene) {
-        print("SceneConstruction.construct()")
-
-        let sceneNode = scene.rootNode                      // sceneNode
-        sceneNode.name = "scene"
-
-        let frameNode = SCNNode()
+//        frameNode = SCNNode()
         frameNode.name = "frame"                            // frameNode
         sceneNode <<< frameNode
 
@@ -143,7 +112,7 @@ class ViewController: NSViewController, SCNSceneRendererDelegate {
   ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
         let obsCelestial = geo2eci(julianDays:-1.0,
                                    geodetic: Vector(AnnArborLatitude, AnnArborLongitude, AnnArborAltitude))
-        addObserver(earthNode, at:(obsCelestial.x, obsCelestial.y, obsCelestial.z))
+        Geometries.addObserver(earthNode, at:(obsCelestial.x, obsCelestial.y, obsCelestial.z))
 /*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
   ╎ rotate "earthNode" for time of day                                                               ╎
   ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
@@ -151,250 +120,60 @@ class ViewController: NSViewController, SCNSceneRendererDelegate {
 /*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
   ╎ .. and attach "camra" node to "scene" and "light" node to "earth" ..                             ╎
   ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
-        addViewCamera(scene: scene)
+        addViewCamera(to: sceneNode)
         addSolarLight(to: frameNode)
 
-        frameNode.eulerAngles = SCNVector3(x: -CGFloat.π/2.0, y: -CGFloat.π/2.0, z: 0.0)    //
-        frameNode.scale = SCNVector3(1.0, 1.0, 6356.752/6378.135)             // flatten the earth slightly !
-    }
-
-/*┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
-  │                                                                                                  │
-  │                              +--------------------------------------------------------+          │
-  │                              |                   -- Node("earth") --+                 |          │
-  │                              |                                      +-- Node("globe") |          │
-  │                              |                                      +-- Node("grids") |          │
-  │                              |                                      +-- Node("coast") |          │
-  │                              +--------------------------------------------------------+          │
-  │                                                                                                  │
-  └──────────────────────────────────────────────────────────────────────────────────────────────────┘*/
-
-    func MakeEarth() -> SCNNode {
-
+        frameNode.eulerAngles = SCNVector3(x: -CGFloat.π/2.0, y: -CGFloat.π/2.0, z: 0.0)
+        frameNode.scale =
+            SCNVector3(1.0, 1.0, 6356.752/6378.135)         // flatten the earth slightly !
 /*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
-  ╎ Earth -- contains "globe" + "grids" + "coast"                                                    ╎
   ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
-        let earthNode = SCNNode()
-        earthNode.name = "earth"
-
-/*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
-  ╎ Earth's surface -- a globe of ~Rₑ                                                                ╎
-  ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
-        let globeGeom = SCNSphere(radius: CGFloat(Rₑ - 10.0))
-        globeGeom.isGeodesic = false
-        globeGeom.segmentCount = 90
-
-        let globeNode = SCNNode(geometry: globeGeom)
-        globeNode.name = "globe"
-        earthNode <<< globeNode
-
-/*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
-  ╎ Earth's lat/lon grid dots -- build the "grids" node and add it to "earth" ..                     ╎
-  ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
-        if let gridsGeom = GridsMesh() {
-            gridsGeom.firstMaterial?.diffuse.contents = Color.black
-
-            let gridsNode = SCNNode(geometry: gridsGeom)
-            gridsNode.name = "grids"
-            earthNode <<< gridsNode
-        }
-
-/*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
-  ╎ Earth's coastline vectors -- build the "coast" node and add it to "earth" ..                     ╎
-  ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
-        if let coastGeom = CoastMesh() {
-            coastGeom.firstMaterial?.diffuse.contents = Color.blue
-
-            let coastNode = SCNNode(geometry: coastGeom)
-            coastNode.name = "coast"
-            earthNode <<< coastNode
-        }
-
-        return earthNode
-    }
-
-/*┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
-  │ a spot on the x-axis (points at vernal equinox)                                                  │
-  └──────────────────────────────────────────────────────────────────────────────────────────────────┘*/
-    func addObserver(_ parentNode: SCNNode, at: (Double, Double, Double)) {
-        print("               ...addObserver()")
-
-        let viewrGeom = SCNSphere(radius: 50.0)
-        viewrGeom.isGeodesic = true
-        viewrGeom.segmentCount = 18
-        viewrGeom.firstMaterial?.emission.contents = #colorLiteral(red: 0, green: 1.0, blue: 0, alpha: 1)
-        viewrGeom.firstMaterial?.diffuse.contents = #colorLiteral(red: 0, green: 1.0, blue: 0, alpha: 1)
-
-        let viewrNode = SCNNode(geometry:viewrGeom)
-        viewrNode.name = "obsvr"
-        viewrNode.position = SCNVector3(at.0, at.1, at.2)
-
-        parentNode <<< viewrNode                            //           "frame" << "viewr"
-    }
-
-/*┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
-  │ attach the camera a long way from the center of a (non-rendering node) and pointed at (0, 0, 0)  │
-  │ with a viewpoint initially on x-axis at 120,000Km with north (z-axis) up                         │
-  │                                                      http://stackoverflow.com/questions/25654772 │
-  └──────────────────────────────────────────────────────────────────────────────────────────────────┘*/
-    func addViewCamera(scene: SCNScene) {
-        print("               ...addViewCamera()")
-
-        let camera = SCNCamera()                            // create a camera
-        let cameraRange = 120_000.0
-        camera.xFov = 800_000.0 / cameraRange
-        camera.yFov = 800_000.0 / cameraRange
-        camera.automaticallyAdjustsZRange = true
-
-        let cameraNode = SCNNode()
-        cameraNode.name = "camra"
-        cameraNode.camera = camera
-        cameraNode.position = SCNVector3(x: 0, y: 0, z: CGFloat(Float(cameraRange)))
-
-        let cameraConstraint = SCNLookAtConstraint(target: scene.rootNode)
-        cameraConstraint.isGimbalLockEnabled = true
-        cameraNode.constraints = [cameraConstraint]
-
-        let viewrNode = SCNNode()                           // non-rendering node, holds the camera
-        viewrNode.name = "viewr"
-
-        viewrNode <<< cameraNode                            //            "viewr" << "camra"
-        scene.rootNode <<< viewrNode                        // "scene" << "viewr"
-    }
-
-/*┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
-  └──────────────────────────────────────────────────────────────────────────────────────────────────┘*/
-	func addSolarLight(to node: SCNNode) {
-		print("               ...addSolarLight()")
-
-/*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
-  ╎ put a node in the direction of the sun ..                                                        ╎
-  ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
-        let solarNode = SCNNode()                           // position of sun in (x,y,z)
-        solarNode.name = "solar"
-
-        let sunVector = solarCel(julianDays: julianDaysNow())
-        solarNode.position = SCNVector3(sunVector.x, sunVector.y, sunVector.z)
-
-        node <<< solarNode                                  //           "frame" << "solar"
-/*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
-  ╎ make a bright light ..                                                                           ╎
-  ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
-        let sunLight = SCNLight()
-        sunLight.type = SCNLight.LightType.directional  // make a directional light
-        sunLight.castsShadow = true
-
-        let lightNode = SCNNode()
-        lightNode.name = "light"
-        lightNode.light = sunLight
-        lightNode.constraints = [SCNLookAtConstraint(target: node)]
-
-        solarNode <<< lightNode                             //                      "solar" << "light"
-	}
-
-struct Vertex {
-    var x: Float
-    var y: Float
-    var z: Float
-
-    init(_ px: Float, _ py: Float, _ pz: Float) {
-        x = px
-        y = py
-        z = pz
-    }
-}
-
+        NotificationCenter.default.addObserver(self, selector: #selector(self.ApplicationAwake),
+                                               name: .NSApplicationWillBecomeActive, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.ApplicationSleep),
+                                               name: .NSApplicationWillResignActive, object: nil)
 /*┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-  ┃ reads a binary file (x,y,z),(x,y,z), (x,y,z),(x,y,z), .. and makes a SceneKit object ..          ┃
-  ┃         /tmp/coast.vector ... coastline polygons                                                 ┃
+  ┃  .. sets some properties on the window's NSView (SceneView) including an overlayed SpriteKit     ┃
+  ┃     placard which will display data and take hits.                                               ┃
   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛*/
-	func CoastMesh() -> SCNGeometry? {
-		let mainBundle = Bundle.main
-		let sceneURL = mainBundle.url(forResource: "coast", withExtension: "vector")
+    }
 
-		guard let dataContent = try? Data.init(contentsOf: sceneURL!) else {
-			print("CoastMesh file missing")
-			return nil
-		}
+/*┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ "viewDidAppear" (10.10+), called once,                                                           │
+  └──────────────────────────────────────────────────────────────────────────────────────────────────┘*/
+    override func viewDidAppear() {
+        super.viewDidAppear()
+        print("ViewController.viewDidAppear()")
 
-		let vectorCount = (dataContent.count) / 12           // count of vertices (two per line)
-		print("CoastMesh(vectorCount: \(vectorCount))")
+        sceneView.delegate = self                           // renderer will start running now ..
+        sceneView.isPlaying = true
+    }
 
-		let vertexSource = SCNGeometrySource(data: dataContent,
-											 semantic: SCNGeometrySource.Semantic.vertex,
-											 vectorCount: vectorCount,
-											 usesFloatComponents: true,
-											 componentsPerVector: 3,
-											 bytesPerComponent: MemoryLayout<Float>.size,
-											 dataOffset: 0, dataStride: MemoryLayout<Vertex>.size)
-
-		let element = SCNGeometryElement(data: nil,
-										 primitiveType: .line,
-										 primitiveCount: vectorCount,
-										 bytesPerIndex: MemoryLayout<Int>.size)
-
-		return SCNGeometry(sources: [vertexSource], elements: [element])
-	}
-
-/*┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-  ┃ reads a binary file (x,y,z),(x,y,z), (x,y,z),(x,y,z), .. and makes a SceneKit object ..          ┃
-  ┃         /tmp/coast.vector ... coastline polygons                                                 ┃
-  ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛*/
-	func GridsMesh() -> SCNGeometry? {
-		let mainBundle = Bundle.main
-		let sceneURL = mainBundle.url(forResource: "grids", withExtension: "vector")
-
-		guard let dataContent = try? Data.init(contentsOf: sceneURL!) else {
-			print("CoastMesh file missing")
-			return nil
-		}
-
-		let vectorCount = (dataContent.count) / 12           // count of vertices (two per line)
-		print("CoastMesh(vectorCount: \(vectorCount))")
-
-		let vertexSource = SCNGeometrySource(data: dataContent,
-											 semantic: SCNGeometrySource.Semantic.vertex,
-											 vectorCount: vectorCount,
-											 usesFloatComponents: true,
-											 componentsPerVector: 3,
-											 bytesPerComponent: MemoryLayout<Float>.size,
-											 dataOffset: 0, dataStride: MemoryLayout<Vertex>.size)
-
-		let element = SCNGeometryElement(data: nil,
-										 primitiveType: .line,
-										 primitiveCount: vectorCount,
-										 bytesPerIndex: MemoryLayout<Int>.size)
-
-		return SCNGeometry(sources: [vertexSource], elements: [element])
-	}
-
-	// MARK: - AWAKE/SLEEP notification callbacks ..
-
+// MARK: - AWAKE/SLEEP notification callbacks ..
+/*┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
+  ╎ notification callbacks ..                                                                        ╎
+  └──────────────────────────────────────────────────────────────────────────────────────────────────┘*/
     func ApplicationAwake(notification: Notification) {
 
         print(notification.name)
-        totalView.isPlaying = true
-//      totalView.scene?.isPaused = false
+        sceneView.isPlaying = true
 
     }
 
     func ApplicationSleep(notification: Notification) {
 
         print(notification.name)
-        totalView.isPlaying = false
-//      totalView.scene?.isPaused = true
+        sceneView.isPlaying = false
 
     }
 
 // MARK: - Rendering callback delegate ..
-
 /*┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
   ┃  SCNSceneRendererDelegate calls : sixty per second which is far too fast for our needs ..        ┃
   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛*/
-
     var frameCount = 0
 
-    open func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
+    func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
 
 /*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
   ╎ guard for satellites available ..                                                                ╎
@@ -408,14 +187,15 @@ struct Vertex {
             if let satellite = visualCollection["25544"] {
 
                 if frameNode.childNode(withName: "25544", recursively: true) == nil {
-                    trailNode = satellite.trailNode; frameNode <<< trailNode
+                    trailNode = satellite.trailNode
+                    frameNode <<< trailNode
                 }
 
                 tickNodes = trailNode.childNodes
 
                 for index in orbTickRange {
                     let satCel = satellite.position(minsAfterEpoch: satellite.minsAfterEpoch +
-                                                                    Double(orbTickDelta*index) / 60.0)
+                                                                Double(orbTickDelta*index) / 60.0)
 
 /*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
   ╎ is satellite in sunlight ?                                                                       ╎
@@ -430,8 +210,8 @@ struct Vertex {
                     if let tickGeom = tickNodes[tickIndex].geometry as? SCNSphere {
                         if index == 0 {
                             tickGeom.radius = 50
-                            tickGeom.firstMaterial?.emission.contents = #colorLiteral(red: 1, green: 0.1491314173, blue: 0, alpha: 1)       // NSColor.red
-                            tickGeom.firstMaterial?.diffuse.contents = #colorLiteral(red: 1, green: 0.1491314173, blue: 0, alpha: 1)        // NSColor.red
+                            tickGeom.firstMaterial?.emission.contents = #colorLiteral(red: 1, green: 0.1491314173, blue: 0, alpha: 1)
+                            tickGeom.firstMaterial?.diffuse.contents = #colorLiteral(red: 1, green: 0.1491314173, blue: 0, alpha: 1)
                         } else {
                             tickGeom.radius = eclipseDepth < 0 ? 10.0 : 25.0
                         }
@@ -463,11 +243,11 @@ struct Vertex {
         frameCount += 1
     }
 
-//    open func renderer(_ renderer: SCNSceneRenderer, didApplyAnimationsAtTime time: TimeInterval) {
+//    func renderer(_ renderer: SCNSceneRenderer, didApplyAnimationsAtTime time: TimeInterval) {
 //
 //    }
 //
-//    open func renderer(_ renderer: SCNSceneRenderer, didSimulatePhysicsAtTime time: TimeInterval) {
+//    func renderer(_ renderer: SCNSceneRenderer, didSimulatePhysicsAtTime time: TimeInterval) {
 //
 //    }
 
