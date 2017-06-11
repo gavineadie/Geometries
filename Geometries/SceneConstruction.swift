@@ -162,7 +162,7 @@ func addSolarLight(_ parentNode: SCNNode) {
 /*┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
   │ a spot on the x-axis (points at vernal equinox)                                                  │
   └──────────────────────────────────────────────────────────────────────────────────────────────────┘*/
-func addMarkerSpot(_ parentNode: SCNNode, color: NSColor, at: (Double, Double, Double)) {
+func addMarkerSpot(_ parentNode: SCNNode, color: Color, at: (Double, Double, Double)) {
     print("               ...addMarkerSpot()")
 
     let spotsGeom = SCNSphere(radius: 100.0)
