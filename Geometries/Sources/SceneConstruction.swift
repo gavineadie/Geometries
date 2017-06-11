@@ -7,7 +7,6 @@
 // swiftlint:disable large_tuple
 // swiftlint:disable variable_name
 // swiftlint:disable statement_position
-// swiftlint:disable file_length
 
 import SceneKit
 import SatKit
@@ -25,150 +24,173 @@ import SatKit
   │                                                                                                  │
   └──────────────────────────────────────────────────────────────────────────────────────────────────┘*/
 
-    func MakeEarth() -> SCNNode {
+func MakeEarth() -> SCNNode {
 
 /*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
   ╎ Earth -- contains "globe" + "grids" + "coast"                                                    ╎
   ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
-        let earthNode = SCNNode()
-        earthNode.name = "earth"
+    let earthNode = SCNNode()
+    earthNode.name = "earth"
 
 /*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
   ╎ Earth's surface -- a globe of ~Rₑ                                                                ╎
   ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
-        let globeGeom = SCNSphere(radius: CGFloat(Rₑ - 10.0))
-        globeGeom.isGeodesic = false
-        globeGeom.segmentCount = 90
+    let globeGeom = SCNSphere(radius: CGFloat(Rₑ - 10.0))
+    globeGeom.isGeodesic = false
+    globeGeom.segmentCount = 90
 
-        let globeNode = SCNNode(geometry: globeGeom)
-        globeNode.name = "globe"
-        earthNode <<< globeNode
+    let globeNode = SCNNode(geometry: globeGeom)
+    globeNode.name = "globe"
+    earthNode <<< globeNode
 
 /*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
   ╎ Earth's lat/lon grid dots -- build the "grids" node and add it to "earth" ..                     ╎
   ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
-        if let gridsGeom = gridsMesh() {
-            gridsGeom.firstMaterial?.diffuse.contents = Color.black
+    if let gridsGeom = gridsMesh() {
+        gridsGeom.firstMaterial?.diffuse.contents = Color.black
 
-            let gridsNode = SCNNode(geometry: gridsGeom)
-            gridsNode.name = "grids"
-            earthNode <<< gridsNode
-        }
+        let gridsNode = SCNNode(geometry: gridsGeom)
+        gridsNode.name = "grids"
+        earthNode <<< gridsNode
+    }
 
 /*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
   ╎ Earth's coastline vectors -- build the "coast" node and add it to "earth" ..                     ╎
   ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
-        if let coastGeom = coastMesh() {
-            coastGeom.firstMaterial?.diffuse.contents = Color.blue
+    if let coastGeom = coastMesh() {
+        coastGeom.firstMaterial?.diffuse.contents = Color.blue
 
-            let coastNode = SCNNode(geometry: coastGeom)
-            coastNode.name = "coast"
-            earthNode <<< coastNode
-        }
-
-        return earthNode
+        let coastNode = SCNNode(geometry: coastGeom)
+        coastNode.name = "coast"
+        earthNode <<< coastNode
     }
+
+    return earthNode
+}
 
 /*┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
-  │ a spot on the x-axis (points at vernal equinox)                                                  │
+  │ a spot on the surface where the observer is standing ..                                          │
   └──────────────────────────────────────────────────────────────────────────────────────────────────┘*/
-    func addObserver(_ parentNode: SCNNode, at: (Double, Double, Double)) {
-        print("               ...addObserver()")
+func addObserver(_ parentNode: SCNNode, at: (Double, Double, Double)) {
+    print("               ...addObserver()")
 
-        let viewrGeom = SCNSphere(radius: 50.0)
-        viewrGeom.isGeodesic = true
-        viewrGeom.segmentCount = 18
-        viewrGeom.firstMaterial?.emission.contents = #colorLiteral(red: 0, green: 1.0, blue: 0, alpha: 1)
-        viewrGeom.firstMaterial?.diffuse.contents = #colorLiteral(red: 0, green: 1.0, blue: 0, alpha: 1)
+    let viewrGeom = SCNSphere(radius: 50.0)
+    viewrGeom.isGeodesic = true
+    viewrGeom.segmentCount = 18
+    viewrGeom.firstMaterial?.emission.contents = #colorLiteral(red: 0, green: 1.0, blue: 0, alpha: 1)
+    viewrGeom.firstMaterial?.diffuse.contents = #colorLiteral(red: 0, green: 1.0, blue: 0, alpha: 1)
 
-        let viewrNode = SCNNode(geometry:viewrGeom)
-        viewrNode.name = "obsvr"
-        viewrNode.position = SCNVector3(at.0, at.1, at.2)
+    let viewrNode = SCNNode(geometry:viewrGeom)
+    viewrNode.name = "obsvr"
+    viewrNode.position = SCNVector3(at.0, at.1, at.2)
 
-        parentNode <<< viewrNode                            //           "frame" << "viewr"
-    }
+    parentNode <<< viewrNode                            //           "frame" << "viewr"
+}
 
 /*┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
   │ attach the camera a long way from the center of a (non-rendering node) and pointed at (0, 0, 0)  │
   │ with a viewpoint initially on x-axis at 120,000Km with north (z-axis) up                         │
   │                                                      http://stackoverflow.com/questions/25654772 │
   └──────────────────────────────────────────────────────────────────────────────────────────────────┘*/
-    func addViewCamera(to node: SCNNode) {
-        print("               ...addViewCamera()")
+func addViewCamera(to node: SCNNode) {
+    print("               ...addViewCamera()")
 
-        let camera = SCNCamera()                            // create a camera
-        let cameraRange = 120_000.0
-        camera.xFov = 800_000.0 / cameraRange
-        camera.yFov = 800_000.0 / cameraRange
-        camera.automaticallyAdjustsZRange = true
+    let camera = SCNCamera()                            // create a camera
+    let cameraRange = 120_000.0
+    camera.xFov = 800_000.0 / cameraRange
+    camera.yFov = 800_000.0 / cameraRange
+    camera.automaticallyAdjustsZRange = true
 
-        let cameraNode = SCNNode()
-        cameraNode.name = "camra"
-        cameraNode.camera = camera
-        cameraNode.position = SCNVector3(x: 0, y: 0, z: CGFloat(Float(cameraRange)))
+    let cameraNode = SCNNode()
+    cameraNode.name = "camra"
+    cameraNode.camera = camera
+    cameraNode.position = SCNVector3(x: 0, y: 0, z: CGFloat(Float(cameraRange)))
 
-        let cameraConstraint = SCNLookAtConstraint(target: node)
-        cameraConstraint.isGimbalLockEnabled = true
-        cameraNode.constraints = [cameraConstraint]
+    let cameraConstraint = SCNLookAtConstraint(target: node)
+    cameraConstraint.isGimbalLockEnabled = true
+    cameraNode.constraints = [cameraConstraint]
 
-        let viewrNode = SCNNode()                           // non-rendering node, holds the camera
-        viewrNode.name = "viewr"
+    let viewrNode = SCNNode()                           // non-rendering node, holds the camera
+    viewrNode.name = "viewr"
 
-        viewrNode <<< cameraNode                            //            "viewr" << "camra"
-        node <<< viewrNode                                  // "scene" << "viewr"
-    }
+    viewrNode <<< cameraNode                            //            "viewr" << "camra"
+    node <<< viewrNode                                  // "scene" << "viewr"
+}
 
 /*┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
   └──────────────────────────────────────────────────────────────────────────────────────────────────┘*/
-	func addSolarLight(to node: SCNNode) {
-		print("               ...addSolarLight()")
+func addSolarLight(to node: SCNNode) {
+    print("               ...addSolarLight()")
 
 /*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
   ╎ put a node in the direction of the sun ..                                                        ╎
   ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
-        let solarNode = SCNNode()                           // position of sun in (x,y,z)
-        solarNode.name = "solar"
+    let solarNode = SCNNode()                           // position of sun in (x,y,z)
+    solarNode.name = "solar"
 
-        let sunVector = solarCel(julianDays: julianDaysNow())
-        solarNode.position = SCNVector3(sunVector.x, sunVector.y, sunVector.z)
+    let sunVector = solarCel(julianDays: julianDaysNow())
+    solarNode.position = SCNVector3(sunVector.x, sunVector.y, sunVector.z)
 
-        node <<< solarNode                                  //           "frame" << "solar"
+    node <<< solarNode                                  //           "frame" << "solar"
 /*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
   ╎ make a bright light ..                                                                           ╎
   ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
-        let sunLight = SCNLight()
-        sunLight.type = SCNLight.LightType.directional      // make a directional light
-        sunLight.castsShadow = true
+    let sunLight = SCNLight()
+    sunLight.type = SCNLight.LightType.directional      // make a directional light
+    sunLight.castsShadow = true
 
-        let lightNode = SCNNode()
-        lightNode.name = "light"
-        lightNode.light = sunLight
-        lightNode.constraints = [SCNLookAtConstraint(target: node)]
+    let lightNode = SCNNode()
+    lightNode.name = "light"
+    lightNode.light = sunLight
+    lightNode.constraints = [SCNLookAtConstraint(target: node)]
 
-        solarNode <<< lightNode                             //                      "solar" << "light"
-	}
+    solarNode <<< lightNode                             //                      "solar" << "light"
+}
 
 /*┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
   │ a spot on the x-axis (points at vernal equinox)                                                  │
   └──────────────────────────────────────────────────────────────────────────────────────────────────┘*/
-//func addMarkerSpot(to node: SCNNode, color: Color, at: (Double, Double, Double)) {
-//    print("               ...addMarkerSpot()")
-//
-//    let spotsGeom = SCNSphere(radius: 100.0)
-//    spotsGeom.isGeodesic = true
-//    spotsGeom.segmentCount = 6
-//    spotsGeom.firstMaterial?.diffuse.contents = color
-//
-//    let spotsNode = SCNNode(geometry:spotsGeom)
-//    spotsNode.name = "spots"
-//    spotsNode.position = SCNVector3(at.0, at.1, at.2)
-//
-//    parentNode <<< spotsNode                            //           "frame" << "spots"
-//}
-//
+func addMarkerSpot(to node: SCNNode, color: Color, at: (Double, Double, Double)) {
+    print("               ...addMarkerSpot()")
+
+    let spotsGeom = SCNSphere(radius: 100.0)
+    spotsGeom.isGeodesic = true
+    spotsGeom.segmentCount = 6
+    spotsGeom.firstMaterial?.diffuse.contents = color
+
+    let spotsNode = SCNNode(geometry:spotsGeom)
+    spotsNode.name = "spots"
+    spotsNode.position = SCNVector3(at.0, at.1, at.2)
+
+    node <<< spotsNode                            //           "frame" << "spots"
+}
+
 /*┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
-  │ ...
+  │ ...                                                                                              │
   └──────────────────────────────────────────────────────────────────────────────────────────────────┘*/
+func construct(orbTickRange: CountableClosedRange<Int>, orbTickDelta: Int) -> SCNNode {
+    print("               ...construct.ticks()")
+
+    let trailNode = SCNNode()
+    trailNode.name = "trail"
+
+    for _ in 0...orbTickRange.count {
+        let dottyGeom = SCNSphere(radius: 10.0)         //
+        dottyGeom.isGeodesic = true
+        dottyGeom.segmentCount = 6
+        dottyGeom.firstMaterial?.emission.contents = #colorLiteral(red: 1.0, green: 1, blue: 1, alpha: 1)  // Color.white (!!CPU!!)
+        dottyGeom.firstMaterial?.diffuse.contents = #colorLiteral(red: 1.0, green: 1, blue: 1, alpha: 1)
+
+        let dottyNode = SCNNode(geometry: dottyGeom)
+        dottyNode.position = SCNVector3(0.0, 0.0, 0.0)
+
+        trailNode <<< dottyNode                         //                      "trail" << "dotty"
+    }
+
+    print("               ... \(trailNode.childNodes.count) ticks added")
+    return trailNode
+
+}
 
 //func createTrail(_ geometry: SCNGeometry) -> SCNParticleSystem {
 //
