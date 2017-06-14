@@ -8,7 +8,6 @@
 // swiftlint:disable variable_name
 // swiftlint:disable statement_position
 // swiftlint:disable cyclomatic_complexity
-// swiftlint:disable file_length
 
 import SceneKit
 import SatKit
@@ -100,7 +99,6 @@ class ViewController: NSViewController, SCNSceneRendererDelegate {
   ╎ contruct the "frame" node ("earth", ("globe", "grids", coast")) ..                               ╎
   ╎                                                             .. and attach it to the "scene" node ╎
   └──────────────────────────────────────────────────────────────────────────────────────────────────┘*/
-//        frameNode = SCNNode()
         frameNode.name = "frame"                            // frameNode
         sceneNode <<< frameNode
 
@@ -128,10 +126,10 @@ class ViewController: NSViewController, SCNSceneRendererDelegate {
             SCNVector3(1.0, 1.0, 6356.752/6378.135)         // flatten the earth slightly !
 /*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
   ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
-        NotificationCenter.default.addObserver(self, selector: #selector(self.ApplicationAwake),
-                                               name: NSApplication.willBecomeActiveNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.ApplicationSleep),
-                                               name: NSApplication.willResignActiveNotification, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(self.ApplicationAwake),
+//                                               name: NSApplication.willBecomeActiveNotification, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(self.ApplicationSleep),
+//                                               name: NSApplication.willResignActiveNotification, object: nil)
 /*┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
   ┃  .. sets some properties on the window's NSView (SceneView) including an overlayed SpriteKit     ┃
   ┃     placard which will display data and take hits.                                               ┃

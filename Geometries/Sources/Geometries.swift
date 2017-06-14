@@ -15,74 +15,38 @@ struct Vertex {
     var x: Float
     var y: Float
     var z: Float
-
-    init(_ px: Float, _ py: Float, _ pz: Float) {
-        x = px
-        y = py
-        z = pz
-    }
 }
 
-/*┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-  ┃ reads a binary file (x,y,z),(x,y,z), (x,y,z),(x,y,z), .. and makes a SceneKit object ..          ┃
-  ┃         /tmp/coast.vector ... coastline polygons                                                 ┃
-  ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛*/
-func coastMesh() -> SCNGeometry? {
-    let mainBundle = Bundle.main
-    let sceneURL = mainBundle.url(forResource: "coast", withExtension: "vector")
+let vertexStride = MemoryLayout<Vertex>.stride
 
-    guard let dataContent = try? Data.init(contentsOf: sceneURL!) else {
+/*┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+  ┃ reads a binary file (x,y,z),(x,y,z), (x,y,z),(x,y,z), .. and makes a SceneKit Geometry ..        ┃
+  ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛*/
+func xxxxxMesh(resourceFile: String) -> SCNGeometry? {
+    let mainBundle = Bundle.main
+    let sceneURL = mainBundle.url(forResource: resourceFile, withExtension: "")
+
+    guard let dataContent = try? Data(contentsOf: sceneURL!) else {
         print("CoastMesh file missing")
         return nil
     }
 
-    let vectorCount = (dataContent.count) / 12           // count of vertices (two per line)
-    print("CoastMesh(vectorCount: \(vectorCount))")
+    let vertexSource = FloatGeometrySource(dataBuffer: dataContent)
 
-    let vertexSource = SCNGeometrySource(data: dataContent,
-                                         semantic: SCNGeometrySource.Semantic.vertex,
-                                         vectorCount: vectorCount,
-                                         usesFloatComponents: true,
-                                         componentsPerVector: 3,
-                                         bytesPerComponent: MemoryLayout<Float>.size,
-                                         dataOffset: 0, dataStride: MemoryLayout<Vertex>.size)
-
-    let element = SCNGeometryElement(data: nil,
-                                     primitiveType: .line,
-                                     primitiveCount: vectorCount,
-                                     bytesPerIndex: MemoryLayout<Int>.size)
+    let element = SCNGeometryElement(data: nil, primitiveType: .line,
+                                     primitiveCount: dataContent.count/vertexStride,
+                                     bytesPerIndex: MemoryLayout<UInt16>.size)
 
     return SCNGeometry(sources: [vertexSource], elements: [element])
 }
 
-/*┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-  ┃ reads a binary file (x,y,z),(x,y,z), (x,y,z),(x,y,z), .. and makes a SceneKit object ..          ┃
-  ┃         /tmp/coast.vector ... coastline polygons                                                 ┃
-  ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛*/
-func gridsMesh() -> SCNGeometry? {
-    let mainBundle = Bundle.main
-    let sceneURL = mainBundle.url(forResource: "grids", withExtension: "vector")
+func FloatGeometrySource(dataBuffer: Data) -> SCNGeometrySource {
 
-    guard let dataContent = try? Data.init(contentsOf: sceneURL!) else {
-        print("CoastMesh file missing")
-        return nil
-    }
+    return SCNGeometrySource(data: dataBuffer,
+                             semantic: SCNGeometrySource.Semantic.vertex,
+                             vectorCount: (dataBuffer.count) / vertexStride,
+                             usesFloatComponents: true, componentsPerVector: 3,
+                             bytesPerComponent: MemoryLayout<Float>.size,
+                             dataOffset: 0, dataStride: vertexStride)
 
-    let vectorCount = (dataContent.count) / 12           // count of vertices (two per line)
-    print("CoastMesh(vectorCount: \(vectorCount))")
-
-    let vertexSource = SCNGeometrySource(data: dataContent,
-                                         semantic: SCNGeometrySource.Semantic.vertex,
-                                         vectorCount: vectorCount,
-                                         usesFloatComponents: true,
-                                         componentsPerVector: 3,
-                                         bytesPerComponent: MemoryLayout<Float>.size,
-                                         dataOffset: 0, dataStride: MemoryLayout<Vertex>.size)
-
-    let element = SCNGeometryElement(data: nil,
-                                     primitiveType: .line,
-                                     primitiveCount: vectorCount,
-                                     bytesPerIndex: MemoryLayout<Int>.size)
-
-    return SCNGeometry(sources: [vertexSource], elements: [element])
 }
