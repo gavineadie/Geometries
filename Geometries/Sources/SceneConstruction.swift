@@ -1,13 +1,11 @@
 /*╔══════════════════════════════════════════════════════════════════════════════════════════════════╗
   ║ SceneConstruction.swift                                                               Geometries ║
-  ║                                                                                                  ║
   ║ Created by Gavin Eadie on Mar12/17  ..  Copyright © 2017 Ramsay Consulting. All rights reserved. ║
   ╚══════════════════════════════════════════════════════════════════════════════════════════════════╝*/
 
 // swiftlint:disable large_tuple
 // swiftlint:disable variable_name
 // swiftlint:disable statement_position
-// swiftlint:disable file_length
 
 import SceneKit
 import SatKit
@@ -70,7 +68,7 @@ import SatKit
     }
 
 /*┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
-  │ a spot on the x-axis (points at vernal equinox)                                                  │
+  │ a spot on the surface where the observer is standing ..                                          │
   └──────────────────────────────────────────────────────────────────────────────────────────────────┘*/
     func addObserver(_ parentNode: SCNNode, at: (Double, Double, Double)) {
         print("               ...addObserver()")
@@ -151,24 +149,46 @@ import SatKit
 /*┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
   │ a spot on the x-axis (points at vernal equinox)                                                  │
   └──────────────────────────────────────────────────────────────────────────────────────────────────┘*/
-//func addMarkerSpot(to node: SCNNode, color: Color, at: (Double, Double, Double)) {
-//    print("               ...addMarkerSpot()")
-//
-//    let spotsGeom = SCNSphere(radius: 100.0)
-//    spotsGeom.isGeodesic = true
-//    spotsGeom.segmentCount = 6
-//    spotsGeom.firstMaterial?.diffuse.contents = color
-//
-//    let spotsNode = SCNNode(geometry:spotsGeom)
-//    spotsNode.name = "spots"
-//    spotsNode.position = SCNVector3(at.0, at.1, at.2)
-//
-//    parentNode <<< spotsNode                            //           "frame" << "spots"
-//}
-//
+	func addMarkerSpot(to node: SCNNode, color: Color, at: (Double, Double, Double)) {
+		print("               ...addMarkerSpot()")
+
+		let spotsGeom = SCNSphere(radius: 100.0)
+		spotsGeom.isGeodesic = true
+		spotsGeom.segmentCount = 6
+		spotsGeom.firstMaterial?.diffuse.contents = color
+
+		let spotsNode = SCNNode(geometry:spotsGeom)
+		spotsNode.name = "spots"
+		spotsNode.position = SCNVector3(at.0, at.1, at.2)
+
+		node <<< spotsNode                            //           "frame" << "spots"
+	}
+
 /*┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
   │ ...
   └──────────────────────────────────────────────────────────────────────────────────────────────────┘*/
+func construct(orbTickRange: CountableClosedRange<Int>, orbTickDelta: Int) -> SCNNode {
+    print("               ...construct.ticks()")
+
+    let trailNode = SCNNode()
+    trailNode.name = "trail"
+
+    for _ in 0...orbTickRange.count {
+        let dottyGeom = SCNSphere(radius: 10.0)         //
+        dottyGeom.isGeodesic = true
+        dottyGeom.segmentCount = 6
+        dottyGeom.firstMaterial?.emission.contents = #colorLiteral(red: 1.0, green: 1, blue: 1, alpha: 1)  // Color.white (!!CPU!!)
+        dottyGeom.firstMaterial?.diffuse.contents = #colorLiteral(red: 1.0, green: 1, blue: 1, alpha: 1)
+
+        let dottyNode = SCNNode(geometry: dottyGeom)
+        dottyNode.position = SCNVector3(0.0, 0.0, 0.0)
+
+        trailNode <<< dottyNode                         //                      "trail" << "dotty"
+    }
+
+    print("               ... \(trailNode.childNodes.count) ticks added")
+    return trailNode
+}
 
 //func createTrail(_ geometry: SCNGeometry) -> SCNParticleSystem {
 //
