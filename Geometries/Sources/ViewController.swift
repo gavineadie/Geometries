@@ -53,6 +53,8 @@ class ViewController: NSViewController, SCNSceneRendererDelegate {
         sceneView.backgroundColor = #colorLiteral(red: 0.0, green: 0.0, blue: 0.5, alpha: 1)
         sceneView.scene = SCNScene()
 
+        sceneView.overlaySKScene = constructSpriteView()
+
         sceneNode = (sceneView.scene?.rootNode)!
         sceneNode.name = "scene"
 
@@ -126,10 +128,10 @@ class ViewController: NSViewController, SCNSceneRendererDelegate {
             SCNVector3(1.0, 1.0, 6356.752/6378.135)         // flatten the earth slightly !
 /*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
   ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
-//        NotificationCenter.default.addObserver(self, selector: #selector(self.ApplicationAwake),
-//                                               name: NSApplication.willBecomeActiveNotification, object: nil)
-//        NotificationCenter.default.addObserver(self, selector: #selector(self.ApplicationSleep),
-//                                               name: NSApplication.willResignActiveNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.ApplicationAwake),
+                                               name: NSApplication.willBecomeActiveNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.ApplicationSleep),
+                                               name: NSApplication.willResignActiveNotification, object: nil)
 /*┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
   ┃  .. sets some properties on the window's NSView (SceneView) including an overlayed SpriteKit     ┃
   ┃     placard which will display data and take hits.                                               ┃
