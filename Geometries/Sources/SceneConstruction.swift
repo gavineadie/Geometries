@@ -45,24 +45,19 @@ func MakeEarth() -> SCNNode {
 /*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
   ╎ Earth's lat/lon grid dots -- build the "grids" node and add it to "earth" ..                     ╎
   ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
-        if let gridsGeom = xxxxxMesh(resourceFile: "grids.vector") {
-            gridsGeom.firstMaterial?.diffuse.contents = Color.black
+    if let gridsGeom = xxxxxMesh(resourceFile: "grids.vector") {
+        gridsGeom.firstMaterial?.diffuse.contents = Color.black
 
-        let gridsNode = SCNNode(geometry: gridsGeom)
-        gridsNode.name = "grids"
-        earthNode <<< gridsNode
-    }
+    let gridsNode = SCNNode(geometry: gridsGeom)
+    gridsNode.name = "grids"
+    earthNode <<< gridsNode
+}
 
 /*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
   ╎ Earth's coastline vectors -- build the "coast" node and add it to "earth" ..                     ╎
   ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
-        if let coastGeom = xxxxxMesh(resourceFile: "coast.vector") {
-            coastGeom.firstMaterial?.diffuse.contents = Color.blue
-
-            let coastNode = SCNNode(geometry: coastGeom)
-            coastNode.name = "coast"
-            earthNode <<< coastNode
-        }
+    if let coastGeom = xxxxxMesh(resourceFile: "coast.vector") {
+        coastGeom.firstMaterial?.diffuse.contents = Color.blue
 
         let coastNode = SCNNode(geometry: coastGeom)
         coastNode.name = "coast"
