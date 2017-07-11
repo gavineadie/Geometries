@@ -8,7 +8,6 @@
 // swiftlint:disable variable_name
 // swiftlint:disable statement_position
 // swiftlint:disable cyclomatic_complexity
-// swiftlint:disable file_length
 
 import SceneKit
 import SatKit
@@ -53,6 +52,8 @@ class ViewController: NSViewController, SCNSceneRendererDelegate {
 
         sceneView.backgroundColor = #colorLiteral(red: 0.0, green: 0.0, blue: 0.5, alpha: 1)
         sceneView.scene = SCNScene()
+
+        sceneView.overlaySKScene = constructSpriteView()
 
         sceneNode = (sceneView.scene?.rootNode)!
         sceneNode.name = "scene"
@@ -100,7 +101,6 @@ class ViewController: NSViewController, SCNSceneRendererDelegate {
   ╎ contruct the "frame" node ("earth", ("globe", "grids", coast")) ..                               ╎
   ╎                                                             .. and attach it to the "scene" node ╎
   └──────────────────────────────────────────────────────────────────────────────────────────────────┘*/
-//        frameNode = SCNNode()
         frameNode.name = "frame"                            // frameNode
         sceneNode <<< frameNode
 
@@ -129,9 +129,9 @@ class ViewController: NSViewController, SCNSceneRendererDelegate {
 /*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
   ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
         NotificationCenter.default.addObserver(self, selector: #selector(self.ApplicationAwake),
-                                               name: .NSApplicationWillBecomeActive, object: nil)
+                                               name: NSApplication.willBecomeActiveNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.ApplicationSleep),
-                                               name: .NSApplicationWillResignActive, object: nil)
+                                               name: NSApplication.willResignActiveNotification, object: nil)
 /*┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
   ┃  .. sets some properties on the window's NSView (SceneView) including an overlayed SpriteKit     ┃
   ┃     placard which will display data and take hits.                                               ┃
@@ -153,14 +153,14 @@ class ViewController: NSViewController, SCNSceneRendererDelegate {
 /*┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
   ╎ notification callbacks ..                                                                        ╎
   └──────────────────────────────────────────────────────────────────────────────────────────────────┘*/
-    func ApplicationAwake(notification: Notification) {
+    @objc func ApplicationAwake(notification: Notification) {
 
         print(notification.name)
         sceneView.isPlaying = true
 
     }
 
-    func ApplicationSleep(notification: Notification) {
+    @objc func ApplicationSleep(notification: Notification) {
 
         print(notification.name)
         sceneView.isPlaying = false

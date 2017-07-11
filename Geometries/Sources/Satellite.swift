@@ -1,5 +1,5 @@
 /*╔══════════════════════════════════════════════════════════════════════════════════════════════════╗
-  ║ Satellite.swift                                                                       Geometries ║
+  ║ Satellite.swift                                                                       Satellites ║
   ║                                                                                                  ║
   ║ Created by Gavin Eadie on Jan01/17  ..  Copyright © 2017 Ramsay Consulting. All rights reserved. ║
   ╚══════════════════════════════════════════════════════════════════════════════════════════════════╝*/
@@ -14,7 +14,7 @@ public extension Satellite {
   └──────────────────────────────────────────────────────────────────────────────────────────────────┘*/
     var trailNode: SCNNode {
         let basicNode = SCNNode()
-        basicNode.name = self.catalogNum
+        basicNode.name = self.noradString
 
         for _ in 0...orbTickRange.count {
             let dottyGeom = SCNSphere(radius: 10.0)         //

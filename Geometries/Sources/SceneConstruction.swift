@@ -1,6 +1,5 @@
 /*╔══════════════════════════════════════════════════════════════════════════════════════════════════╗
   ║ SceneConstruction.swift                                                               Geometries ║
-  ║                                                                                                  ║
   ║ Created by Gavin Eadie on Mar12/17  ..  Copyright © 2017 Ramsay Consulting. All rights reserved. ║
   ╚══════════════════════════════════════════════════════════════════════════════════════════════════╝*/
 
@@ -46,8 +45,8 @@ func MakeEarth() -> SCNNode {
 /*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
   ╎ Earth's lat/lon grid dots -- build the "grids" node and add it to "earth" ..                     ╎
   ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
-    if let gridsGeom = gridsMesh() {
-        gridsGeom.firstMaterial?.diffuse.contents = Color.black
+        if let gridsGeom = xxxxxMesh(resourceFile: "grids.vector") {
+            gridsGeom.firstMaterial?.diffuse.contents = Color.black
 
         let gridsNode = SCNNode(geometry: gridsGeom)
         gridsNode.name = "grids"
@@ -57,8 +56,13 @@ func MakeEarth() -> SCNNode {
 /*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
   ╎ Earth's coastline vectors -- build the "coast" node and add it to "earth" ..                     ╎
   ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
-    if let coastGeom = coastMesh() {
-        coastGeom.firstMaterial?.diffuse.contents = Color.blue
+        if let coastGeom = xxxxxMesh(resourceFile: "coast.vector") {
+            coastGeom.firstMaterial?.diffuse.contents = Color.blue
+
+            let coastNode = SCNNode(geometry: coastGeom)
+            coastNode.name = "coast"
+            earthNode <<< coastNode
+        }
 
         let coastNode = SCNNode(geometry: coastGeom)
         coastNode.name = "coast"
@@ -150,20 +154,20 @@ func addSolarLight(to node: SCNNode) {
 /*┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
   │ a spot on the x-axis (points at vernal equinox)                                                  │
   └──────────────────────────────────────────────────────────────────────────────────────────────────┘*/
-func addMarkerSpot(to node: SCNNode, color: Color, at: (Double, Double, Double)) {
-    print("               ...addMarkerSpot()")
+	func addMarkerSpot(to node: SCNNode, color: Color, at: (Double, Double, Double)) {
+		print("               ...addMarkerSpot()")
 
-    let spotsGeom = SCNSphere(radius: 100.0)
-    spotsGeom.isGeodesic = true
-    spotsGeom.segmentCount = 6
-    spotsGeom.firstMaterial?.diffuse.contents = color
+		let spotsGeom = SCNSphere(radius: 100.0)
+		spotsGeom.isGeodesic = true
+		spotsGeom.segmentCount = 6
+		spotsGeom.firstMaterial?.diffuse.contents = color
 
-    let spotsNode = SCNNode(geometry:spotsGeom)
-    spotsNode.name = "spots"
-    spotsNode.position = SCNVector3(at.0, at.1, at.2)
+		let spotsNode = SCNNode(geometry:spotsGeom)
+		spotsNode.name = "spots"
+		spotsNode.position = SCNVector3(at.0, at.1, at.2)
 
-    node <<< spotsNode                            //           "frame" << "spots"
-}
+		node <<< spotsNode                            //           "frame" << "spots"
+	}
 
 /*┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
   │ ...                                                                                              │
@@ -189,7 +193,6 @@ func construct(orbTickRange: CountableClosedRange<Int>, orbTickDelta: Int) -> SC
 
     print("               ... \(trailNode.childNodes.count) ticks added")
     return trailNode
-
 }
 
 //func createTrail(_ geometry: SCNGeometry) -> SCNParticleSystem {
@@ -216,42 +219,49 @@ func construct(orbTickRange: CountableClosedRange<Int>, orbTickDelta: Int) -> SC
 //    return (rad * sin(inc) * cos(azi), rad * sin(inc) * sin(azi), rad * cos(inc))
 //}
 //
-//
-//import SpriteKit
-//
-//func constructSpriteView() -> OverlayScene {
-//
-//    let overlay = OverlayScene(size: CGSize(width: 600, height: 600))
-//
-//    let baseNode = SKNode()
-//    baseNode.name = "BASE"
-//    overlay.addChild(baseNode)
-//
-//    let rectNodeA = SKSpriteNode(color: #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1), size: CGSize(width: 80, height: 80))
-//    rectNodeA.position = CGPoint(x: 50, y: 50)
-//    rectNodeA.name = "BotL"
-//    overlay.addChild(rectNodeA)
-//
-//    let rectNodeB = SKSpriteNode(color: #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1), size: CGSize(width: 80, height: 80))
-//    rectNodeB.position = CGPoint(x: 550, y: 50)
-//    rectNodeB.name = "BotR"
-//    overlay.addChild(rectNodeB)
-//
-//    let rectNodeC = SKSpriteNode(color: #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1), size: CGSize(width: 80, height: 80))
-//    rectNodeC.position = CGPoint(x: 50, y: 550)
-//    rectNodeC.name = "TopL"
-//    overlay.addChild(rectNodeC)
-//
-//    let rectNodeD = SKSpriteNode(color: #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1), size: CGSize(width: 80, height: 80))
-//    rectNodeD.position = CGPoint(x: 550, y: 550)
-//    rectNodeD.name = "TopR"
-//    overlay.addChild(rectNodeD)
-//
-//    let word = SKLabelNode(fontNamed: "HelveticaNeue-Bold")
-//    word.position = CGPoint(x: 300, y: 10)
-//    word.name = "WORD"
-//    word.text = "Geometries"
-//    baseNode.addChild(word)
-//
-//    return overlay
-//}
+
+import SpriteKit
+
+func constructSpriteView() -> OverlayScene {
+
+    let overlay = OverlayScene(size: CGSize(width: 600, height: 600))
+
+    let baseNode = SKNode()
+    baseNode.name = "BASE"
+    overlay.addChild(baseNode)
+
+    let cred = SKLabelNode(fontNamed: "HelveticaNeue-Bold")
+    cred.fontSize = 12.0
+    cred.position = CGPoint(x: 300, y: 580)
+    cred.name = "CRED"
+    cred.text = SatKit().name + " v" + SatKit().version + " (" + SatKit().build + ")"
+    baseNode.addChild(cred)
+
+    let rectNodeA = SKSpriteNode(color: #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1), size: CGSize(width: 80, height: 80))
+    rectNodeA.position = CGPoint(x: 50, y: 50)
+    rectNodeA.name = "BotL"
+    overlay.addChild(rectNodeA)
+
+    let rectNodeB = SKSpriteNode(color: #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1), size: CGSize(width: 80, height: 80))
+    rectNodeB.position = CGPoint(x: 550, y: 50)
+    rectNodeB.name = "BotR"
+    overlay.addChild(rectNodeB)
+
+    let rectNodeC = SKSpriteNode(color: #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1), size: CGSize(width: 80, height: 80))
+    rectNodeC.position = CGPoint(x: 50, y: 550)
+    rectNodeC.name = "TopL"
+    overlay.addChild(rectNodeC)
+
+    let rectNodeD = SKSpriteNode(color: #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1), size: CGSize(width: 80, height: 80))
+    rectNodeD.position = CGPoint(x: 550, y: 550)
+    rectNodeD.name = "TopR"
+    overlay.addChild(rectNodeD)
+
+    let word = SKLabelNode(fontNamed: "HelveticaNeue-Bold")
+    word.position = CGPoint(x: 300, y: 10)
+    word.name = "WORD"
+    word.text = "Geometries"
+    baseNode.addChild(word)
+
+    return overlay
+}
