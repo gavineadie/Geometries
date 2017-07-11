@@ -17,8 +17,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         downloadTLEs("http://www.celestrak.com/NORAD/elements/visual.txt")
 
-//      downloadTLEs("https://www.prismnet.com/~mmccants/programs/qsmag.zip")
-
     }
 
 /*┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓

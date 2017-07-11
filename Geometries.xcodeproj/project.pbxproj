@@ -86,7 +86,6 @@
 		868751D41BB5D57200939585 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		868751D61BB5D57200939585 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		86890D6B1C8010820046CF12 /* OverlayScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayScene.swift; sourceTree = "<group>"; };
-		86AC52D61DD648240004CBFC /* script.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; name = script.sh; path = "Build-Phases/script.sh"; sourceTree = SOURCE_ROOT; };
 		86AC76831DC96A71002CFFD7 /* SatKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SatKit.xcodeproj; path = ../SatKit/SatKit.xcodeproj; sourceTree = "<group>"; };
 		86B5D13F1E751260002DB9B1 /* SceneConstruction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneConstruction.swift; sourceTree = "<group>"; };
 		86BE7E221EEC876700475431 /* coast.vector */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = coast.vector; sourceTree = "<group>"; };
@@ -138,15 +137,6 @@
 			name = Particles;
 			sourceTree = "<group>";
 		};
-		864801B51DD643D8003C49CB /* Build-Phases */ = {
-			isa = PBXGroup;
-			children = (
-				86AC52D61DD648240004CBFC /* script.sh */,
-			);
-			name = "Build-Phases";
-			path = "Geometries/Build-Phases";
-			sourceTree = "<group>";
-		};
 		8654A2D51DCEA6E700D72606 /* DemosKit */ = {
 			isa = PBXGroup;
 			children = (
@@ -161,7 +151,6 @@
 		868751C11BB5D57200939585 = {
 			isa = PBXGroup;
 			children = (
-				864801B51DD643D8003C49CB /* Build-Phases */,
 				868751CC1BB5D57200939585 /* Geometries */,
 				86AC76831DC96A71002CFFD7 /* SatKit.xcodeproj */,
 				868751CB1BB5D57200939585 /* Products */,
@@ -208,7 +197,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 868751D91BB5D57200939585 /* Build configuration list for PBXNativeTarget "Geometries" */;
 			buildPhases = (
-				864801B31DD64256003C49CB /* Setup Script */,
 				868751C61BB5D57200939585 /* Sources */,
 				868751C71BB5D57200939585 /* Frameworks */,
 				868751C81BB5D57200939585 /* Resources */,
@@ -313,20 +301,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if which swiftlint >/dev/null; then\n   swiftlint\nelse\n   echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
-		};
-		864801B31DD64256003C49CB /* Setup Script */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Setup Script";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/bash;
-			shellScript = "$SRCROOT/Build-Phases/script.sh";
 		};
 /* End PBXShellScriptBuildPhase section */
 
