@@ -3,10 +3,7 @@
   ║ Created by Gavin Eadie on Jun10/17  ..  Copyright © 2017 Ramsay Consulting. All rights reserved. ║
   ╚══════════════════════════════════════════════════════════════════════════════════════════════════╝*/
 
-// swiftlint:disable large_tuple
 // swiftlint:disable variable_name
-// swiftlint:disable statement_position
-// swiftlint:disable file_length
 
 import SceneKit
 
