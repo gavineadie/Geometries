@@ -33,7 +33,7 @@ func MakeEarth() -> SCNNode {
 /*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
   ╎ Earth's surface -- a globe of ~Rₑ                                                                ╎
   ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
-    let globeGeom = SCNSphere(radius: CGFloat(Rₑ - 10.0))
+    let globeGeom = SCNSphere(radius: CGFloat(Rₑ - 100.0))
     globeGeom.isGeodesic = false
     globeGeom.segmentCount = 90
 
@@ -45,11 +45,12 @@ func MakeEarth() -> SCNNode {
   ╎ Earth's lat/lon grid dots -- build the "grids" node and add it to "earth" ..                     ╎
   ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
     if let gridsGeom = xxxxxMesh(resourceFile: "grids.vector") {
-        gridsGeom.firstMaterial?.diffuse.contents = Color.black
+        gridsGeom.firstMaterial?.diffuse.contents = Color.gray
+        gridsGeom.firstMaterial?.lightingModel = .constant
 
-    let gridsNode = SCNNode(geometry: gridsGeom)
-    gridsNode.name = "grids"
-    earthNode <<< gridsNode
+		let gridsNode = SCNNode(geometry: gridsGeom)
+		gridsNode.name = "grids"
+		earthNode <<< gridsNode
 }
 
 /*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
@@ -57,6 +58,7 @@ func MakeEarth() -> SCNNode {
   ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
     if let coastGeom = xxxxxMesh(resourceFile: "coast.vector") {
         coastGeom.firstMaterial?.diffuse.contents = Color.blue
+        coastGeom.firstMaterial?.lightingModel = .constant
 
         let coastNode = SCNNode(geometry: coastGeom)
         coastNode.name = "coast"
@@ -90,6 +92,9 @@ func addObserver(_ parentNode: SCNNode, at: (Double, Double, Double)) {
   │ with a viewpoint initially on x-axis at 120,000Km with north (z-axis) up                         │
   │                                                      http://stackoverflow.com/questions/25654772 │
   └──────────────────────────────────────────────────────────────────────────────────────────────────┘*/
+let cameraDistance = 120_000.0
+let cameraBracket = 40_000.0
+
 func addViewCamera(to node: SCNNode) {
     print("               ...addViewCamera()")
 
@@ -97,7 +102,9 @@ func addViewCamera(to node: SCNNode) {
     let cameraRange = 120_000.0
     camera.xFov = 800_000.0 / cameraRange
     camera.yFov = 800_000.0 / cameraRange
-    camera.automaticallyAdjustsZRange = true
+
+    camera.zFar  = cameraDistance+cameraBracket         // z-Range brackets geo
+    camera.zNear = cameraDistance-cameraBracket
 
     let cameraNode = SCNNode()
     cameraNode.name = "camra"
