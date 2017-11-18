@@ -172,51 +172,51 @@ class ViewController: NSViewController, SCNSceneRendererDelegate {
 
     func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
 
-/*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
-  ╎ guard for satellites available ..                                                                ╎
-  ╎                                                 .. once a second: reposition the satellite trail ╎
-  ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
-        guard let visualCollection = satelliteStore["visual.txt"],
-                  visualCollection.collectionSats.count > 0 else { return }
-
-        if frameCount % 10 == 0 {                   // once a second
-
-            if let satellite = visualCollection.collectionSats["25544"] {
-
-                if frameNode.childNode(withName: "25544", recursively: true) == nil {
-                    trailNode = satellite.trailNode
-                    frameNode <<< trailNode
-                }
-
-                tickNodes = trailNode.childNodes
-
-                for index in orbTickRange {
-                    let satCel = satellite.position(minsAfterEpoch: /* satellite.minsAfterEpoch + */
-                                                                Double(orbTickDelta*index) / 60.0)
-
-/*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
-  ╎ is satellite in sunlight ?                                                                       ╎
-  ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
-                    let horizonAngle = acos(eRadiusKms/magnitude(satCel)) * rad2deg
-                    let sunCel =  solarCel(julianDays: Date().julianDate)
-                    let eclipseDepth = (horizonAngle + 90.0) - separation(satCel, sunCel)
-
-                    let tickIndex = index - orbTickRange.lowerBound
-                    tickNodes[tickIndex].position = SCNVector3(satCel.x, satCel.y, satCel.z)
-
-                    if let tickGeom = tickNodes[tickIndex].geometry as? SCNSphere {
-                        if index == 0 {
-                            tickGeom.radius = 50
-                            tickGeom.firstMaterial?.emission.contents = #colorLiteral(red: 1, green: 0.1491314173, blue: 0, alpha: 1)
-                            tickGeom.firstMaterial?.diffuse.contents = #colorLiteral(red: 1, green: 0.1491314173, blue: 0, alpha: 1)
-                        } else {
-                            tickGeom.radius = eclipseDepth < 0 ? 10.0 : 25.0
-                        }
-                    }
-
-                }
-            }
-        }
+///*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
+//  ╎ guard for satellites available ..                                                                ╎
+//  ╎                                                 .. once a second: reposition the satellite trail ╎
+//  ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
+//        guard let visualCollection = satelliteStore["visual.txt"],
+//                  visualCollection.collectionSats.count > 0 else { return }
+//
+//        if frameCount % 10 == 0 {                   // once a second
+//
+//            if let satellite = visualCollection.collectionSats["25544"] {
+//
+//                if frameNode.childNode(withName: "25544", recursively: true) == nil {
+//                    trailNode = satellite.trailNode
+//                    frameNode <<< trailNode
+//                }
+//
+//                tickNodes = trailNode.childNodes
+//
+//                for index in orbTickRange {
+//                    let satCel = satellite.position(minsAfterEpoch: /* satellite.minsAfterEpoch + */
+//                                                                Double(orbTickDelta*index) / 60.0)
+//
+///*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
+//  ╎ is satellite in sunlight ?                                                                       ╎
+//  ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
+//                    let horizonAngle = acos(eRadiusKms/magnitude(satCel)) * rad2deg
+//                    let sunCel =  solarCel(julianDays: Date().julianDate)
+//                    let eclipseDepth = (horizonAngle + 90.0) - separation(satCel, sunCel)
+//
+//                    let tickIndex = index - orbTickRange.lowerBound
+//                    tickNodes[tickIndex].position = SCNVector3(satCel.x, satCel.y, satCel.z)
+//
+//                    if let tickGeom = tickNodes[tickIndex].geometry as? SCNSphere {
+//                        if index == 0 {
+//                            tickGeom.radius = 50
+//                            tickGeom.firstMaterial?.emission.contents = #colorLiteral(red: 1, green: 0.1491314173, blue: 0, alpha: 1)
+//                            tickGeom.firstMaterial?.diffuse.contents = #colorLiteral(red: 1, green: 0.1491314173, blue: 0, alpha: 1)
+//                        } else {
+//                            tickGeom.radius = eclipseDepth < 0 ? 10.0 : 25.0
+//                        }
+//                    }
+//
+//                }
+//            }
+//        }
 
 /*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
   ╎ if the earth exists (the construction succeeded) ..                                              ╎

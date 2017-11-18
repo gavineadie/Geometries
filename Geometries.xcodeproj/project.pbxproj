@@ -12,48 +12,18 @@
 		863478001D135B7E0058F510 /* OverlayScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8672CC221C83CC2500E1DD5E /* OverlayScene.sks */; };
 		86386F441E1A1468003B018D /* Satellite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86386F431E1A1468003B018D /* Satellite.swift */; };
 		864A60041C82940D009D6C72 /* SceneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 864A60031C82940D009D6C72 /* SceneView.swift */; };
-		8654A2D81DCEA70300D72606 /* Satellites.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8654A2D71DCEA70300D72606 /* Satellites.swift */; };
-		8654A2DA1DCEA72D00D72606 /* SatDownload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8654A2D91DCEA72D00D72606 /* SatDownload.swift */; };
-		8654A2DC1DCEA73D00D72606 /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8654A2DB1DCEA73D00D72606 /* CacheManager.swift */; };
-		866B422F1EB3BD6B0010D973 /* SatStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 866B422E1EB3BD6B0010D973 /* SatStore.swift */; };
 		86757FAB1E46832500DD6780 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86757FAA1E46832500DD6780 /* Extensions.swift */; };
 		868751CE1BB5D57200939585 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 868751CD1BB5D57200939585 /* AppDelegate.swift */; };
 		868751D01BB5D57200939585 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 868751CF1BB5D57200939585 /* ViewController.swift */; };
 		868751D21BB5D57200939585 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 868751D11BB5D57200939585 /* Assets.xcassets */; };
 		868751D51BB5D57200939585 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 868751D31BB5D57200939585 /* Main.storyboard */; };
 		86890D6C1C8010820046CF12 /* OverlayScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86890D6B1C8010820046CF12 /* OverlayScene.swift */; };
-		86AC768C1DC96A91002CFFD7 /* SatKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86AC76891DC96A71002CFFD7 /* SatKit.framework */; };
-		86AC768D1DC96A91002CFFD7 /* SatKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 86AC76891DC96A71002CFFD7 /* SatKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		86AF6AE61EECE3AD004EBEFA /* SceneConstruction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86B5D13F1E751260002DB9B1 /* SceneConstruction.swift */; };
 		86BE7E241EEC876700475431 /* coast.vector in Resources */ = {isa = PBXBuildFile; fileRef = 86BE7E221EEC876700475431 /* coast.vector */; };
 		86BE7E251EEC876700475431 /* grids.vector in Resources */ = {isa = PBXBuildFile; fileRef = 86BE7E231EEC876700475431 /* grids.vector */; };
 		86D31DE21EECDCAA00577042 /* Geometries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86D31DE11EECDCAA00577042 /* Geometries.swift */; };
 		86E5582D1F22A3E200931A8D /* SpriteConstruction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86E5582C1F22A3E200931A8D /* SpriteConstruction.swift */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		86AC76881DC96A71002CFFD7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 86AC76831DC96A71002CFFD7 /* SatKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 861C592B1943B11500A83262;
-			remoteInfo = SatKit;
-		};
-		86AC768A1DC96A71002CFFD7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 86AC76831DC96A71002CFFD7 /* SatKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 861C59361943B11500A83262;
-			remoteInfo = SatKitTests;
-		};
-		86AC768E1DC96A91002CFFD7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 86AC76831DC96A71002CFFD7 /* SatKit.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 861C592A1943B11500A83262;
-			remoteInfo = SatKit;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		86AC76901DC96A91002CFFD7 /* Embed Frameworks */ = {
@@ -62,7 +32,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				86AC768D1DC96A91002CFFD7 /* SatKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -74,10 +43,6 @@
 		86280CBC1DDD5A2300BE3B6F /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
 		86386F431E1A1468003B018D /* Satellite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Satellite.swift; sourceTree = "<group>"; };
 		864A60031C82940D009D6C72 /* SceneView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneView.swift; sourceTree = "<group>"; };
-		8654A2D71DCEA70300D72606 /* Satellites.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Satellites.swift; path = ../../DEMOS/DemosKit/Satellites.swift; sourceTree = "<group>"; };
-		8654A2D91DCEA72D00D72606 /* SatDownload.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SatDownload.swift; path = ../../DEMOS/DemosKit/SatDownload.swift; sourceTree = "<group>"; };
-		8654A2DB1DCEA73D00D72606 /* CacheManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CacheManager.swift; path = ../../DEMOS/DemosKit/CacheManager.swift; sourceTree = "<group>"; };
-		866B422E1EB3BD6B0010D973 /* SatStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SatStore.swift; path = ../../DEMOS/DemosKit/SatStore.swift; sourceTree = "<group>"; };
 		8672CC221C83CC2500E1DD5E /* OverlayScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = OverlayScene.sks; sourceTree = "<group>"; };
 		86757FAA1E46832500DD6780 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		868751CA1BB5D57200939585 /* Geometries.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Geometries.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -87,7 +52,6 @@
 		868751D41BB5D57200939585 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		868751D61BB5D57200939585 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		86890D6B1C8010820046CF12 /* OverlayScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayScene.swift; sourceTree = "<group>"; };
-		86AC76831DC96A71002CFFD7 /* SatKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SatKit.xcodeproj; path = ../SatKit/SatKit.xcodeproj; sourceTree = "<group>"; };
 		86B5D13F1E751260002DB9B1 /* SceneConstruction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneConstruction.swift; sourceTree = "<group>"; };
 		86BE7E221EEC876700475431 /* coast.vector */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = coast.vector; sourceTree = "<group>"; };
 		86BE7E231EEC876700475431 /* grids.vector */ = {isa = PBXFileReference; lastKnownFileType = file; path = grids.vector; sourceTree = "<group>"; };
@@ -100,7 +64,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				86AC768C1DC96A91002CFFD7 /* SatKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -140,22 +103,10 @@
 			name = Particles;
 			sourceTree = "<group>";
 		};
-		8654A2D51DCEA6E700D72606 /* DemosKit */ = {
-			isa = PBXGroup;
-			children = (
-				8654A2D71DCEA70300D72606 /* Satellites.swift */,
-				866B422E1EB3BD6B0010D973 /* SatStore.swift */,
-				8654A2D91DCEA72D00D72606 /* SatDownload.swift */,
-				8654A2DB1DCEA73D00D72606 /* CacheManager.swift */,
-			);
-			name = DemosKit;
-			sourceTree = "<group>";
-		};
 		868751C11BB5D57200939585 = {
 			isa = PBXGroup;
 			children = (
 				868751CC1BB5D57200939585 /* Geometries */,
-				86AC76831DC96A71002CFFD7 /* SatKit.xcodeproj */,
 				868751CB1BB5D57200939585 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -172,7 +123,6 @@
 			isa = PBXGroup;
 			children = (
 				861707EA1EECDF4300FD67EC /* Sources */,
-				8654A2D51DCEA6E700D72606 /* DemosKit */,
 				8672CC221C83CC2500E1DD5E /* OverlayScene.sks */,
 				868751D11BB5D57200939585 /* Assets.xcassets */,
 				868751D31BB5D57200939585 /* Main.storyboard */,
@@ -182,15 +132,6 @@
 				868751D61BB5D57200939585 /* Info.plist */,
 			);
 			path = Geometries;
-			sourceTree = "<group>";
-		};
-		86AC76841DC96A71002CFFD7 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				86AC76891DC96A71002CFFD7 /* SatKit.framework */,
-				86AC768B1DC96A71002CFFD7 /* SatKitTests.xctest */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -209,7 +150,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				86AC768F1DC96A91002CFFD7 /* PBXTargetDependency */,
 			);
 			name = Geometries;
 			productName = Geometries;
@@ -244,35 +184,12 @@
 			mainGroup = 868751C11BB5D57200939585;
 			productRefGroup = 868751CB1BB5D57200939585 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 86AC76841DC96A71002CFFD7 /* Products */;
-					ProjectRef = 86AC76831DC96A71002CFFD7 /* SatKit.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				868751C91BB5D57200939585 /* Geometries */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		86AC76891DC96A71002CFFD7 /* SatKit.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = SatKit.framework;
-			remoteRef = 86AC76881DC96A71002CFFD7 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		86AC768B1DC96A71002CFFD7 /* SatKitTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = SatKitTests.xctest;
-			remoteRef = 86AC768A1DC96A71002CFFD7 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		868751C81BB5D57200939585 /* Resources */ = {
@@ -318,25 +235,13 @@
 				86AF6AE61EECE3AD004EBEFA /* SceneConstruction.swift in Sources */,
 				86386F441E1A1468003B018D /* Satellite.swift in Sources */,
 				864A60041C82940D009D6C72 /* SceneView.swift in Sources */,
-				8654A2DA1DCEA72D00D72606 /* SatDownload.swift in Sources */,
-				866B422F1EB3BD6B0010D973 /* SatStore.swift in Sources */,
-				8654A2D81DCEA70300D72606 /* Satellites.swift in Sources */,
 				86E5582D1F22A3E200931A8D /* SpriteConstruction.swift in Sources */,
 				86890D6C1C8010820046CF12 /* OverlayScene.swift in Sources */,
 				868751CE1BB5D57200939585 /* AppDelegate.swift in Sources */,
-				8654A2DC1DCEA73D00D72606 /* CacheManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		86AC768F1DC96A91002CFFD7 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = SatKit;
-			targetProxy = 86AC768E1DC96A91002CFFD7 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		868751D31BB5D57200939585 /* Main.storyboard */ = {

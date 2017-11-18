@@ -15,8 +15,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛*/
     func applicationDidFinishLaunching(_ aNotification: Notification) {
 
-        downloadTLEs("http://www.celestrak.com/NORAD/elements/visual.txt")
-
     }
 
 /*┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
