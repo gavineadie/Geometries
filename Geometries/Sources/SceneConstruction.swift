@@ -5,7 +5,6 @@
 
 // swiftlint:disable large_tuple
 // swiftlint:disable variable_name
-// swiftlint:disable statement_position
 
 import SceneKit
 import SatKit
@@ -46,11 +45,12 @@ func MakeEarth() -> SCNNode {
   ╎ Earth's lat/lon grid dots -- build the "grids" node and add it to "earth" ..                     ╎
   ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
     if let gridsGeom = xxxxxMesh(resourceFile: "grids.vector") {
-        gridsGeom.firstMaterial?.diffuse.contents = Color.black
+        gridsGeom.firstMaterial?.diffuse.contents = Color.gray
+        gridsGeom.firstMaterial?.lightingModel = .constant
 
-    let gridsNode = SCNNode(geometry: gridsGeom)
-    gridsNode.name = "grids"
-    earthNode <<< gridsNode
+		let gridsNode = SCNNode(geometry: gridsGeom)
+		gridsNode.name = "grids"
+		earthNode <<< gridsNode
 }
 
 /*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
@@ -58,6 +58,7 @@ func MakeEarth() -> SCNNode {
   ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
     if let coastGeom = xxxxxMesh(resourceFile: "coast.vector") {
         coastGeom.firstMaterial?.diffuse.contents = Color.blue
+        coastGeom.firstMaterial?.lightingModel = .constant
 
         let coastNode = SCNNode(geometry: coastGeom)
         coastNode.name = "coast"
@@ -79,7 +80,7 @@ func addObserver(_ parentNode: SCNNode, at: (Double, Double, Double)) {
     viewrGeom.firstMaterial?.emission.contents = #colorLiteral(red: 0, green: 1.0, blue: 0, alpha: 1)
     viewrGeom.firstMaterial?.diffuse.contents = #colorLiteral(red: 0, green: 1.0, blue: 0, alpha: 1)
 
-    let viewrNode = SCNNode(geometry:viewrGeom)
+    let viewrNode = SCNNode(geometry: viewrGeom)
     viewrNode.name = "obsvr"
     viewrNode.position = SCNVector3(at.0, at.1, at.2)
 
@@ -91,6 +92,9 @@ func addObserver(_ parentNode: SCNNode, at: (Double, Double, Double)) {
   │ with a viewpoint initially on x-axis at 120,000Km with north (z-axis) up                         │
   │                                                      http://stackoverflow.com/questions/25654772 │
   └──────────────────────────────────────────────────────────────────────────────────────────────────┘*/
+let cameraDistance = 120_000.0
+let cameraBracket = 40_000.0
+
 func addViewCamera(to node: SCNNode) {
     print("               ...addViewCamera()")
 
@@ -98,7 +102,9 @@ func addViewCamera(to node: SCNNode) {
     let cameraRange = 120_000.0
     camera.xFov = 800_000.0 / cameraRange
     camera.yFov = 800_000.0 / cameraRange
-    camera.automaticallyAdjustsZRange = true
+
+    camera.zFar  = cameraDistance+cameraBracket         // z-Range brackets geo
+    camera.zNear = cameraDistance-cameraBracket
 
     let cameraNode = SCNNode()
     cameraNode.name = "camra"
@@ -127,7 +133,7 @@ func addSolarLight(to node: SCNNode) {
     let solarNode = SCNNode()                           // position of sun in (x,y,z)
     solarNode.name = "solar"
 
-    let sunVector = solarCel(julianDays: julianDaysNow())
+    let sunVector = solarCel(julianDays: Date().julianDate)
     solarNode.position = SCNVector3(sunVector.x, sunVector.y, sunVector.z)
 
     node <<< solarNode                                  //           "frame" << "solar"
@@ -157,7 +163,7 @@ func addSolarLight(to node: SCNNode) {
 		spotsGeom.segmentCount = 6
 		spotsGeom.firstMaterial?.diffuse.contents = color
 
-		let spotsNode = SCNNode(geometry:spotsGeom)
+		let spotsNode = SCNNode(geometry: spotsGeom)
 		spotsNode.name = "spots"
 		spotsNode.position = SCNVector3(at.0, at.1, at.2)
 
@@ -214,49 +220,3 @@ func construct(orbTickRange: CountableClosedRange<Int>, orbTickDelta: Int) -> SC
 //    return (rad * sin(inc) * cos(azi), rad * sin(inc) * sin(azi), rad * cos(inc))
 //}
 //
-
-import SpriteKit
-
-func constructSpriteView() -> OverlayScene {
-
-    let overlay = OverlayScene(size: CGSize(width: 600, height: 600))
-
-    let baseNode = SKNode()
-    baseNode.name = "BASE"
-    overlay.addChild(baseNode)
-
-    let cred = SKLabelNode(fontNamed: "HelveticaNeue-Bold")
-    cred.fontSize = 12.0
-    cred.position = CGPoint(x: 300, y: 580)
-    cred.name = "CRED"
-    cred.text = SatKit().name + " v" + SatKit().version + " (" + SatKit().build + ")"
-    baseNode.addChild(cred)
-
-    let rectNodeA = SKSpriteNode(color: #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1), size: CGSize(width: 80, height: 80))
-    rectNodeA.position = CGPoint(x: 50, y: 50)
-    rectNodeA.name = "BotL"
-    overlay.addChild(rectNodeA)
-
-    let rectNodeB = SKSpriteNode(color: #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1), size: CGSize(width: 80, height: 80))
-    rectNodeB.position = CGPoint(x: 550, y: 50)
-    rectNodeB.name = "BotR"
-    overlay.addChild(rectNodeB)
-
-    let rectNodeC = SKSpriteNode(color: #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1), size: CGSize(width: 80, height: 80))
-    rectNodeC.position = CGPoint(x: 50, y: 550)
-    rectNodeC.name = "TopL"
-    overlay.addChild(rectNodeC)
-
-    let rectNodeD = SKSpriteNode(color: #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1), size: CGSize(width: 80, height: 80))
-    rectNodeD.position = CGPoint(x: 550, y: 550)
-    rectNodeD.name = "TopR"
-    overlay.addChild(rectNodeD)
-
-    let word = SKLabelNode(fontNamed: "HelveticaNeue-Bold")
-    word.position = CGPoint(x: 300, y: 10)
-    word.name = "WORD"
-    word.text = "Geometries"
-    baseNode.addChild(word)
-
-    return overlay
-}

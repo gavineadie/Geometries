@@ -39,7 +39,7 @@ public extension Satellite {
         var result = [Vector]()
 
         for epochMin in epochStride {
-            result.append(self.position(minsAfterEpoch:epochMin))
+            result.append(self.position(minsAfterEpoch: epochMin))
         }
 
         return result

@@ -4,10 +4,7 @@
   ║ Created by Gavin Eadie on Sep25/15 ... Copyright 2015-17 Ramsay Consulting. All rights reserved. ║
   ╚══════════════════════════════════════════════════════════════════════════════════════════════════╝*/
 
-// swiftlint:disable large_tuple
 // swiftlint:disable variable_name
-// swiftlint:disable statement_position
-// swiftlint:disable cyclomatic_complexity
 
 import SceneKit
 import SatKit
@@ -110,13 +107,13 @@ class ViewController: NSViewController, SCNSceneRendererDelegate {
   ╎ get the observer's position ..                                                                   ╎
   ╎ .. and attach an "obsvr" node to node "earth"                                                    ╎
   ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
-        let obsCelestial = geo2eci(julianDays:-1.0,
+        let obsCelestial = geo2eci(julianDays: -1.0,
                                    geodetic: Vector(AnnArborLatitude, AnnArborLongitude, AnnArborAltitude))
-        Geometries.addObserver(earthNode, at:(obsCelestial.x, obsCelestial.y, obsCelestial.z))
+        Geometries.addObserver(earthNode, at: (obsCelestial.x, obsCelestial.y, obsCelestial.z))
 /*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
   ╎ rotate "earthNode" for time of day                                                               ╎
   ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
-        earthNode.eulerAngles.z += CGFloat(zeroMeanSiderealTime(julianDaysNow()) * deg2rad)
+        earthNode.eulerAngles.z += CGFloat(zeroMeanSiderealTime(julianDate: Date().julianDate) * deg2rad)
 /*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
   ╎ .. and attach "camra" node to "scene" and "light" node to "earth" ..                             ╎
   ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
@@ -180,11 +177,11 @@ class ViewController: NSViewController, SCNSceneRendererDelegate {
   ╎                                                 .. once a second: reposition the satellite trail ╎
   ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
         guard let visualCollection = satelliteStore["visual.txt"],
-                  visualCollection.count > 0 else { return }
+                  visualCollection.collectionSats.count > 0 else { return }
 
         if frameCount % 10 == 0 {                   // once a second
 
-            if let satellite = visualCollection["25544"] {
+            if let satellite = visualCollection.collectionSats["25544"] {
 
                 if frameNode.childNode(withName: "25544", recursively: true) == nil {
                     trailNode = satellite.trailNode
@@ -194,14 +191,14 @@ class ViewController: NSViewController, SCNSceneRendererDelegate {
                 tickNodes = trailNode.childNodes
 
                 for index in orbTickRange {
-                    let satCel = satellite.position(minsAfterEpoch: satellite.minsAfterEpoch +
+                    let satCel = satellite.position(minsAfterEpoch: /* satellite.minsAfterEpoch + */
                                                                 Double(orbTickDelta*index) / 60.0)
 
 /*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
   ╎ is satellite in sunlight ?                                                                       ╎
   ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
                     let horizonAngle = acos(eRadiusKms/magnitude(satCel)) * rad2deg
-                    let sunCel =  solarCel(julianDays: julianDaysNow())
+                    let sunCel =  solarCel(julianDays: Date().julianDate)
                     let eclipseDepth = (horizonAngle + 90.0) - separation(satCel, sunCel)
 
                     let tickIndex = index - orbTickRange.lowerBound
@@ -226,7 +223,7 @@ class ViewController: NSViewController, SCNSceneRendererDelegate {
   ╎                                                               .. once a minute: rotate the earth ╎
   ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
         if frameCount % 3600 == 0 {                 // every a minute
-            earthNode.eulerAngles.z = CGFloat(zeroMeanSiderealTime(julianDaysNow()) * deg2rad)
+            earthNode.eulerAngles.z = CGFloat(zeroMeanSiderealTime(julianDate: Date().julianDate) * deg2rad)
         }
 
 /*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
@@ -234,7 +231,7 @@ class ViewController: NSViewController, SCNSceneRendererDelegate {
   ╎                                                          .. once every ten minutes: move the sun ╎
   ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
         if frameCount % 36000 == 0 {                // once every ten minutes
-            let sunVector = solarCel(julianDays: julianDaysNow())
+            let sunVector = solarCel(julianDays: Date().julianDate)
             solarNode.position = SCNVector3(-sunVector.x, -sunVector.y, -sunVector.z)
 
             frameCount = 0
