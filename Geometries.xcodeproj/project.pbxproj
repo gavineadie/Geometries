@@ -22,6 +22,7 @@
 		868751D21BB5D57200939585 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 868751D11BB5D57200939585 /* Assets.xcassets */; };
 		868751D51BB5D57200939585 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 868751D31BB5D57200939585 /* Main.storyboard */; };
 		86890D6C1C8010820046CF12 /* OverlayScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86890D6B1C8010820046CF12 /* OverlayScene.swift */; };
+		869CA3461FBFF67400C1636F /* FakeClock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 869CA3441FBFF67400C1636F /* FakeClock.swift */; };
 		86AC768C1DC96A91002CFFD7 /* SatKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86AC76891DC96A71002CFFD7 /* SatKit.framework */; };
 		86AC768D1DC96A91002CFFD7 /* SatKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 86AC76891DC96A71002CFFD7 /* SatKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		86AF6AE61EECE3AD004EBEFA /* SceneConstruction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86B5D13F1E751260002DB9B1 /* SceneConstruction.swift */; };
@@ -87,6 +88,7 @@
 		868751D41BB5D57200939585 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		868751D61BB5D57200939585 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		86890D6B1C8010820046CF12 /* OverlayScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayScene.swift; sourceTree = "<group>"; };
+		869CA3441FBFF67400C1636F /* FakeClock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeClock.swift; sourceTree = "<group>"; };
 		86AC76831DC96A71002CFFD7 /* SatKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SatKit.xcodeproj; path = ../SatKit/SatKit.xcodeproj; sourceTree = "<group>"; };
 		86B5D13F1E751260002DB9B1 /* SceneConstruction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneConstruction.swift; sourceTree = "<group>"; };
 		86BE7E221EEC876700475431 /* coast.vector */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = coast.vector; sourceTree = "<group>"; };
@@ -127,6 +129,7 @@
 			isa = PBXGroup;
 			children = (
 				86757FAA1E46832500DD6780 /* Extensions.swift */,
+				869CA3441FBFF67400C1636F /* FakeClock.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -325,6 +328,7 @@
 				86890D6C1C8010820046CF12 /* OverlayScene.swift in Sources */,
 				868751CE1BB5D57200939585 /* AppDelegate.swift in Sources */,
 				8654A2DC1DCEA73D00D72606 /* CacheManager.swift in Sources */,
+				869CA3461FBFF67400C1636F /* FakeClock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
