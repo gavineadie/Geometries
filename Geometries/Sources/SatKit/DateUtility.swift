@@ -1,47 +1,29 @@
 /*╔══════════════════════════════════════════════════════════════════════════════════════════════════╗
-  ║ Satellite.swift                                                                       Satellites ║
-  ║                                                                                                  ║
-  ║ Created by Gavin Eadie on Jan01/17  ..  Copyright © 2017 Ramsay Consulting. All rights reserved. ║
+  ║ DateUtility.swift                                                                         SatKit ║
+  ║ Created by Gavin Eadie on 5/29/17.            Copyright © 2017 Gavin Eadie. All rights reserved. ║
   ╚══════════════════════════════════════════════════════════════════════════════════════════════════╝*/
 
-//import SatKit
-import SceneKit
+import Foundation
 
-public extension Satellite {
+extension Date {
 
 /*┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
-  │                                                                                                  │
+  │ convert decimal days since the TLE reference time (1950) to a Date                               │
   └──────────────────────────────────────────────────────────────────────────────────────────────────┘*/
-    var trailNode: SCNNode {
-        let basicNode = SCNNode()
-        basicNode.name = self.noradString
-
-        for _ in 0...orbTickRange.count {
-            let dottyGeom = SCNSphere(radius: 10.0)         //
-            dottyGeom.isGeodesic = true
-            dottyGeom.segmentCount = 6
-            dottyGeom.firstMaterial?.emission.contents = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1) // NSColor.white (!!CPU!!)
-
-            let dottyNode = SCNNode(geometry: dottyGeom)
-            dottyNode.position = SCNVector3(0.0, 0.0, 0.0)
-
-            basicNode <<< dottyNode                         //                      "trail" << "dotty"
-        }
-
-        return basicNode
+    init(daysSince1950: Double) {
+        self = Date(timeInterval: daysSince1950 * TimeConstants.day2sec,
+                    since: TimeConstants.tleEpochReferenceDate!)            // seconds since 1950
     }
 
 /*┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
-  │                                                                                                  │
+  │ convert a Date to a JD ..                                                                        │
   └──────────────────────────────────────────────────────────────────────────────────────────────────┘*/
-    public func positionsᴱᴾ(epochStride: StrideThrough<Double>) -> [Vector] {
+    public var julianDate: Double { return JD.appleZero +
+                                    timeIntervalSinceReferenceDate * TimeConstants.sec2day }
 
-        var result = [Vector]()
+/*┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ convert a Date to Julian days since 1900 ..                                                      │
+  └──────────────────────────────────────────────────────────────────────────────────────────────────┘*/
+    public var daysSince1900: Double { return julianDate - JD.epoch1900 }
 
-        for epochMin in epochStride {
-            result.append(self.position(minsAfterEpoch: epochMin))
-        }
-
-        return result
-    }
 }

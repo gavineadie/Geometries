@@ -7,7 +7,7 @@
 // swiftlint:disable variable_name
 
 import SceneKit
-import SatKit
+//import SatKit
 
 let  AnnArborLatitude = +42.2755
 let AnnArborLongitude = -83.7521

@@ -7,11 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		861F1A861FC1539100766289 /* TimeUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 861F1A851FC1539100766289 /* TimeUtility.swift */; };
 		86280CBD1DDD5A2300BE3B6F /* Fire.scnp in Resources */ = {isa = PBXBuildFile; fileRef = 86280CBB1DDD5A2300BE3B6F /* Fire.scnp */; };
 		86280CBE1DDD5A2300BE3B6F /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = 86280CBC1DDD5A2300BE3B6F /* spark.png */; };
 		863478001D135B7E0058F510 /* OverlayScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8672CC221C83CC2500E1DD5E /* OverlayScene.sks */; };
-		86386F441E1A1468003B018D /* Satellite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86386F431E1A1468003B018D /* Satellite.swift */; };
 		864A60041C82940D009D6C72 /* SceneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 864A60031C82940D009D6C72 /* SceneView.swift */; };
+		866DCC4C1FC14B1E00A2ADAE /* Astronomy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 866DCC4B1FC14B1E00A2ADAE /* Astronomy.swift */; };
+		866DCC4E1FC14B9C00A2ADAE /* MathUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 866DCC4D1FC14B9C00A2ADAE /* MathUtility.swift */; };
+		866DCC531FC14F1800A2ADAE /* DateUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 866DCC521FC14F1800A2ADAE /* DateUtility.swift */; };
 		86757FAB1E46832500DD6780 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86757FAA1E46832500DD6780 /* Extensions.swift */; };
 		868751CE1BB5D57200939585 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 868751CD1BB5D57200939585 /* AppDelegate.swift */; };
 		868751D01BB5D57200939585 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 868751CF1BB5D57200939585 /* ViewController.swift */; };
@@ -39,10 +42,14 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		861F1A851FC1539100766289 /* TimeUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TimeUtility.swift; path = ../../../../SatKit/Sources/Utility/TimeUtility.swift; sourceTree = "<group>"; };
 		86280CBB1DDD5A2300BE3B6F /* Fire.scnp */ = {isa = PBXFileReference; lastKnownFileType = file.scp; path = Fire.scnp; sourceTree = "<group>"; };
 		86280CBC1DDD5A2300BE3B6F /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
 		86386F431E1A1468003B018D /* Satellite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Satellite.swift; sourceTree = "<group>"; };
 		864A60031C82940D009D6C72 /* SceneView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneView.swift; sourceTree = "<group>"; };
+		866DCC4B1FC14B1E00A2ADAE /* Astronomy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Astronomy.swift; sourceTree = "<group>"; };
+		866DCC4D1FC14B9C00A2ADAE /* MathUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MathUtility.swift; sourceTree = "<group>"; };
+		866DCC521FC14F1800A2ADAE /* DateUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateUtility.swift; sourceTree = "<group>"; };
 		8672CC221C83CC2500E1DD5E /* OverlayScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = OverlayScene.sks; sourceTree = "<group>"; };
 		86757FAA1E46832500DD6780 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		868751CA1BB5D57200939585 /* Geometries.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Geometries.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -82,6 +89,7 @@
 				86386F431E1A1468003B018D /* Satellite.swift */,
 				86890D6B1C8010820046CF12 /* OverlayScene.swift */,
 				861707EB1EECDF7900FD67EC /* Utility */,
+				866DCC4A1FC14B0000A2ADAE /* SatKit */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -101,6 +109,17 @@
 				86280CBC1DDD5A2300BE3B6F /* spark.png */,
 			);
 			name = Particles;
+			sourceTree = "<group>";
+		};
+		866DCC4A1FC14B0000A2ADAE /* SatKit */ = {
+			isa = PBXGroup;
+			children = (
+				866DCC4D1FC14B9C00A2ADAE /* MathUtility.swift */,
+				866DCC4B1FC14B1E00A2ADAE /* Astronomy.swift */,
+				861F1A851FC1539100766289 /* TimeUtility.swift */,
+				866DCC521FC14F1800A2ADAE /* DateUtility.swift */,
+			);
+			path = SatKit;
 			sourceTree = "<group>";
 		};
 		868751C11BB5D57200939585 = {
@@ -233,11 +252,14 @@
 				86757FAB1E46832500DD6780 /* Extensions.swift in Sources */,
 				86D31DE21EECDCAA00577042 /* Geometries.swift in Sources */,
 				86AF6AE61EECE3AD004EBEFA /* SceneConstruction.swift in Sources */,
-				86386F441E1A1468003B018D /* Satellite.swift in Sources */,
+				866DCC4C1FC14B1E00A2ADAE /* Astronomy.swift in Sources */,
 				864A60041C82940D009D6C72 /* SceneView.swift in Sources */,
+				866DCC4E1FC14B9C00A2ADAE /* MathUtility.swift in Sources */,
 				86E5582D1F22A3E200931A8D /* SpriteConstruction.swift in Sources */,
 				86890D6C1C8010820046CF12 /* OverlayScene.swift in Sources */,
+				866DCC531FC14F1800A2ADAE /* DateUtility.swift in Sources */,
 				868751CE1BB5D57200939585 /* AppDelegate.swift in Sources */,
+				861F1A861FC1539100766289 /* TimeUtility.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

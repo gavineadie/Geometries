@@ -7,7 +7,7 @@
 // swiftlint:disable variable_name
 
 import SceneKit
-import SatKit
+//import SatKit
 
 // MARK: - Scene construction functions ..
 

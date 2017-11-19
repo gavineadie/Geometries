@@ -4,7 +4,7 @@
   ╚══════════════════════════════════════════════════════════════════════════════════════════════════╝*/
 
 import SpriteKit
-import SatKit
+//import SatKit
 
 func constructSpriteView() -> OverlayScene {
 
