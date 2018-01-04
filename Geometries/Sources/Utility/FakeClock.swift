@@ -10,11 +10,13 @@ class FakeClock {
 
     typealias JulianDays = Double
 
-    static let sharedInstance = FakeClock()
-
     public var dateOffset: Double = 0.0
     public var dateFactor: Double = 0.0
            var dateOrigin: Date = Date()
+
+    static let shared = FakeClock()
+
+    private init() {}
 
     public func date() -> Date {
 

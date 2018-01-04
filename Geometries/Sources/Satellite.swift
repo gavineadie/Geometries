@@ -14,7 +14,7 @@ public extension Satellite {
   └──────────────────────────────────────────────────────────────────────────────────────────────────┘*/
     var trailNode: SCNNode {
         let basicNode = SCNNode()
-        basicNode.name = self.noradString
+        basicNode.name = self.noradIdent
 
         for _ in 0...orbTickRange.count {
             let dottyGeom = SCNSphere(radius: 10.0)         //
