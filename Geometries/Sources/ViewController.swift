@@ -29,6 +29,8 @@ let  AnnArborAltitude =   0.1
 let orbTickDelta = 15                       // seconds between ticks on orbit path
 let orbTickRange = -10...330                //
 
+var fakeClock = FakeClock.sharedInstance
+
 class ViewController: NSViewController, SCNSceneRendererDelegate {
 
     var sceneNode = SCNNode()               // set in "viewDidLoad()" after scene constructed ..
@@ -46,6 +48,9 @@ class ViewController: NSViewController, SCNSceneRendererDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         print("ViewController.viewDidLoad()")
+
+        fakeClock.reset()
+        fakeClock.dateFactor = 0.0
 
         sceneView.backgroundColor = #colorLiteral(red: 0.0, green: 0.0, blue: 0.5, alpha: 1)
         sceneView.scene = SCNScene()

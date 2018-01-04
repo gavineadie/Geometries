@@ -98,6 +98,7 @@
 			isa = PBXGroup;
 			children = (
 				86757FAA1E46832500DD6780 /* Extensions.swift */,
+				869CA3441FBFF67400C1636F /* FakeClock.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -259,7 +260,12 @@
 				86890D6C1C8010820046CF12 /* OverlayScene.swift in Sources */,
 				866DCC531FC14F1800A2ADAE /* DateUtility.swift in Sources */,
 				868751CE1BB5D57200939585 /* AppDelegate.swift in Sources */,
+<<<<<<< HEAD
 				861F1A861FC1539100766289 /* TimeUtility.swift in Sources */,
+=======
+				8654A2DC1DCEA73D00D72606 /* CacheManager.swift in Sources */,
+				869CA3461FBFF67400C1636F /* FakeClock.swift in Sources */,
+>>>>>>> master
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
