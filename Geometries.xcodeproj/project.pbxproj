@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8622183F2000330D003D7F7F /* AppPertinent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8622183D2000330D003D7F7F /* AppPertinent.swift */; };
+		862218462000441C003D7F7F /* SceneDynamics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 862218442000441C003D7F7F /* SceneDynamics.swift */; };
 		86280CBD1DDD5A2300BE3B6F /* Fire.scnp in Resources */ = {isa = PBXBuildFile; fileRef = 86280CBB1DDD5A2300BE3B6F /* Fire.scnp */; };
 		86280CBE1DDD5A2300BE3B6F /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = 86280CBC1DDD5A2300BE3B6F /* spark.png */; };
 		863478001D135B7E0058F510 /* OverlayScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8672CC221C83CC2500E1DD5E /* OverlayScene.sks */; };
@@ -71,6 +73,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8622183D2000330D003D7F7F /* AppPertinent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppPertinent.swift; sourceTree = "<group>"; };
+		862218442000441C003D7F7F /* SceneDynamics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDynamics.swift; sourceTree = "<group>"; };
 		86280CBB1DDD5A2300BE3B6F /* Fire.scnp */ = {isa = PBXFileReference; lastKnownFileType = file.scp; path = Fire.scnp; sourceTree = "<group>"; };
 		86280CBC1DDD5A2300BE3B6F /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
 		86386F431E1A1468003B018D /* Satellite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Satellite.swift; sourceTree = "<group>"; };
@@ -113,9 +117,11 @@
 			isa = PBXGroup;
 			children = (
 				868751CD1BB5D57200939585 /* AppDelegate.swift */,
+				8622183D2000330D003D7F7F /* AppPertinent.swift */,
 				868751CF1BB5D57200939585 /* ViewController.swift */,
 				864A60031C82940D009D6C72 /* SceneView.swift */,
 				86B5D13F1E751260002DB9B1 /* SceneConstruction.swift */,
+				862218442000441C003D7F7F /* SceneDynamics.swift */,
 				86E5582C1F22A3E200931A8D /* SpriteConstruction.swift */,
 				86D31DE11EECDCAA00577042 /* Geometries.swift */,
 				86386F431E1A1468003B018D /* Satellite.swift */,
@@ -319,12 +325,14 @@
 				86757FAB1E46832500DD6780 /* Extensions.swift in Sources */,
 				86D31DE21EECDCAA00577042 /* Geometries.swift in Sources */,
 				86AF6AE61EECE3AD004EBEFA /* SceneConstruction.swift in Sources */,
+				862218462000441C003D7F7F /* SceneDynamics.swift in Sources */,
 				86386F441E1A1468003B018D /* Satellite.swift in Sources */,
 				864A60041C82940D009D6C72 /* SceneView.swift in Sources */,
 				8654A2DA1DCEA72D00D72606 /* SatDownload.swift in Sources */,
 				866B422F1EB3BD6B0010D973 /* SatStore.swift in Sources */,
 				8654A2D81DCEA70300D72606 /* Satellites.swift in Sources */,
 				86E5582D1F22A3E200931A8D /* SpriteConstruction.swift in Sources */,
+				8622183F2000330D003D7F7F /* AppPertinent.swift in Sources */,
 				86890D6C1C8010820046CF12 /* OverlayScene.swift in Sources */,
 				868751CE1BB5D57200939585 /* AppDelegate.swift in Sources */,
 				8654A2DC1DCEA73D00D72606 /* CacheManager.swift in Sources */,

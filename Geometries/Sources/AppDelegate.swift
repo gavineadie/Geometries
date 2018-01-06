@@ -13,15 +13,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
   ┃     Insert code here to initialize your application                                              ┃
   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛*/
     func applicationDidFinishLaunching(_ aNotification: Notification) {
+        if Debug.trace { print("             Application| DidFinishLaunching()") }
 
-        downloadTLEs("http://www.celestrak.com/NORAD/elements/visual.txt")
+        AppSupport.shared.starting(Application.shared)
 
     }
 
 /*┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
   ┃     When the last window closes, it's time to say Goodbye (and thanks for all the fish!) ..      ┃
   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛*/
-    func applicationShouldTerminateAfterLastWindowClosed(_ app: NSApplication) -> Bool {
+    func applicationShouldTerminateAfterLastWindowClosed(_ app: Application) -> Bool {
 
         return true
 
@@ -31,6 +32,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
   ┃     Insert code here to tear down your application                                               ┃
   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛*/
     func applicationWillTerminate(_ aNotification: Notification) {
+        if Debug.trace { print("             Application| WillTerminate()") }
+
+        AppSupport.shared.shutdown(Application.shared)
 
     }
 

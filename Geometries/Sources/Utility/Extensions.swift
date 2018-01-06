@@ -6,6 +6,7 @@
 // swiftlint:disable identifier_name
 
 import SceneKit
+import SatKit
 
 let Rₑ: Double = 6.378135e3                // equatorial radius (polar radius = 6356.752 Kms)
 let  π: Double = 3.141_592_653_589_793_238_462_643_383_279_502_884_197_169_399_375_105_820_975
@@ -27,9 +28,9 @@ extension SCNVector3 {
 
     public init(_ v: Vector) {
         self.init()
-        x = Float(v.x)
-        y = Float(v.y)
-        z = Float(v.z)
+        x = CGFloat(v.x)
+        y = CGFloat(v.y)
+        z = CGFloat(v.z)
     }
 
 }
@@ -66,7 +67,6 @@ extension CGFloat {
 
 }
 
-
 extension Float {
 
     static let π: Float = 3.141_592_653_589_793_238_462
@@ -80,17 +80,6 @@ extension Comparable {
     func clamp(from lowerBound: Self, to upperBound: Self) -> Self {
         return min(max(self, lowerBound), upperBound)
     }
-}
-
-/*╔══════════════════════════════════════════════════════════════════════════════════════════════════╗
-  ║ Environment.swift                                                                     Satellites ║
-  ║ Created by Gavin Eadie on Sep03/17            Copyright © 2017 Gavin Eadie. All rights reserved. ║
-  ╚══════════════════════════════════════════════════════════════════════════════════════════════════╝*/
-
-extension UIDevice {
-
-    public static var systemIs64Bit: Bool { return CGFLOAT_IS_DOUBLE == 1 }
-
 }
 
 /*┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
@@ -111,4 +100,3 @@ extension DispatchTime: ExpressibleByFloatLiteral {
 //Now I can use async dispatch the way God intended:
 //
 //DispatchQueue.main.asyncAfter(deadline: 5) { /* ... */ }
-
