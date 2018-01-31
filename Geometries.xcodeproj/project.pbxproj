@@ -214,6 +214,7 @@
 				868751C81BB5D57200939585 /* Resources */,
 				86AC76901DC96A91002CFFD7 /* Embed Frameworks */,
 				8613487B1E3CD83000195B6F /* ShellScript */,
+				86FB3E5F20227A01003E084A /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -313,6 +314,19 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if which swiftlint >/dev/null; then\n   swiftlint\nelse\n   echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
+		};
+		86FB3E5F20227A01003E084A /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export FULL_INFOPLIST_PATH=$CONFIGURATION_BUILD_DIR/$EXECUTABLE_FOLDER_PATH/../Info\necho $FULL_INFOPLIST_PATH\ndefaults write \"$FULL_INFOPLIST_PATH\" AppBuildDate -string \"`date +\"%b%d/%y\"`\"\ndefaults write \"$FULL_INFOPLIST_PATH\" AppBuildTime -string \"`date +\"%H:%M:%S\"`\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

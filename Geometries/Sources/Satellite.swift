@@ -211,7 +211,7 @@ public extension Satellite {
             let jd = self.tleJulian + tickMinutes / 1440.0
             var lla = eci2geo(julianDays: jd, celestial: oSatCel)
             lla.z = 0.0                                            // altitude = 0.0 (surface)
-            lla.y -= Double(orbTickDelta*index) * eRotation / 240.0 // adjust for earth rotation
+            lla.y -= Double(orbTickDelta*index) * TimeConstants.eRotation / 240.0 // adjust for earth rotation
 
             let sSatCel = geo2eci(julianDays: jd, geodetic: lla)
 

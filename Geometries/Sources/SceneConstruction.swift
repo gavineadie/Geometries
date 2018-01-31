@@ -67,7 +67,7 @@ func makeFrame() -> SCNNode {
     if Debug.scene { print("       SceneConstruction| makeFrame()") }
 
     let frameNode = SCNNode(name: "frame")              // frameNode
-    frameNode.eulerAngles = SCNVector3(x: -CGFloat.π/2.0, y: -CGFloat.π/2.0, z: 0.0)
+    frameNode.eulerAngles = SCNVector3(-Float.π/2.0, -Float.π/2.0, 0.0)
 
 /*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
   ╎ contruct the "earth" node .. this is the sphere of the Earth plus anything that rotates with it. ╎
@@ -164,7 +164,7 @@ func makeGlobe() -> SCNNode {
   ╎ rotate the globe so the texture maps in the right place ..                                       ╎
   ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
 
-    globeNode.eulerAngles = SCNVector3(x: CGFloat.π/2.0, y: 0.0, z: CGFloat.π/2.0)
+    globeNode.eulerAngles = SCNVector3(Float.π/2.0, 0.0, Float.π/2.0)
 
     let globeMaterial = SCNMaterial()
 //  globeMaterial.diffuse.contents = UIImage(named: "earth_diffuse_4k.jpg")
@@ -222,7 +222,7 @@ func makeCameraView() -> SCNNode {
     }
 
     let camraNode = SCNNode(name: "camra")
-    camraNode.position = SCNVector3(x: 0, y: 0, z: CGFloat(cameraDistance))
+    camraNode.position = SCNVector3(0, 0, Float(cameraDistance))
     camraNode.camera = camera
 
     let viewrNode = SCNNode(name: "viewr")              // non-rendering node, holds the camera

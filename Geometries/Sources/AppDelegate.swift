@@ -3,7 +3,13 @@
   ║ Created by Gavin Eadie on Sep25/15 ... Copyright 2015-18 Ramsay Consulting. All rights reserved. ║
   ╚══════════════════════════════════════════════════════════════════════════════════════════════════╝*/
 
-import Cocoa
+#if os(iOS) || os(tvOS) || os(watchOS)
+    import UIKit
+    typealias Application = UIApplication
+#else
+    import Cocoa
+    typealias Application = NSApplication
+#endif
 
 @NSApplicationMain
 

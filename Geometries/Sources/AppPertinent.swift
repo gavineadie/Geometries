@@ -7,10 +7,8 @@
 
 #if os(iOS) || os(tvOS) || os(watchOS)
     import UIKit
-    typealias Application = UIApplication
 #else
     import Cocoa
-    typealias Application = NSApplication
 #endif
 
 import SatKit
@@ -132,41 +130,6 @@ class AppSupport {
     func shutdown(_ application: Application) {
         if Debug.trace { print("              AppSupport| .. shutdown") }
 
-    }
-
-}
-
-extension String {
-
-    func localized(bundle: Bundle = .main, tableName: String = "Localizable") -> String {
-        return NSLocalizedString(self, tableName: tableName, value: "»\(self)«", comment: "")
-    }
-}
-
-extension Bundle {
-
-    public static var bundleID: String? { return main.bundleIdentifier }
-
-    public static var displayName: String {
-        return main.object(forInfoDictionaryKey: kCFBundleNameKey as String) as? String ?? "AppName"
-    }
-
-    public static var versionString: String {
-        return main.object(forInfoDictionaryKey: kCFBundleVersionKey as String) as? String ?? "0"
-    }
-
-    public static var versionNumber: Int { return Int(versionString) ?? 0 }
-
-    public static var shortVersion: String {
-        return main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? ""
-    }
-
-    public static var dateStamp: String {
-        return main.object(forInfoDictionaryKey: "AppBuildDate") as? String ?? "BuildDate"
-    }
-
-    public static var timeStamp: String {
-        return main.object(forInfoDictionaryKey: "AppBuildTime") as? String ?? "BuildTime"
     }
 
 }
