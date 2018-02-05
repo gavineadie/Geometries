@@ -3,6 +3,8 @@
   ║ Created by Gavin Eadie on Sep25/15 ... Copyright 2015-18 Ramsay Consulting. All rights reserved. ║
   ╚══════════════════════════════════════════════════════════════════════════════════════════════════╝*/
 
+// swiftlint:disable force_cast
+
 #if os(iOS) || os(tvOS) || os(watchOS)
     import UIKit
     typealias Application = UIApplication
@@ -15,6 +17,8 @@
 
 class AppDelegate: NSObject, NSApplicationDelegate {
 
+    @IBOutlet weak var window: NSWindow!
+
 /*┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
   ┃     Insert code here to initialize your application                                              ┃
   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛*/
@@ -25,12 +29,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     }
 
-/*┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-  ┃     When the last window closes, it's time to say Goodbye (and thanks for all the fish!) ..      ┃
-  ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛*/
-    func applicationShouldTerminateAfterLastWindowClosed(_ app: Application) -> Bool {
+    func applicationDidResignActive( _ notification: Notification) {
 
-        return true
+        AppSupport.shared.resigned(notification.object as! Application)
+
+    }
+
+    func applicationWillBecomeActive( _ notification: Notification) {
+
+        AppSupport.shared.energize(notification.object as! Application)
 
     }
 
@@ -41,6 +48,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         if Debug.trace { print("             Application| WillTerminate()") }
 
         AppSupport.shared.shutdown(Application.shared)
+
+    }
+
+/*┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+  ┃     When the last window closes, it's time to say Goodbye (and thanks for all the fish!) ..      ┃
+  ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛*/
+    func applicationShouldTerminateAfterLastWindowClosed(_ app: Application) -> Bool {
+
+        return true
 
     }
 

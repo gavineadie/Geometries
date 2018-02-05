@@ -4,6 +4,7 @@
   ╚══════════════════════════════════════════════════════════════════════════════════════════════════╝*/
 
 // swiftlint:disable discarded_notification_center_observer
+// swiftlint:disable weak_delegate
 
 #if os(iOS) || os(tvOS) || os(watchOS)
     import UIKit
@@ -13,7 +14,7 @@
 
 import SatKit
 
-struct Debug {
+enum Debug {
 
     static let clock = false
     static let error = false                        // debug error code
@@ -25,20 +26,29 @@ struct Debug {
 
 }
 
+protocol AppSupportDelegate: AnyObject {
+
+    func doApplicationUpgrade()
+    func doApplicationPhoneHome()
+
+}
+
 class AppSupport {
 
     static let shared = AppSupport()                // application support singleton ..
+
+    var delegate: AppSupportDelegate?
 
     private init() {
 #if DEBUG
     print("""
                 AppSupport| DEBUG BUILD
                           | Debug.clock=\(Debug.clock)
-                          | Debug.other=\(Debug.error)
-                          | Debug.other=\(Debug.https)
+                          | Debug.error=\(Debug.error)
+                          | Debug.https=\(Debug.https)
                           | Debug.other=\(Debug.other)
                           | Debug.scene=\(Debug.scene)
-                          | Debug.scene=\(Debug.trace)
+                          | Debug.trace=\(Debug.trace)
                           | Debug.views=\(Debug.views)
   """)
 #else
@@ -94,7 +104,7 @@ class AppSupport {
                 print("                        | \(notification)")
         })
 
-        tapHomebase()
+        delegate?.doApplicationPhoneHome()
 #endif
         downloadTLEs("http://www.celestrak.com/NORAD/elements/visual.txt")
 

@@ -326,7 +326,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export FULL_INFOPLIST_PATH=$CONFIGURATION_BUILD_DIR/$EXECUTABLE_FOLDER_PATH/../Info\necho $FULL_INFOPLIST_PATH\ndefaults write \"$FULL_INFOPLIST_PATH\" AppBuildDate -string \"`date +\"%b%d/%y\"`\"\ndefaults write \"$FULL_INFOPLIST_PATH\" AppBuildTime -string \"`date +\"%H:%M:%S\"`\"\n";
+			shellScript = "export PLIST_PATH=$CONFIGURATION_BUILD_DIR/$INFOPLIST_PATH\necho $PLIST_PATH\ndefaults write \"$PLIST_PATH\" AppBuildDate -string \"`date +\"%b%d/%y\"`\"\ndefaults write \"$PLIST_PATH\" AppBuildTime -string \"`date +\"%H:%M:%S\"`\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

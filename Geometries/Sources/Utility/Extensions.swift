@@ -79,6 +79,7 @@ extension String {
 extension Bundle {
 
 //  public static var bundleID: String? { return main.bundleIdentifier }
+//     open func object(forInfoDictionaryKey key: String) -> Any?
 
     public static var displayName: String {
         return main.object(forInfoDictionaryKey: kCFBundleNameKey as String) as? String ?? "AppName"
