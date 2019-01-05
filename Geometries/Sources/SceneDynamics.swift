@@ -36,10 +36,11 @@ class SceneDynamics {
         self.earthNode = sceneNode.childNode(withName: "earth", recursively: true)
     }
 
-    var frameCount = -1
 /*┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
   ┃  adjust our complete scene, as necessary, one a second ..                                        ┃
   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛*/
+    var frameCount = -1
+
     func sceneChange() {
 
         frameCount += 1
@@ -47,14 +48,14 @@ class SceneDynamics {
   ┆ guard for satellites available ..                                                                ┆
   ┆                                         .. specifically, we have a non-zero "visible" collection ┆
   ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
-        guard let visualCollection = satelliteStore["visual.txt"],
-                  visualCollection.collectionSats.count > 0 else { return }
+        guard let visualGroup = SatelliteStore.shared.visualGroup,
+                  visualGroup.sats.count > 0 else { return }
 
 /*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
   ┆ for the satellite(s) we want to display ..                                                       ┆
   ┆                                  .. search the scene for the "O" (orbital) base of the dot nodes ┆
   ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
-        if let satellite = visualCollection.collectionSats["25544"] {          // 42684
+        if let satellite = visualGroup.sats["25544"] {          // 42684
             satellite.orbitalNode(inFrame: frameNode)
             satellite.surfaceNode(inFrame: frameNode)
             satellite.horizonNode(inFrame: frameNode)

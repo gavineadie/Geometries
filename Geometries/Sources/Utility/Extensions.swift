@@ -19,6 +19,30 @@ let deg2rad = Double(π / 180.0)
 #endif
 
 /*┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ Copyright (c) 2015 Suyeol Jeon (xoul.kr)                                                         │
+  └──────────────────────────────────────────────────────────────────────────────────────────────────┘*/
+public protocol Then { }
+
+extension Then where Self: AnyObject {
+
+/// Makes it possible to set properties with closures just after initializing.
+///
+///     let label = UILabel().then {
+///       $0.textAlignment = .Center
+///       $0.textColor = UIColor.blackColor()
+///       $0.text = "Hello, World!"
+///     }
+
+    public func then(_ block: (Self) throws -> Void) rethrows -> Self {
+        try block(self)
+        return self
+    }
+
+}
+
+extension NSObject: Then {}
+
+/*┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
   └──────────────────────────────────────────────────────────────────────────────────────────────────┘*/
 extension SCNVector3 {
 
@@ -78,8 +102,7 @@ extension String {
   └──────────────────────────────────────────────────────────────────────────────────────────────────┘*/
 extension Bundle {
 
-//  public static var bundleID: String? { return main.bundleIdentifier }
-//     open func object(forInfoDictionaryKey key: String) -> Any?
+    public static var bundleID: String? { return main.bundleIdentifier }
 
     public static var displayName: String {
         return main.object(forInfoDictionaryKey: kCFBundleNameKey as String) as? String ?? "AppName"

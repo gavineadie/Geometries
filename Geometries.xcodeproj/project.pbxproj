@@ -13,9 +13,9 @@
 		86280CBE1DDD5A2300BE3B6F /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = 86280CBC1DDD5A2300BE3B6F /* spark.png */; };
 		863478001D135B7E0058F510 /* OverlayScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8672CC221C83CC2500E1DD5E /* OverlayScene.sks */; };
 		86386F441E1A1468003B018D /* Satellite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86386F431E1A1468003B018D /* Satellite.swift */; };
+		863D136321E1712400C72044 /* SatKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 863D135221E165D000C72044 /* SatKit.framework */; };
+		863D136421E1712400C72044 /* SatKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 863D135221E165D000C72044 /* SatKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		864A60041C82940D009D6C72 /* SceneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 864A60031C82940D009D6C72 /* SceneView.swift */; };
-		8654A2D81DCEA70300D72606 /* Satellites.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8654A2D71DCEA70300D72606 /* Satellites.swift */; };
-		8654A2DA1DCEA72D00D72606 /* SatDownload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8654A2D91DCEA72D00D72606 /* SatDownload.swift */; };
 		8654A2DC1DCEA73D00D72606 /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8654A2DB1DCEA73D00D72606 /* CacheManager.swift */; };
 		866B422F1EB3BD6B0010D973 /* SatStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 866B422E1EB3BD6B0010D973 /* SatStore.swift */; };
 		86757FAB1E46832500DD6780 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86757FAA1E46832500DD6780 /* Extensions.swift */; };
@@ -25,8 +25,6 @@
 		868751D51BB5D57200939585 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 868751D31BB5D57200939585 /* Main.storyboard */; };
 		86890D6C1C8010820046CF12 /* OverlayScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86890D6B1C8010820046CF12 /* OverlayScene.swift */; };
 		869CA3461FBFF67400C1636F /* FakeClock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 869CA3441FBFF67400C1636F /* FakeClock.swift */; };
-		86AC768C1DC96A91002CFFD7 /* SatKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86AC76891DC96A71002CFFD7 /* SatKit.framework */; };
-		86AC768D1DC96A91002CFFD7 /* SatKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 86AC76891DC96A71002CFFD7 /* SatKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		86AF6AE61EECE3AD004EBEFA /* SceneConstruction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86B5D13F1E751260002DB9B1 /* SceneConstruction.swift */; };
 		86BE7E241EEC876700475431 /* coast.vector in Resources */ = {isa = PBXBuildFile; fileRef = 86BE7E221EEC876700475431 /* coast.vector */; };
 		86BE7E251EEC876700475431 /* grids.vector in Resources */ = {isa = PBXBuildFile; fileRef = 86BE7E231EEC876700475431 /* grids.vector */; };
@@ -35,26 +33,54 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		86AC76881DC96A71002CFFD7 /* PBXContainerItemProxy */ = {
+		863D134F21E165D000C72044 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 86AC76831DC96A71002CFFD7 /* SatKit.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 861C592B1943B11500A83262;
-			remoteInfo = SatKit;
+			remoteGlobalIDString = 52D6D97C1BEFF229002C0205;
+			remoteInfo = "SatKit-iOS";
 		};
-		86AC768A1DC96A71002CFFD7 /* PBXContainerItemProxy */ = {
+		863D135121E165D000C72044 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 86AC76831DC96A71002CFFD7 /* SatKit.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 861C59361943B11500A83262;
-			remoteInfo = SatKitTests;
+			remoteGlobalIDString = 52D6DA0F1BF000BD002C0205;
+			remoteInfo = "SatKit-macOS";
 		};
-		86AC768E1DC96A91002CFFD7 /* PBXContainerItemProxy */ = {
+		863D135321E165D000C72044 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 86AC76831DC96A71002CFFD7 /* SatKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 52D6D9F01BEFFFBE002C0205;
+			remoteInfo = "SatKit-tvOS";
+		};
+		863D135521E165D000C72044 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 86AC76831DC96A71002CFFD7 /* SatKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 52D6D9861BEFF229002C0205;
+			remoteInfo = "SatKit-iOS Tests";
+		};
+		863D135721E165D000C72044 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 86AC76831DC96A71002CFFD7 /* SatKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = DD75027A1C68FCFC006590AF;
+			remoteInfo = "SatKit-macOS Tests";
+		};
+		863D135921E165D000C72044 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 86AC76831DC96A71002CFFD7 /* SatKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = DD75028D1C690C7A006590AF;
+			remoteInfo = "SatKit-tvOS Tests";
+		};
+		863D136521E1712400C72044 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 86AC76831DC96A71002CFFD7 /* SatKit.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 861C592A1943B11500A83262;
-			remoteInfo = SatKit;
+			remoteGlobalIDString = 52D6DA0E1BF000BD002C0205;
+			remoteInfo = "SatKit-macOS";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -65,7 +91,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				86AC768D1DC96A91002CFFD7 /* SatKit.framework in Embed Frameworks */,
+				863D136421E1712400C72044 /* SatKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -106,7 +132,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				86AC768C1DC96A91002CFFD7 /* SatKit.framework in Frameworks */,
+				863D136321E1712400C72044 /* SatKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -196,8 +222,12 @@
 		86AC76841DC96A71002CFFD7 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				86AC76891DC96A71002CFFD7 /* SatKit.framework */,
-				86AC768B1DC96A71002CFFD7 /* SatKitTests.xctest */,
+				863D135021E165D000C72044 /* SatKit.framework */,
+				863D135221E165D000C72044 /* SatKit.framework */,
+				863D135421E165D000C72044 /* SatKit.framework */,
+				863D135621E165D000C72044 /* SatKit-iOS Tests.xctest */,
+				863D135821E165D000C72044 /* SatKit-macOS Tests.xctest */,
+				863D135A21E165D000C72044 /* SatKit-tvOS Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -219,7 +249,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				86AC768F1DC96A91002CFFD7 /* PBXTargetDependency */,
+				863D136621E1712400C72044 /* PBXTargetDependency */,
 			);
 			name = Geometries;
 			productName = Geometries;
@@ -232,7 +262,7 @@
 		868751C21BB5D57200939585 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0910;
+				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = "Gavin Eadie";
 				TargetAttributes = {
 					868751C91BB5D57200939585 = {
@@ -268,18 +298,46 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		86AC76891DC96A71002CFFD7 /* SatKit.framework */ = {
+		863D135021E165D000C72044 /* SatKit.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = SatKit.framework;
-			remoteRef = 86AC76881DC96A71002CFFD7 /* PBXContainerItemProxy */;
+			remoteRef = 863D134F21E165D000C72044 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		86AC768B1DC96A71002CFFD7 /* SatKitTests.xctest */ = {
+		863D135221E165D000C72044 /* SatKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SatKit.framework;
+			remoteRef = 863D135121E165D000C72044 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		863D135421E165D000C72044 /* SatKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SatKit.framework;
+			remoteRef = 863D135321E165D000C72044 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		863D135621E165D000C72044 /* SatKit-iOS Tests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
-			path = SatKitTests.xctest;
-			remoteRef = 86AC768A1DC96A71002CFFD7 /* PBXContainerItemProxy */;
+			path = "SatKit-iOS Tests.xctest";
+			remoteRef = 863D135521E165D000C72044 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		863D135821E165D000C72044 /* SatKit-macOS Tests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "SatKit-macOS Tests.xctest";
+			remoteRef = 863D135721E165D000C72044 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		863D135A21E165D000C72044 /* SatKit-tvOS Tests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "SatKit-tvOS Tests.xctest";
+			remoteRef = 863D135921E165D000C72044 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -342,9 +400,7 @@
 				862218462000441C003D7F7F /* SceneDynamics.swift in Sources */,
 				86386F441E1A1468003B018D /* Satellite.swift in Sources */,
 				864A60041C82940D009D6C72 /* SceneView.swift in Sources */,
-				8654A2DA1DCEA72D00D72606 /* SatDownload.swift in Sources */,
 				866B422F1EB3BD6B0010D973 /* SatStore.swift in Sources */,
-				8654A2D81DCEA70300D72606 /* Satellites.swift in Sources */,
 				86E5582D1F22A3E200931A8D /* SpriteConstruction.swift in Sources */,
 				8622183F2000330D003D7F7F /* AppPertinent.swift in Sources */,
 				86890D6C1C8010820046CF12 /* OverlayScene.swift in Sources */,
@@ -357,10 +413,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		86AC768F1DC96A91002CFFD7 /* PBXTargetDependency */ = {
+		863D136621E1712400C72044 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = SatKit;
-			targetProxy = 86AC768E1DC96A91002CFFD7 /* PBXContainerItemProxy */;
+			name = "SatKit-macOS";
+			targetProxy = 863D136521E1712400C72044 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -379,15 +435,18 @@
 		868751D71BB5D57200939585 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
@@ -419,15 +478,18 @@
 		868751D81BB5D57200939585 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
@@ -454,6 +516,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = Geometries/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
@@ -468,6 +531,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = Geometries/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";

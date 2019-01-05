@@ -103,7 +103,7 @@ public extension Satellite {
         for azimuthStep in 0...horizonVertexCount {
 
             let azimuthDegs = azimuthStep * 360 / horizonVertexCount
-            let azimuthRads = fmod2pi(Double(azimuthDegs) * deg2rad)
+            let azimuthRads = fmod2pi_0(Double(azimuthDegs) * deg2rad)
 
             let footDelta = asin(sinSatLatitude * cosBeta +
                                  cosSatLatitude * sinBeta * cos(azimuthRads))
@@ -122,7 +122,7 @@ public extension Satellite {
             }
 
             let eciVector = geo2xyz(julianDays: (fakeClock.ep1950DaysNow() - self.tleEp1950) * 1440.0 *
-                                                        TimeConstants.min2day + self.tleJulian,
+                                                        TimeConstants.min2day + self.tleEp1950 + JD.noradZero,
                                     geodetic: Vector(footDelta * rad2deg, footAlpha * rad2deg, 0.0))
 
             var eciVertex = Vertex(x: Float(eciVector.x), y: Float(eciVector.y), z: Float(eciVector.z))
@@ -208,12 +208,12 @@ public extension Satellite {
             let tickMinutes = nowMinsAfterEpoch + Double(orbTickDelta*index) / 60.0
             let oSatCel = self.position(minsAfterEpoch: tickMinutes)
 
-            let jd = self.tleJulian + tickMinutes / 1440.0
-            var lla = eci2geo(julianDays: jd, celestial: oSatCel)
+            let jDate = self.tleEp1950 + JD.noradZero + tickMinutes / 1440.0
+            var lla = eci2geo(julianDays: jDate, celestial: oSatCel)
             lla.z = 0.0                                            // altitude = 0.0 (surface)
-            lla.y -= Double(orbTickDelta*index) * TimeConstants.eRotation / 240.0 // adjust for earth rotation
+            lla.y -= Double(orbTickDelta*index) * eRotation / 240.0 // adjust for earth rotation
 
-            let sSatCel = geo2eci(julianDays: jd, geodetic: lla)
+            let sSatCel = geo2eci(julianDays: jDate, geodetic: lla)
 
             let tickIndex = index - surTickRange.lowerBound
             sDots[tickIndex].position = SCNVector3(sSatCel.x, sSatCel.y, sSatCel.z)

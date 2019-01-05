@@ -8,8 +8,14 @@
 
 #if os(iOS) || os(tvOS) || os(watchOS)
     import UIKit
+
+    typealias Font = UIFont
+    typealias View = UIView
 #else
     import Cocoa
+
+    typealias Font = NSFont
+    typealias View = NSView
 #endif
 
 import SatKit
@@ -65,6 +71,19 @@ class AppSupport {
         if Debug.trace { print("              AppSupport| .. startup") }
 
 #if os(iOS) || os(tvOS) || os(watchOS)
+/*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
+  ┆ iOS Version ..                                                                                   ┆
+  ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
+        let myDevice = UIDevice.current
+
+        print(String(format: "              AppSupport| .. startup .. %@ %@ on %@",
+                     myDevice.systemName,
+                     ProcessInfo.processInfo.operatingSystemVersionString,
+                     stringsFromHardware()["hw.machine"] ?? "UNKNOWN"))
+
+/*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
+  ┆ Application Version ..                                                                           ┆
+  ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
         print(String(format: "              AppSupport| .. startup .. %@ v%@ (#%d • %@-bit) [%@ @ %@]",
                      "AppDisplayName".localized(), Bundle.shortVersion, Bundle.versionNumber,
                      UIDevice.systemIs64Bit ? "64" : "32", Bundle.dateStamp, Bundle.timeStamp))
@@ -73,6 +92,10 @@ class AppSupport {
                      Bundle.displayName, Bundle.shortVersion, Bundle.versionNumber,
                      Bundle.dateStamp, Bundle.timeStamp))
 #endif
+
+/*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
+  ┆ SatKit Version ..                                                                                ┆
+  ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
         print(String(format: "              AppSupport| .. startup .. %@", SatKit.version))
 
         if Debug.error { print("              AppSupport| .. failure " + "MissingKey".localized()) }
@@ -106,7 +129,7 @@ class AppSupport {
 
         delegate?.doApplicationPhoneHome()
 #endif
-        downloadTLEs("http://www.celestrak.com/NORAD/elements/visual.txt")
+//        downloadTLEs("http://www.celestrak.com/NORAD/elements/visual.txt")
 
 //      predictions()
 
