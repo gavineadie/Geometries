@@ -73,7 +73,13 @@ func makeFrame() -> SCNNode {
   ╎ contruct the "earth" node .. this is the sphere of the Earth plus anything that rotates with it. ╎
   ╎ The Earth is not exactly spherical; that oblateness, is gained by scaling the "earth" node.      ╎
   ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
-    let earthNode = makeEarth()                             // earthNode ("globe", "grids", coast")
+    let earthNode = SCNScene(named: "com.ramsaycons.earth.scn")?.rootNode ?? makeEarth()
+
+    let globeNode = earthNode.childNode(withName: "globe", recursively: true)
+    let globeMaterial = SCNMaterial()
+    globeMaterial.diffuse.contents = NSImage(named: NSImage.Name(rawValue: "earth_diffuse_4k.jpg"))
+    globeNode?.geometry?.firstMaterial = globeMaterial
+
     earthNode.scale = SCNVector3(1.0, 1.0, 6356.752/6378.135)
     earthNode.eulerAngles.z = CGFloat(zeroMeanSiderealTime(julianDate: FakeClock.shared.julianDaysNow()) * deg2rad)
     frameNode <<< earthNode
@@ -154,30 +160,16 @@ func makeGlobe() -> SCNNode {
 /*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
   ╎ Earth's surface -- a globe of ~Rₑ                                                                ╎
   ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
-    let globeGeom = SCNSphere(radius: CGFloat(Rₑ - 14.0))
+    let globeGeom = SCNSphere(radius: CGFloat(Rₑ - 5.0))
     globeGeom.isGeodesic = false
-    globeGeom.segmentCount = 60
-
-    let globeNode = SCNNode(geometry: globeGeom, name: "globe")
+    globeGeom.segmentCount = 90
+    globeGeom.firstMaterial?.lightingModel = .physicallyBased
 
 /*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
   ╎ rotate the globe so the texture maps in the right place ..                                       ╎
   ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
-
+    let globeNode = SCNNode(geometry: globeGeom, name: "globe")
     globeNode.eulerAngles = SCNVector3(Float.π/2.0, 0.0, Float.π/2.0)
-
-    let globeMaterial = SCNMaterial()
-//  globeMaterial.diffuse.contents = UIImage(named: "earth_diffuse_4k.jpg")
-    globeGeom.firstMaterial = globeMaterial
-
-    globeGeom.firstMaterial?.emission.contents = Color.black
-    globeGeom.firstMaterial?.specular.contents = Color.gray
-
-    if #available(iOS 10, *) {
-        globeGeom.firstMaterial?.lightingModel = .phong
-    } else {
-        globeGeom.firstMaterial?.lightingModel = .lambert
-    }
 
     return globeNode
 }

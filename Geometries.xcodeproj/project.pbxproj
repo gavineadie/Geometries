@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8610CA6C21E3D79B006E66F5 /* com.ramsaycons.earth.scn in Resources */ = {isa = PBXBuildFile; fileRef = 8610CA6B21E3D79A006E66F5 /* com.ramsaycons.earth.scn */; };
+		8610CA6E21E3EB8E006E66F5 /* earth_diffuse_4k.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8610CA6D21E3EB8E006E66F5 /* earth_diffuse_4k.jpg */; };
 		8622183F2000330D003D7F7F /* AppPertinent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8622183D2000330D003D7F7F /* AppPertinent.swift */; };
 		862218462000441C003D7F7F /* SceneDynamics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 862218442000441C003D7F7F /* SceneDynamics.swift */; };
 		86280CBD1DDD5A2300BE3B6F /* Fire.scnp in Resources */ = {isa = PBXBuildFile; fileRef = 86280CBB1DDD5A2300BE3B6F /* Fire.scnp */; };
@@ -99,14 +101,14 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8610CA6B21E3D79A006E66F5 /* com.ramsaycons.earth.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = com.ramsaycons.earth.scn; sourceTree = "<group>"; };
+		8610CA6D21E3EB8E006E66F5 /* earth_diffuse_4k.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = earth_diffuse_4k.jpg; sourceTree = "<group>"; };
 		8622183D2000330D003D7F7F /* AppPertinent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppPertinent.swift; sourceTree = "<group>"; };
 		862218442000441C003D7F7F /* SceneDynamics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDynamics.swift; sourceTree = "<group>"; };
 		86280CBB1DDD5A2300BE3B6F /* Fire.scnp */ = {isa = PBXFileReference; lastKnownFileType = file.scp; path = Fire.scnp; sourceTree = "<group>"; };
 		86280CBC1DDD5A2300BE3B6F /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
 		86386F431E1A1468003B018D /* Satellite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Satellite.swift; sourceTree = "<group>"; };
 		864A60031C82940D009D6C72 /* SceneView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneView.swift; sourceTree = "<group>"; };
-		8654A2D71DCEA70300D72606 /* Satellites.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Satellites.swift; path = ../../DEMOS/DemosKit/Satellites.swift; sourceTree = "<group>"; };
-		8654A2D91DCEA72D00D72606 /* SatDownload.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SatDownload.swift; path = ../../DEMOS/DemosKit/SatDownload.swift; sourceTree = "<group>"; };
 		8654A2DB1DCEA73D00D72606 /* CacheManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CacheManager.swift; path = ../../DEMOS/DemosKit/CacheManager.swift; sourceTree = "<group>"; };
 		866B422E1EB3BD6B0010D973 /* SatStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SatStore.swift; path = ../../DEMOS/DemosKit/SatStore.swift; sourceTree = "<group>"; };
 		8672CC221C83CC2500E1DD5E /* OverlayScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = OverlayScene.sks; sourceTree = "<group>"; };
@@ -178,9 +180,7 @@
 		8654A2D51DCEA6E700D72606 /* DemosKit */ = {
 			isa = PBXGroup;
 			children = (
-				8654A2D71DCEA70300D72606 /* Satellites.swift */,
 				866B422E1EB3BD6B0010D973 /* SatStore.swift */,
-				8654A2D91DCEA72D00D72606 /* SatDownload.swift */,
 				8654A2DB1DCEA73D00D72606 /* CacheManager.swift */,
 			);
 			name = DemosKit;
@@ -208,7 +208,9 @@
 			children = (
 				861707EA1EECDF4300FD67EC /* Sources */,
 				8654A2D51DCEA6E700D72606 /* DemosKit */,
+				8610CA6B21E3D79A006E66F5 /* com.ramsaycons.earth.scn */,
 				8672CC221C83CC2500E1DD5E /* OverlayScene.sks */,
+				8610CA6D21E3EB8E006E66F5 /* earth_diffuse_4k.jpg */,
 				868751D11BB5D57200939585 /* Assets.xcassets */,
 				868751D31BB5D57200939585 /* Main.storyboard */,
 				86BE7E221EEC876700475431 /* coast.vector */,
@@ -347,6 +349,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8610CA6E21E3EB8E006E66F5 /* earth_diffuse_4k.jpg in Resources */,
+				8610CA6C21E3D79B006E66F5 /* com.ramsaycons.earth.scn in Resources */,
 				86BE7E241EEC876700475431 /* coast.vector in Resources */,
 				868751D21BB5D57200939585 /* Assets.xcassets in Resources */,
 				86280CBE1DDD5A2300BE3B6F /* spark.png in Resources */,
@@ -520,7 +524,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = Geometries/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ramsaycons.Geometries;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -535,7 +539,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = Geometries/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ramsaycons.Geometries;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";

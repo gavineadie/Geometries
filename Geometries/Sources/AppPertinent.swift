@@ -129,21 +129,6 @@ class AppSupport {
 
         delegate?.doApplicationPhoneHome()
 #endif
-//        downloadTLEs("http://www.celestrak.com/NORAD/elements/visual.txt")
-
-//      predictions()
-
-//        let satStore = SatelliteStore.shared
-//
-//        let observation = satStore.observe(\.name) { (satStore, change) in
-//            print("satStore.name: \(satStore.name) .. \(change)")
-//        }
-//
-//        satStore.name = "B"
-//
-//        observation.invalidate()
-//
-//        satStore.name = "C"
 
     }
 
