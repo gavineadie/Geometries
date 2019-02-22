@@ -1,6 +1,6 @@
 /*╔══════════════════════════════════════════════════════════════════════════════════════════════════╗
   ║ Satellite.swift                                                                       Satellites ║
-  ║ Created by Gavin Eadie on Jan01/17.. Copyright © 2017-18 Ramsay Consulting. All rights reserved. ║
+  ║ Created by Gavin Eadie on Jan01/17.. Copyright © 2017-19 Ramsay Consulting. All rights reserved. ║
   ╚══════════════════════════════════════════════════════════════════════════════════════════════════╝*/
 
 // swiftlint:disable statement_position
@@ -88,15 +88,17 @@ public extension Satellite {
     func horizonNode(inFrame frameNode: SCNNode) {
         var horizonVertices = Data(capacity: MemoryLayout<Vertex>.stride * horizonVertexCount * 2)
         horizonVertices.removeAll()
-        let satNowLatLonAlt = self.geoPosition(minsAfterEpoch: (fakeClock.ep1950DaysNow() - self.tleEp1950) * 1440.0)
+        let satNowLatLonAlt = self.geoPosition(minsAfterEpoch:
+                                            (fakeClock.ep1950DaysNow() - self.t₀Days1950) * 1440.0)
 
-        let satLatitudeRads = satNowLatLonAlt.x * deg2rad
-        let satLongitudeRads = satNowLatLonAlt.y * deg2rad
+        let satLatitudeRads = satNowLatLonAlt.lat * deg2rad
+        let satLongitudeRads = satNowLatLonAlt.lon * deg2rad
         let sinSatLatitude = sin(satLatitudeRads)
         let cosSatLatitude = cos(satLatitudeRads)
 
         let elevationLimitRads = 5.0 * deg2rad
-        let beta = acos(cos(elevationLimitRads) * eRadiusKms / (eRadiusKms + satNowLatLonAlt.z)) - elevationLimitRads
+        let beta = acos(cos(elevationLimitRads) * EarthConstants.Rₑ /
+                            (EarthConstants.Rₑ + satNowLatLonAlt.alt)) - elevationLimitRads
         let sinBeta = sin(beta)
         let cosBeta = cos(beta)
 
@@ -121,9 +123,11 @@ public extension Satellite {
                                 else { footAlpha = satLongitudeRads + acos2pi(numerator, denominator) }
             }
 
-            let eciVector = geo2xyz(julianDays: (fakeClock.ep1950DaysNow() - self.tleEp1950) * 1440.0 *
-                                                        TimeConstants.min2day + self.tleEp1950 + JD.noradZero,
-                                    geodetic: Vector(footDelta * rad2deg, footAlpha * rad2deg, 0.0))
+            let eciVector = geo2xyz(julianDays: (fakeClock.ep1950DaysNow() - self.t₀Days1950) * 1440.0 *
+                                                        TimeConstants.min2day + self.t₀Days1950 + JD.epoch1950,
+                                    geodetic: GeoVector(lat: footDelta * rad2deg,
+                                                        lon: footAlpha * rad2deg,
+                                                        alt: 0.0))
 
             var eciVertex = Vertex(x: Float(eciVector.x), y: Float(eciVector.y), z: Float(eciVector.z))
 
@@ -162,45 +166,47 @@ public extension Satellite {
 
     func everySecond(inFrame frameNode: SCNNode) {
 
+        guard let orbitalNode = frameNode.childNode(withName: "O-" + self.noradIdent,
+        											recursively: true) else {return }
+        let oDots = orbitalNode.childNodes
+
 /*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
   ┆ obtain the time (possibly 'fake') and set up the intervals before and after to plot ..           ┆
   ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
-        let nowMinsAfterEpoch = (fakeClock.ep1950DaysNow() - self.tleEp1950) * 1440.0
-
-        guard let orbitalNode = frameNode.childNode(withName: "O-" + self.noradIdent, recursively: true) else {return }
-        let oDots = orbitalNode.childNodes
+        let nowMinsAfterEpoch = (fakeClock.ep1950DaysNow() - self.t₀Days1950) * 1440.0
 
         for index in orbTickRange {
 
-            let tickMinutes = nowMinsAfterEpoch + Double(orbTickDelta*index) / 60.0
-            let oSatCel = self.position(minsAfterEpoch: tickMinutes)
+		let tickMinutes = nowMinsAfterEpoch + Double(orbTickDelta*index) / 60.0
+		let oSatCel = self.position(minsAfterEpoch: tickMinutes)
 
 /*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
   ┆ for 'orbital' track, is satellite in sunlight ?                                                  ┆
   ┆                                                    .. eclipsed dots are smaller than sunlit ones ┆
   ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
-            let horizonAngle = acos(eRadiusKms/magnitude(oSatCel)) * rad2deg
-            let sunCel = solarCel(julianDays: fakeClock.julianDaysNow())
-            let eclipseDepth = (horizonAngle + 90.0) - separation(oSatCel, sunCel)
+		let horizonAngle = acos(EarthConstants.Rₑ/magnitude(oSatCel)) * rad2deg
+		let sunCel = solarCel(julianDays: fakeClock.julianDaysNow())
+		let eclipseDepth = (horizonAngle + 90.0) - separation(oSatCel, sunCel)
 
-            let tickIndex = index - orbTickRange.lowerBound
-            oDots[tickIndex].position = SCNVector3(oSatCel.x, oSatCel.y, oSatCel.z)
+		let tickIndex = index - orbTickRange.lowerBound
+		oDots[tickIndex].position = SCNVector3(oSatCel.x, oSatCel.y, oSatCel.z)
 
-            if let tickGeom = oDots[tickIndex].geometry as? SCNSphere {
-                if index == 0 {
-                    tickGeom.radius = 50
-                    tickGeom.firstMaterial?.emission.contents = Color.red
-                    tickGeom.firstMaterial?.diffuse.contents = Color.red
-                } else {
-                    tickGeom.radius = eclipseDepth < 0.0 ? 15.0 : 30.0
-                }
-            }
-        }
+		if let tickGeom = oDots[tickIndex].geometry as? SCNSphere {
+			if index == 0 {
+				tickGeom.radius = 50
+				tickGeom.firstMaterial?.emission.contents = Color.red
+				tickGeom.firstMaterial?.diffuse.contents = Color.red
+			} else {
+				tickGeom.radius = eclipseDepth < 0.0 ? 15.0 : 30.0
+			}
+		}
+	}
 
 /*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
   ┆ for 'surface' track ..                                                                           ┆
   ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
-        guard let surfaceNode = frameNode.childNode(withName: "S-" + self.noradIdent, recursively: true) else {return }
+        guard let surfaceNode = frameNode.childNode(withName: "S-" + self.noradIdent,
+        											recursively: true) else {return }
         let sDots = surfaceNode.childNodes
 
         for index in surTickRange {
@@ -208,10 +214,10 @@ public extension Satellite {
             let tickMinutes = nowMinsAfterEpoch + Double(orbTickDelta*index) / 60.0
             let oSatCel = self.position(minsAfterEpoch: tickMinutes)
 
-            let jDate = self.tleEp1950 + JD.noradZero + tickMinutes / 1440.0
+            let jDate = self.t₀Days1950 + JD.epoch1950 + tickMinutes / 1440.0
             var lla = eci2geo(julianDays: jDate, celestial: oSatCel)
-            lla.z = 0.0                                            // altitude = 0.0 (surface)
-            lla.y -= Double(orbTickDelta*index) * eRotation / 240.0 // adjust for earth rotation
+            lla.alt = 0.0                                            // altitude = 0.0 (surface)
+			lla.lon -= Double(orbTickDelta*index) * EarthConstants.rotationₑ / 240.0
 
             let sSatCel = geo2eci(julianDays: jDate, geodetic: lla)
 
@@ -225,8 +231,6 @@ public extension Satellite {
                     tickGeom.firstMaterial?.diffuse.contents = Color.red
                 }
             }
-
         }
-
     }
 }

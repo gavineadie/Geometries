@@ -38,7 +38,7 @@ class FakeClock {
     }
 
     public func ep1950DaysNow() -> Double {
-        return julianDaysNow() - JD.noradZero
+        return julianDaysNow() - JD.epoch1950
     }
 
 }

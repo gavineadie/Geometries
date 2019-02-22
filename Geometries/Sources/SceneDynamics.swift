@@ -14,8 +14,6 @@ class SceneDynamics {
     var frameNode: SCNNode!
     var earthNode: SCNNode!
 
-    public let observer = Observer()
-
     init() {
 
         sceneTimer.schedule(deadline: .now(), repeating: .seconds(1))
@@ -26,7 +24,6 @@ class SceneDynamics {
         }
         sceneTimer.resume()
 
-        observer.checkAuthorization()
     }
 
     convenience init(sceneNode: SCNNode) {

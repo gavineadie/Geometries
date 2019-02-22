@@ -57,7 +57,7 @@ class ViewController: NSViewController, SCNSceneRendererDelegate {
   ┆ .. and attach "viewr" (with a "camra" node) to "scene" ..                                        ┆
   ┆                                                                 "scene" ( "viewr" ( "camra" ))   ┆
   ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
-        let viewpointNode = makeCameraView()
+        let viewpointNode = makeViewpoint()
         sceneNode <<< viewpointNode
 
         let cameraConstraint = SCNLookAtConstraint(target: frameNode)
@@ -102,7 +102,7 @@ class ViewController: NSViewController, SCNSceneRendererDelegate {
     }
 
 /*┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
-  │ │ UIKit actions ..                                                                               │
+  │ UIKit actions ..                                                                                 │
   └──────────────────────────────────────────────────────────────────────────────────────────────────┘*/
 //    @IBAction func tapCenterObs(_ sender: UIButton) {
 //        if Debug.views { print("     OrbitViewController| tapCenterObs()") }
