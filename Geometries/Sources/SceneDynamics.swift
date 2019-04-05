@@ -1,6 +1,6 @@
 /*╔══════════════════════════════════════════════════════════════════════════════════════════════════╗
   ║ SceneDynamics.swift                                                                   Satellites ║
-  ║ Created by Gavin Eadie on Nov17/17.. Copyright © 2017-18 Ramsay Consulting. All rights reserved. ║
+  ║ Created by Gavin Eadie on Nov17/17.. Copyright © 2017-19 Ramsay Consulting. All rights reserved. ║
   ╚══════════════════════════════════════════════════════════════════════════════════════════════════╝*/
 
 import SceneKit
@@ -9,14 +9,14 @@ import SatKit
 class SceneDynamics {
 
     let sceneTimer = DispatchSource.makeTimerSource()
+    let milliSeconds = 500                  // update scene twice a second
 
     var sceneNode: SCNNode!                // set in "viewDidLoad()" after scene constructed ..
     var frameNode: SCNNode!
     var earthNode: SCNNode!
 
     init() {
-
-        sceneTimer.schedule(deadline: .now(), repeating: .seconds(1))
+        sceneTimer.schedule(deadline: .now(), repeating: .milliseconds(milliSeconds))
         sceneTimer.setEventHandler {
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "OneSecond"),
                                             object: nil)
@@ -45,17 +45,19 @@ class SceneDynamics {
   ┆ guard for satellites available ..                                                                ┆
   ┆                                         .. specifically, we have a non-zero "visible" collection ┆
   ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
-        guard let visualGroup = SatelliteStore.shared.visualGroup,
-                  visualGroup.sats.count > 0 else { return }
+        guard let antiSatGroup = SatelliteStore.shared.getGroup(named: "2019-006"),
+                  antiSatGroup.sats.count > 0 else { return }
 
 /*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
   ┆ for the satellite(s) we want to display ..                                                       ┆
   ┆                                  .. search the scene for the "O" (orbital) base of the dot nodes ┆
   ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
-        if let satellite = visualGroup.sats["25544"] {          // 42684
+        for (_, satellite) in antiSatGroup.sats {                // 42684
+            if let satellite = antiSatGroup.sats["25544"] {
+                satellite.horizonNode(inFrame: frameNode)
+            }
             satellite.orbitalNode(inFrame: frameNode)
-            satellite.surfaceNode(inFrame: frameNode)
-            satellite.horizonNode(inFrame: frameNode)
+//            satellite.surfaceNode(inFrame: frameNode)
 
             satellite.everySecond(inFrame: frameNode)
         }

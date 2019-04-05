@@ -78,7 +78,7 @@ func makeFrame() -> SCNNode {
 
     let globeNode = earthNode.childNode(withName: "globe", recursively: true)
     let globeMaterial = SCNMaterial()
-    globeMaterial.diffuse.contents = NSImage(named: NSImage.Name(rawValue: "earth_diffuse_4k.jpg"))
+    globeMaterial.diffuse.contents = NSImage(named: "earth_diffuse_4k.jpg")
 
     if let globeGeom = globeNode?.geometry {
         globeGeom.firstMaterial = globeMaterial

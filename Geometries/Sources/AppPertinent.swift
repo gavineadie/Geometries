@@ -130,6 +130,12 @@ class AppSupport {
         delegate?.doApplicationPhoneHome()
 #endif
 
+        if SatelliteStore.shared.visualGroup == nil {
+
+            SatelliteStore.shared.downloadLocal()
+
+        }
+
     }
 
     func resigned(_ application: Application) {
