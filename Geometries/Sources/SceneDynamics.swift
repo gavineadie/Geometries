@@ -45,18 +45,18 @@ class SceneDynamics {
   ┆ guard for satellites available ..                                                                ┆
   ┆                                         .. specifically, we have a non-zero "visible" collection ┆
   ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
-        guard let antiSatGroup = SatelliteStore.shared.getGroup(named: "2019-006"),
-                  antiSatGroup.sats.count > 0 else { return }
+        guard let visualGroup = SatelliteStore.shared.getGroup(named: "visual"),
+                  visualGroup.sats.count > 0 else { return }
 
 /*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
   ┆ for the satellite(s) we want to display ..                                                       ┆
   ┆                                  .. search the scene for the "O" (orbital) base of the dot nodes ┆
   ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
-        for (_, satellite) in antiSatGroup.sats {                // 42684
-            if let satellite = antiSatGroup.sats["25544"] {
+        for (_, satellite) in visualGroup.sats {                // 42684
+            if let satellite = visualGroup.sats["25544"] {
                 satellite.horizonNode(inFrame: frameNode)
+                satellite.orbitalNode(inFrame: frameNode)
             }
-            satellite.orbitalNode(inFrame: frameNode)
 //            satellite.surfaceNode(inFrame: frameNode)
 
             satellite.everySecond(inFrame: frameNode)
@@ -67,7 +67,8 @@ class SceneDynamics {
   ┆                                                  .. once every fifteen seconds: rotate the earth ┆
   ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
         if frameCount % 15 == 0 {                       // every fifteen seconds
-            earthNode.eulerAngles.z = CGFloat(zeroMeanSiderealTime(julianDate: fakeClock.julianDaysNow()) * deg2rad)
+//            earthNode.eulerAngles.z = CGFloat(zeroMeanSiderealTime(
+//                                                julianDate: fakeClock.julianDaysNow()) * deg2rad)
         }
 
 /*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮

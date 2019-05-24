@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		8610CA6C21E3D79B006E66F5 /* com.ramsaycons.earth.scn in Resources */ = {isa = PBXBuildFile; fileRef = 8610CA6B21E3D79A006E66F5 /* com.ramsaycons.earth.scn */; };
 		8610CA6E21E3EB8E006E66F5 /* earth_diffuse_4k.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8610CA6D21E3EB8E006E66F5 /* earth_diffuse_4k.jpg */; };
+		861610E72259BAF8000D65B1 /* Vectors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 861610E62259BAF8000D65B1 /* Vectors.xcassets */; };
 		8622183F2000330D003D7F7F /* AppPertinent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8622183D2000330D003D7F7F /* AppPertinent.swift */; };
 		862218462000441C003D7F7F /* SceneDynamics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 862218442000441C003D7F7F /* SceneDynamics.swift */; };
 		86280CBD1DDD5A2300BE3B6F /* Fire.scnp in Resources */ = {isa = PBXBuildFile; fileRef = 86280CBB1DDD5A2300BE3B6F /* Fire.scnp */; };
@@ -29,8 +30,6 @@
 		869AC32B221FA7C1009C702E /* SatelliteExtra.swift in Sources */ = {isa = PBXBuildFile; fileRef = 869AC32A221FA7C1009C702E /* SatelliteExtra.swift */; };
 		869CA3461FBFF67400C1636F /* FakeClock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 869CA3441FBFF67400C1636F /* FakeClock.swift */; };
 		86AF6AE61EECE3AD004EBEFA /* SceneConstruction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86B5D13F1E751260002DB9B1 /* SceneConstruction.swift */; };
-		86BE7E241EEC876700475431 /* coast.vector in Resources */ = {isa = PBXBuildFile; fileRef = 86BE7E221EEC876700475431 /* coast.vector */; };
-		86BE7E251EEC876700475431 /* grids.vector in Resources */ = {isa = PBXBuildFile; fileRef = 86BE7E231EEC876700475431 /* grids.vector */; };
 		86D31DE21EECDCAA00577042 /* Geometries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86D31DE11EECDCAA00577042 /* Geometries.swift */; };
 		86E5582D1F22A3E200931A8D /* SpriteConstruction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86E5582C1F22A3E200931A8D /* SpriteConstruction.swift */; };
 /* End PBXBuildFile section */
@@ -104,6 +103,7 @@
 /* Begin PBXFileReference section */
 		8610CA6B21E3D79A006E66F5 /* com.ramsaycons.earth.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = com.ramsaycons.earth.scn; sourceTree = "<group>"; };
 		8610CA6D21E3EB8E006E66F5 /* earth_diffuse_4k.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = earth_diffuse_4k.jpg; sourceTree = "<group>"; };
+		861610E62259BAF8000D65B1 /* Vectors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Vectors.xcassets; sourceTree = "<group>"; };
 		8622183D2000330D003D7F7F /* AppPertinent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppPertinent.swift; sourceTree = "<group>"; };
 		862218442000441C003D7F7F /* SceneDynamics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDynamics.swift; sourceTree = "<group>"; };
 		86280CBB1DDD5A2300BE3B6F /* Fire.scnp */ = {isa = PBXFileReference; lastKnownFileType = file.scp; path = Fire.scnp; sourceTree = "<group>"; };
@@ -125,8 +125,6 @@
 		869CA3441FBFF67400C1636F /* FakeClock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeClock.swift; sourceTree = "<group>"; };
 		86AC76831DC96A71002CFFD7 /* SatKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SatKit.xcodeproj; path = ../SatKit/SatKit.xcodeproj; sourceTree = "<group>"; };
 		86B5D13F1E751260002DB9B1 /* SceneConstruction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneConstruction.swift; sourceTree = "<group>"; };
-		86BE7E221EEC876700475431 /* coast.vector */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = coast.vector; sourceTree = "<group>"; };
-		86BE7E231EEC876700475431 /* grids.vector */ = {isa = PBXFileReference; lastKnownFileType = file; path = grids.vector; sourceTree = "<group>"; };
 		86D31DE11EECDCAA00577042 /* Geometries.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Geometries.swift; sourceTree = "<group>"; };
 		86E5582C1F22A3E200931A8D /* SpriteConstruction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpriteConstruction.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -216,8 +214,7 @@
 				8610CA6D21E3EB8E006E66F5 /* earth_diffuse_4k.jpg */,
 				868751D11BB5D57200939585 /* Assets.xcassets */,
 				868751D31BB5D57200939585 /* Main.storyboard */,
-				86BE7E221EEC876700475431 /* coast.vector */,
-				86BE7E231EEC876700475431 /* grids.vector */,
+				861610E62259BAF8000D65B1 /* Vectors.xcassets */,
 				86280CB91DDD590B00BE3B6F /* Particles */,
 				868751D61BB5D57200939585 /* Info.plist */,
 			);
@@ -354,13 +351,12 @@
 			files = (
 				8610CA6E21E3EB8E006E66F5 /* earth_diffuse_4k.jpg in Resources */,
 				8610CA6C21E3D79B006E66F5 /* com.ramsaycons.earth.scn in Resources */,
-				86BE7E241EEC876700475431 /* coast.vector in Resources */,
 				868751D21BB5D57200939585 /* Assets.xcassets in Resources */,
 				86280CBE1DDD5A2300BE3B6F /* spark.png in Resources */,
 				868751D51BB5D57200939585 /* Main.storyboard in Resources */,
+				861610E72259BAF8000D65B1 /* Vectors.xcassets in Resources */,
 				863478001D135B7E0058F510 /* OverlayScene.sks in Resources */,
 				86280CBD1DDD5A2300BE3B6F /* Fire.scnp in Resources */,
-				86BE7E251EEC876700475431 /* grids.vector in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

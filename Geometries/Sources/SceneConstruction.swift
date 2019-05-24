@@ -141,7 +141,7 @@ func makeEarth() -> SCNNode {
 /*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
   ┆ "grids" .. Earth's lat/lon grid dots -- add it to "earth" ..                                     ┆
   ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
-    if let gridsGeom = geometry(from: "grids.vector") {
+    if let gridsGeom = geometry(from: "grids") {
         gridsGeom.firstMaterial?.diffuse.contents = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
         gridsGeom.firstMaterial?.lightingModel = .constant
 
@@ -151,7 +151,7 @@ func makeEarth() -> SCNNode {
 /*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
   ┆ "coast" .. Earth's coastline vectors -- add it to "earth" ..                                     ┆
   ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
-    if let coastGeom = geometry(from: "coast.vector") {
+    if let coastGeom = geometry(from: "coast") {
         coastGeom.firstMaterial?.diffuse.contents = #colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1)
         coastGeom.firstMaterial?.lightingModel = .constant
 
@@ -307,24 +307,23 @@ let vertexStride = MemoryLayout<Vertex>.stride
 /*┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
   ┃ reads a binary file (x,y,z),(x,y,z), (x,y,z),(x,y,z), .. and makes a SceneKit Geometry ..        ┃
   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛*/
-func geometry(from resourceFile: String) -> SCNGeometry? {
-    let mainBundle = Bundle.main
-    let sceneURL = mainBundle.url(forResource: resourceFile, withExtension: "")
+func geometry(from vectorAssetName: String) -> SCNGeometry? {
 
-    guard let dataContent = try? Data(contentsOf: sceneURL!) else {
-        print("mesh file '\(resourceFile)' missing")
+    let vectorAsset = NSDataAsset(name: vectorAssetName)
+    guard let vectorData = vectorAsset?.data else {
+        print("mesh file '\(vectorAssetName)' missing")
         return nil
     }
 
-    let vertexSource = SCNGeometrySource(data: dataContent,
+    let vertexSource = SCNGeometrySource(data: vectorData,
                                          semantic: SCNGeometrySource.Semantic.vertex,
-                                         vectorCount: dataContent.count/(vertexStride*2),
+                                         vectorCount: vectorData.count/(vertexStride*2),
                                          usesFloatComponents: true, componentsPerVector: 3,
                                          bytesPerComponent: MemoryLayout<Float>.size,
                                          dataOffset: 0, dataStride: vertexStride)
 
     let element = SCNGeometryElement(data: nil, primitiveType: .line,
-                                     primitiveCount: dataContent.count/(vertexStride*2),
+                                     primitiveCount: vectorData.count/(vertexStride*2),
                                      bytesPerIndex: MemoryLayout<UInt16>.size)
 
     return SCNGeometry(sources: [vertexSource], elements: [element])
