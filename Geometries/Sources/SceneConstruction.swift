@@ -36,7 +36,7 @@ let Rₑ: Double = 6378.135                // equatorial radius (polar radius = 
   ┃             "frame", and the observer ("statn") to the "earth".                                  ┃
   ┃                                                                                                  ┃
   ┃             "construct(scene:)" also adds a 'double node' to represent to external viewer; a     ┃
-  ┃             node at a fixed distant radius ("viewr"), with a camera ("camra") pointing to the    ┃
+  ┃             node ("viewr"), with a camera ("camra") at a fixed distant radius pointing to the    ┃
   ┃             the frame center.                                                                    ┃
   ┃                                                       |                   |                      ┃
   ┃                         |                             |                   |                      ┃
@@ -62,6 +62,8 @@ func makeFrame() -> SCNNode {
     if Debug.scene { print("       SceneConstruction| makeFrame()") }
 
     let frameNode = SCNNode(name: "frame")              	// frameNode
+    if Debug.scene { dumpNode(frameNode) }
+
     frameNode.eulerAngles = SCNVector3(-Float.π/2.0, -Float.π/2.0, 0.0)
 
 /*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
@@ -71,14 +73,21 @@ func makeFrame() -> SCNNode {
   ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
     var earthNode: SCNNode
     if USE_SCENE_FILE {
-        earthNode = SCNScene(named: "com.ramsaycons.earth.scn")?.rootNode ?? makeEarth()
+//        if let tempScene = SCNScene(named: "com.ramsaycons.earth.scn") {
+//            earthNode = tempScene.rootNode.childNodes.first!
+//            if Debug.scene { dumpNode(earthNode) }
+//        } else {
+//            earthNode = makeEarth()                             // earthNode ("globe", "grids", coast")
+//        }
+        earthNode = SCNScene(named: "com.ramsaycons.earth.scn")?.rootNode.childNodes.first ?? makeEarth()
     } else {
-        earthNode = makeEarth()                             // earthNode ("globe", "grids", coast")
+        earthNode = makeEarth()                                 // earthNode ("globe", "grids", coast")
     }
+    if Debug.scene { dumpNode(earthNode) }
 
     let globeNode = earthNode.childNode(withName: "globe", recursively: true)
     let globeMaterial = SCNMaterial()
-    globeMaterial.diffuse.contents = NSImage(named: "earth_diffuse_4k.jpg")
+    globeMaterial.diffuse.contents = Image(named: "earth_diffuse_4k.jpg")
 
     if let globeGeom = globeNode?.geometry {
         globeGeom.firstMaterial = globeMaterial
@@ -91,17 +100,21 @@ func makeFrame() -> SCNNode {
         }
     }
 
-    earthNode.scale = SCNVector3(1.0, 1.0, 6356.752/6378.135)
-    earthNode.eulerAngles.z = CGFloat(zeroMeanSiderealTime(
-                                        julianDate: FakeClock.shared.julianDaysNow()) * deg2rad)
-    frameNode <<< earthNode                                 //           "frame" << "earth"
+    earthNode.scale = SCNVector3(1.0, 1.0, 6356.752/6378.135)   // oblate squish
+    earthNode.eulerAngles.z = CGFloat(zeroMeanSiderealTime(     // turn for time
+                                            julianDate: FakeClock.shared.julianDaysNow()) * deg2rad)
+    if Debug.scene { dumpNode(earthNode) }
+
+    frameNode <<< earthNode                                     //           "frame" << "earth"
+    if Debug.scene { dumpNode(frameNode) }
 
 /*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
   ┆ .. and attach "solar" (with 1 "light" child to provide illumination) node to "frame"             ┆
   ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
-    let solarNode = makeSolarLight()                        // solarNode ("solar", "light")
+    let solarNode = makeSolarLight()                            // solarNode ("solar", "light")
     solarNode.childNodes[0].constraints = [SCNLookAtConstraint(target: earthNode)]
-    frameNode <<< solarNode                             	//           "frame" << "solar"
+    frameNode <<< solarNode                             	    //           "frame" << "solar"
+    if Debug.scene { dumpNode(frameNode) }
 
     if Debug.scene { earthNode <<< addMarkerSpot(color: #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1), at: Vector(7000.0, 0.0, 0.0)) }
 
@@ -113,15 +126,15 @@ func makeFrame() -> SCNNode {
   ┃             Earth Radius:   6,378                                                                ┃
   ┃     Geostationary Radius:  42,164                                                                ┃
   ┃      Camera Point Radius: 120,000                                                                ┃
-  ┃             Camera z-box: ±40,000                                                                ┃
+  ┃             Camera z-box: ±60,000                                                                ┃
   ┃        Moon Orbit Radius: 385,000                                                                ┃
   ┃                                                                                                  ┃
   ┃     •---------•---------•---------•---------•---------•---------•---------•---------•---------•  ┃
   ┃    120       100       80        60        40        20         0       -20       -40       -60  ┃
   ┃     0864208642086420864208642086420864208642086420864208642086420864208642086420864208642086420  ┃
-  ┃     C                   N                   │                │EEEEE│                │         F  ┃
-  ┃                                             │                └─────┘                │            ┃
-  ┃                                             └───────────────────────────────────────┘            ┃
+  ┃     C                   N         │                          │EEEEE│                │         F  ┃
+  ┃                                   │                          └─────┘                │            ┃
+  ┃                                   └─────────────────────────────────────────────────┘            ┃
   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛*/
 
 /*┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
@@ -135,8 +148,8 @@ func makeEarth() -> SCNNode {
   ┆ "globe" .. spherical Earth, texture mapped -- add it to "earth" ..                               ┆
   ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
     let earthNode = SCNNode(name: "earth")
-
-    earthNode <<< makeGlobe()                               // globeNode
+    earthNode.name = "earth"
+    earthNode <<< makeGlobe()                                   // globeNode
 
 /*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
   ┆ "grids" .. Earth's lat/lon grid dots -- add it to "earth" ..                                     ┆
@@ -192,9 +205,9 @@ func makeGlobe() -> SCNNode {
 /*┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
   │ a spot on the surface where the observer is standing ..                                          │
   └──────────────────────────────────────────────────────────────────────────────────────────────────┘*/
-public let  annArborLatitude = +42.2755                  // degrees
-public let annArborLongitude = -83.7521                  // degrees
-public let  annArborAltitude =   0.1                     // Kilometers
+public let  annArborLatitude = +42.2755                         // degrees
+public let annArborLongitude = -83.7521                         // degrees
+public let  annArborAltitude =   0.1                            // Kilometers
 
 let  annArborLocation = CLLocation(coordinate: CLLocationCoordinate2D(latitude: annArborLatitude,
                                                                       longitude: annArborLongitude),
@@ -221,13 +234,13 @@ func makeObserver() -> SCNNode {
   │                                                      http://stackoverflow.com/questions/25654772 │
   └──────────────────────────────────────────────────────────────────────────────────────────────────┘*/
 let cameraDistance = 120_000.0
-let cameraBracket = 40_000.0
+let cameraBracket  =  60_000.0
 
 func makeViewpoint() -> SCNNode {
     if Debug.scene { print("       SceneConstruction| makeCameraView()") }
 
-    let camera = SCNCamera()                            // create a camera
-    camera.zFar  = cameraDistance+cameraBracket         // z-Range brackets geo
+    let camera = SCNCamera()                                    // create a camera
+    camera.zFar  = cameraDistance+cameraBracket                 // z-Range brackets geo
     camera.zNear = cameraDistance-cameraBracket
 
     if #available(iOS 11.0, OSX 10.13, *) {
@@ -241,14 +254,14 @@ func makeViewpoint() -> SCNNode {
     camraNode.position = SCNVector3(0, 0, Float(cameraDistance))
     camraNode.camera = camera
 
-    let viewrNode = SCNNode(name: "viewr")              // non-rendering node, holds the camera
+    let viewrNode = SCNNode(name: "viewr")                      // non-rendering node, holds the camera
 
-    viewrNode <<< camraNode                                 //              "viewr" << "camra"
+    viewrNode <<< camraNode                                     //              "viewr" << "camra"
 
     if Debug.scene {
-        viewrNode <<< addMarkerSpot(color: #colorLiteral(red: 0.721568644, green: 0.8862745166, blue: 0.5921568871, alpha: 1), at: Vector(0.0, 0.0, 7000.0))
-        viewrNode <<< addMarkerSpot(color: #colorLiteral(red: 0.5843137503, green: 0.8235294223, blue: 0.4196078479, alpha: 1), at: Vector(0.0, 0.0, 7100.0))
-        viewrNode <<< addMarkerSpot(color: #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1), at: Vector(0.0, 0.0, 7200.0))
+        viewrNode <<< addMarkerSpot(color: #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1), at: Vector(7000.0, 0.0, 0.0))
+        viewrNode <<< addMarkerSpot(color: #colorLiteral(red: 0.5843137503, green: 0.8235294223, blue: 0.4196078479, alpha: 1), at: Vector(0.0, 7000.0, 0.0))
+        viewrNode <<< addMarkerSpot(color: #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1), at: Vector(0.0, 0.0, 7000.0))
     }
 
     return viewrNode

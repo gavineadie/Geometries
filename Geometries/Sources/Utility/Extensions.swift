@@ -1,6 +1,6 @@
 /*╔══════════════════════════════════════════════════════════════════════════════════════════════════╗
   ║ Extensions.swift                                                                      Geometries ║
-  ║ Created by Gavin Eadie on Feb04/17  ..  Copyright © 2018 Ramsay Consulting. All rights reserved. ║
+  ║ Created by Gavin Eadie on Feb04/17 .. Copyright 2018-16 Ramsay Consulting. All rights reserved.  ║
   ╚══════════════════════════════════════════════════════════════════════════════════════════════════╝*/
 
 // swiftlint:disable identifier_name
@@ -8,15 +8,7 @@
 import SceneKit
 import SatKit
 
-//let Rₑ: Double = 6.378135e3                // equatorial radius (polar radius = 6356.752 Kms)
-let  π: Double = 3.141_592_653_589_793_238_462_643_383_279_502_884_197_169_399_375_105_820_975
 let deg2rad = Double(π / 180.0)
-
-#if os(iOS) || os(tvOS) || os(watchOS)
-    typealias Color = UIColor
-#else
-    typealias Color = NSColor
-#endif
 
 /*┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
   │ Copyright (c) 2015 Suyeol Jeon (xoul.kr)                                                         │
@@ -75,17 +67,18 @@ extension SCNNode {
 }
 
 /*┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ define π (pi) .. the ration between the diameter and circumference of a circle ..                │
   └──────────────────────────────────────────────────────────────────────────────────────────────────┘*/
+extension Double {
+    static let π: Double = 3.141_592_653_589_793_238_462_643_383_279_502_884_197_169_399_375_105
+}
+
 extension CGFloat {
-
     static let π: CGFloat = 3.141_592_653_589_793_238_462
-
 }
 
 extension Float {
-
     static let π: Float = 3.141_592_653_589_793_238_462
-
 }
 
 /*┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
@@ -105,25 +98,30 @@ extension Bundle {
     public static var bundleID: String? { return main.bundleIdentifier }
 
     public static var displayName: String {
-        return main.object(forInfoDictionaryKey: kCFBundleNameKey as String) as? String ?? "AppName"
+        return main.infoDictionary?[kCFBundleNameKey as String] as? String ?? "AppName"
     }
 
     public static var versionString: String {
-        return main.object(forInfoDictionaryKey: kCFBundleVersionKey as String) as? String ?? "0"
+        return main.infoDictionary?[kCFBundleVersionKey as String] as? String ?? "0"
     }
 
     public static var versionNumber: Int { return Int(versionString) ?? 0 }
 
     public static var shortVersion: String {
-        return main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? ""
+        return main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
     }
 
     public static var dateStamp: String {
-        return main.object(forInfoDictionaryKey: "AppBuildDate") as? String ?? "BuildDate"
+        return main.infoDictionary?["AppBuildDate"] as? String ?? "BuildDate"
     }
 
     public static var timeStamp: String {
-        return main.object(forInfoDictionaryKey: "AppBuildTime") as? String ?? "BuildTime"
+        return main.infoDictionary?["AppBuildTime"] as? String ?? "BuildTime"
+    }
+
+    public static func pListHasValue(forKey key: String) -> Bool {
+        guard let dict = main.infoDictionary else { return false }
+        return dict[key] != nil
     }
 
 }
@@ -140,7 +138,7 @@ extension Comparable {
 
 /*╔══════════════════════════════════════════════════════════════════════════════════════════════════╗
   ║ Environment.swift                                                                     Satellites ║
-  ║ Created by Gavin Eadie on Sep03/17         Copyright © 2017-18 Gavin Eadie. All rights reserved. ║
+  ║ Created by Gavin Eadie on Sep03/17         Copyright © 2017-19 Gavin Eadie. All rights reserved. ║
   ╚══════════════════════════════════════════════════════════════════════════════════════════════════╝*/
 
 #if os(iOS) || os(tvOS) || os(watchOS)

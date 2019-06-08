@@ -38,19 +38,25 @@ class ViewController: NSViewController, SCNSceneRendererDelegate {
         if Debug.views { print("     OrbitViewController| viewDidLoad()") }
         if Debug.clock { FakeClock.shared.reset() }
 
-        sceneView.backgroundColor = #colorLiteral(red: 0.0, green: 0.0, blue: 0.5, alpha: 1)
-        sceneView.scene = SCNScene()
+        let scene = SCNScene()
+        scene.background.contents = "TychoSkymap"
 
+        sceneView.scene = scene
+        sceneView.backgroundColor = #colorLiteral(red: 0.0, green: 0.0, blue: 0.5, alpha: 1)
         sceneView.overlaySKScene = constructSpriteView()
+
+        if Debug.scene { dumpNode(sceneView.scene!.rootNode) }
 
         sceneNode = (sceneView.scene?.rootNode)!
         sceneNode.name = "scene"
+        if Debug.scene { dumpNode(sceneNode) }
 
 /*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
   ┆ .. make the inertial frame and contents                                                          ┆
   ┆                                   "frame" ( "solar" , "earth" ( "globe" , "grids" , "coast" ))   ┆
   ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
         frameNode = makeFrame()
+        if Debug.scene { dumpNode(frameNode) }
         sceneNode <<< frameNode
 
 /*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
@@ -112,4 +118,11 @@ class ViewController: NSViewController, SCNSceneRendererDelegate {
 //        if Debug.views { print("     OrbitViewController| tapCenterISS()") }
 //    }
 
+}
+
+public func dumpNode(_ node: SCNNode) {
+    print(node.debugDescription)
+    for child in node.childNodes {
+        dumpNode(child)
+    }
 }

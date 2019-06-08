@@ -1,16 +1,14 @@
 /*╔══════════════════════════════════════════════════════════════════════════════════════════════════╗
   ║ AppDelegate.swift                                                                     Geometries ║
-  ║ Created by Gavin Eadie on Sep25/15 ... Copyright 2015-18 Ramsay Consulting. All rights reserved. ║
+  ║ Created by Gavin Eadie on Sep25/15 ... Copyright 2015-19 Ramsay Consulting. All rights reserved. ║
   ╚══════════════════════════════════════════════════════════════════════════════════════════════════╝*/
 
 // swiftlint:disable force_cast
 
 #if os(iOS) || os(tvOS) || os(watchOS)
     import UIKit
-    typealias Application = UIApplication
 #else
     import Cocoa
-    typealias Application = NSApplication
 #endif
 
 @NSApplicationMain

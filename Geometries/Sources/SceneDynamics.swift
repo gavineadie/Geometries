@@ -11,7 +11,7 @@ class SceneDynamics {
     let sceneTimer = DispatchSource.makeTimerSource()
     let milliSeconds = 500                  // update scene twice a second
 
-    var sceneNode: SCNNode!                // set in "viewDidLoad()" after scene constructed ..
+    var sceneNode: SCNNode!                 // set in "viewDidLoad()" after scene constructed ..
     var frameNode: SCNNode!
     var earthNode: SCNNode!
 

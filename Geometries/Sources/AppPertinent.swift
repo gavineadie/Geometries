@@ -4,18 +4,11 @@
   ╚══════════════════════════════════════════════════════════════════════════════════════════════════╝*/
 
 // swiftlint:disable discarded_notification_center_observer
-// swiftlint:disable weak_delegate
 
 #if os(iOS) || os(tvOS) || os(watchOS)
     import UIKit
-
-    typealias Font = UIFont
-    typealias View = UIView
 #else
     import Cocoa
-
-    typealias Font = NSFont
-    typealias View = NSView
 #endif
 
 import SatKit
@@ -32,18 +25,9 @@ enum Debug {
 
 }
 
-protocol AppSupportDelegate: AnyObject {
-
-    func doApplicationUpgrade()
-    func doApplicationPhoneHome()
-
-}
-
 class AppSupport {
 
     static let shared = AppSupport()                // application support singleton ..
-
-    var delegate: AppSupportDelegate?
 
     private init() {
 #if DEBUG
@@ -127,7 +111,6 @@ class AppSupport {
                 print("                        | \(notification)")
         })
 
-        delegate?.doApplicationPhoneHome()
 #endif
 
         if SatelliteStore.shared.visualGroup == nil {
