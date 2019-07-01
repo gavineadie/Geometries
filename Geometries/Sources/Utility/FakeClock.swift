@@ -4,7 +4,7 @@
   ╚══════════════════════════════════════════════════════════════════════════════════════════════════╝*/
 
 import Foundation
-import SatKit
+import SatelliteKit
 
 class FakeClock {
 

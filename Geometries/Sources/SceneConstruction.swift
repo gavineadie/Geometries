@@ -7,7 +7,7 @@
 
 import CoreLocation
 import SceneKit
-import SatKit
+import SatelliteKit
 
 let USE_SCENE_FILE = true
 let Rₑ: Double = 6378.135                // equatorial radius (polar radius = 6356.752 Kms)
@@ -62,8 +62,6 @@ func makeFrame() -> SCNNode {
     if Debug.scene { print("       SceneConstruction| makeFrame()") }
 
     let frameNode = SCNNode(name: "frame")              	// frameNode
-    if Debug.scene { dumpNode(frameNode) }
-
     frameNode.eulerAngles = SCNVector3(-Float.π/2.0, -Float.π/2.0, 0.0)
 
 /*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
@@ -73,17 +71,10 @@ func makeFrame() -> SCNNode {
   ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
     var earthNode: SCNNode
     if USE_SCENE_FILE {
-//        if let tempScene = SCNScene(named: "com.ramsaycons.earth.scn") {
-//            earthNode = tempScene.rootNode.childNodes.first!
-//            if Debug.scene { dumpNode(earthNode) }
-//        } else {
-//            earthNode = makeEarth()                             // earthNode ("globe", "grids", coast")
-//        }
         earthNode = SCNScene(named: "com.ramsaycons.earth.scn")?.rootNode.childNodes.first ?? makeEarth()
     } else {
         earthNode = makeEarth()                                 // earthNode ("globe", "grids", coast")
     }
-    if Debug.scene { dumpNode(earthNode) }
 
     let globeNode = earthNode.childNode(withName: "globe", recursively: true)
     let globeMaterial = SCNMaterial()
@@ -103,10 +94,7 @@ func makeFrame() -> SCNNode {
     earthNode.scale = SCNVector3(1.0, 1.0, 6356.752/6378.135)   // oblate squish
     earthNode.eulerAngles.z = CGFloat(zeroMeanSiderealTime(     // turn for time
                                             julianDate: FakeClock.shared.julianDaysNow()) * deg2rad)
-    if Debug.scene { dumpNode(earthNode) }
-
     frameNode <<< earthNode                                     //           "frame" << "earth"
-    if Debug.scene { dumpNode(frameNode) }
 
 /*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
   ┆ .. and attach "solar" (with 1 "light" child to provide illumination) node to "frame"             ┆
@@ -114,7 +102,6 @@ func makeFrame() -> SCNNode {
     let solarNode = makeSolarLight()                            // solarNode ("solar", "light")
     solarNode.childNodes[0].constraints = [SCNLookAtConstraint(target: earthNode)]
     frameNode <<< solarNode                             	    //           "frame" << "solar"
-    if Debug.scene { dumpNode(frameNode) }
 
     if Debug.scene { earthNode <<< addMarkerSpot(color: #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1), at: Vector(7000.0, 0.0, 0.0)) }
 
@@ -148,7 +135,6 @@ func makeEarth() -> SCNNode {
   ┆ "globe" .. spherical Earth, texture mapped -- add it to "earth" ..                               ┆
   ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
     let earthNode = SCNNode(name: "earth")
-    earthNode.name = "earth"
     earthNode <<< makeGlobe()                                   // globeNode
 
 /*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
@@ -244,7 +230,7 @@ func makeViewpoint() -> SCNNode {
     camera.zNear = cameraDistance-cameraBracket
 
     if #available(iOS 11.0, OSX 10.13, *) {
-        camera.fieldOfView = 7.5
+        camera.fieldOfView = 60.0
     } else {
         camera.xFov = 7.5
         camera.yFov = 7.5

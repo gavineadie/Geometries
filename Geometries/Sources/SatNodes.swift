@@ -7,7 +7,7 @@
 // swiftlint:disable function_body_length
 
 import SceneKit
-import SatKit
+import SatelliteKit
 
 let orbTickDelta = 30                                           // seconds between marks on orbit
 let orbTickRange = -5*(60/orbTickDelta)...80*(60/orbTickDelta)  // range of marks on orbital track ..

@@ -11,7 +11,7 @@
     import Cocoa
 #endif
 
-import SatKit
+import SatelliteKit
 
 enum Debug {
 
@@ -80,7 +80,7 @@ class AppSupport {
 /*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
   ┆ SatKit Version ..                                                                                ┆
   ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
-        print(String(format: "              AppSupport| .. startup .. %@", SatKit.version))
+        print(String(format: "              AppSupport| .. startup .. %@", SatelliteKit.version))
 
         if Debug.error { print("              AppSupport| .. failure " + "MissingKey".localized()) }
 

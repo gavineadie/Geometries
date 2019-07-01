@@ -6,7 +6,7 @@
 // swiftlint:disable identifier_name
 
 import SceneKit
-import SatKit
+import SatelliteKit
 
 let deg2rad = Double(π / 180.0)
 

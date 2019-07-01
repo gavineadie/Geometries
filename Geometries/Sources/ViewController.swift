@@ -6,7 +6,7 @@
 // swiftlint:disable identifier_name
 
 import SceneKit
-import SatKit
+import SatelliteKit
 
 let  AnnArborLatitude = +42.2755
 let AnnArborLongitude = -83.7521
@@ -39,7 +39,11 @@ class ViewController: NSViewController, SCNSceneRendererDelegate {
         if Debug.clock { FakeClock.shared.reset() }
 
         let scene = SCNScene()
-        scene.background.contents = "TychoSkymap"
+//        scene.background.contents = "TychoSkymap"
+        scene.background.contents = ["xpos512", "xneg512",
+                                     "ypos512", "yneg512",
+                                     "zpos512", "zneg512"]
+//        scene.background.contents = ["+X", "-X", "+Y", "-Y", "+Z", "-Z"]
 
         sceneView.scene = scene
         sceneView.backgroundColor = #colorLiteral(red: 0.0, green: 0.0, blue: 0.5, alpha: 1)

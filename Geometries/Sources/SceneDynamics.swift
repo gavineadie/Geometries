@@ -4,7 +4,7 @@
   ╚══════════════════════════════════════════════════════════════════════════════════════════════════╝*/
 
 import SceneKit
-import SatKit
+import SatelliteKit
 
 class SceneDynamics {
 

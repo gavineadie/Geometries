@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "SatelliteKit",
+        "repositoryURL": "https://github.com/gavineadie/SatelliteKit.git",
+        "state": {
+          "branch": null,
+          "revision": "ed712fc8487c35182734a0e0e282b82849f464af",
+          "version": "1.0.1"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
