@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8610CA6C21E3D79B006E66F5 /* com.ramsaycons.earth.scn in Resources */ = {isa = PBXBuildFile; fileRef = 8610CA6B21E3D79A006E66F5 /* com.ramsaycons.earth.scn */; };
-		8610CA6E21E3EB8E006E66F5 /* earth_diffuse_4k.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8610CA6D21E3EB8E006E66F5 /* earth_diffuse_4k.jpg */; };
 		8612A92E22B5968E005AC338 /* SatelliteKit in Frameworks */ = {isa = PBXBuildFile; productRef = 8612A92D22B5968E005AC338 /* SatelliteKit */; };
 		861610E72259BAF8000D65B1 /* Vectors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 861610E62259BAF8000D65B1 /* Vectors.xcassets */; };
 		8622183F2000330D003D7F7F /* AppPertinent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8622183D2000330D003D7F7F /* AppPertinent.swift */; };
@@ -21,9 +19,11 @@
 		8654A2DC1DCEA73D00D72606 /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8654A2DB1DCEA73D00D72606 /* CacheManager.swift */; };
 		866B422F1EB3BD6B0010D973 /* SatStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 866B422E1EB3BD6B0010D973 /* SatStore.swift */; };
 		86757FAB1E46832500DD6780 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86757FAA1E46832500DD6780 /* Extensions.swift */; };
+		8676693622D13D1900695202 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8676693522D13D1900695202 /* Assets.xcassets */; };
+		8676693A22D1555600695202 /* earth_diffuse_4k.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8676693922D1555500695202 /* earth_diffuse_4k.jpg */; };
+		8676693C22D155F900695202 /* com.ramsaycons.earth.scn in Resources */ = {isa = PBXBuildFile; fileRef = 8676693B22D155F900695202 /* com.ramsaycons.earth.scn */; };
 		868751CE1BB5D57200939585 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 868751CD1BB5D57200939585 /* AppDelegate.swift */; };
 		868751D01BB5D57200939585 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 868751CF1BB5D57200939585 /* ViewController.swift */; };
-		868751D21BB5D57200939585 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 868751D11BB5D57200939585 /* Assets.xcassets */; };
 		868751D51BB5D57200939585 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 868751D31BB5D57200939585 /* Main.storyboard */; };
 		86890D6C1C8010820046CF12 /* OverlayScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86890D6B1C8010820046CF12 /* OverlayScene.swift */; };
 		869AC32B221FA7C1009C702E /* SatelliteExtra.swift in Sources */ = {isa = PBXBuildFile; fileRef = 869AC32A221FA7C1009C702E /* SatelliteExtra.swift */; };
@@ -48,8 +48,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		8610CA6B21E3D79A006E66F5 /* com.ramsaycons.earth.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = com.ramsaycons.earth.scn; sourceTree = "<group>"; };
-		8610CA6D21E3EB8E006E66F5 /* earth_diffuse_4k.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = earth_diffuse_4k.jpg; sourceTree = "<group>"; };
 		861610E62259BAF8000D65B1 /* Vectors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Vectors.xcassets; sourceTree = "<group>"; };
 		8622183D2000330D003D7F7F /* AppPertinent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppPertinent.swift; sourceTree = "<group>"; };
 		862218442000441C003D7F7F /* SceneDynamics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDynamics.swift; sourceTree = "<group>"; };
@@ -61,10 +59,12 @@
 		866B422E1EB3BD6B0010D973 /* SatStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SatStore.swift; path = ../../DEMOS/DemosKit/SatStore.swift; sourceTree = "<group>"; };
 		8672CC221C83CC2500E1DD5E /* OverlayScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = OverlayScene.sks; sourceTree = "<group>"; };
 		86757FAA1E46832500DD6780 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		8676693522D13D1900695202 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		8676693922D1555500695202 /* earth_diffuse_4k.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = earth_diffuse_4k.jpg; sourceTree = "<group>"; };
+		8676693B22D155F900695202 /* com.ramsaycons.earth.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = com.ramsaycons.earth.scn; sourceTree = "<group>"; };
 		868751CA1BB5D57200939585 /* Geometries.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Geometries.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		868751CD1BB5D57200939585 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		868751CF1BB5D57200939585 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		868751D11BB5D57200939585 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		868751D41BB5D57200939585 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		868751D61BB5D57200939585 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		86890D6B1C8010820046CF12 /* OverlayScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayScene.swift; sourceTree = "<group>"; };
@@ -156,12 +156,12 @@
 			children = (
 				861707EA1EECDF4300FD67EC /* Sources */,
 				8654A2D51DCEA6E700D72606 /* DemosKit */,
-				8610CA6B21E3D79A006E66F5 /* com.ramsaycons.earth.scn */,
+				8676693B22D155F900695202 /* com.ramsaycons.earth.scn */,
 				8672CC221C83CC2500E1DD5E /* OverlayScene.sks */,
-				8610CA6D21E3EB8E006E66F5 /* earth_diffuse_4k.jpg */,
-				868751D11BB5D57200939585 /* Assets.xcassets */,
 				868751D31BB5D57200939585 /* Main.storyboard */,
 				861610E62259BAF8000D65B1 /* Vectors.xcassets */,
+				8676693522D13D1900695202 /* Assets.xcassets */,
+				8676693922D1555500695202 /* earth_diffuse_4k.jpg */,
 				86280CB91DDD590B00BE3B6F /* Particles */,
 				868751D61BB5D57200939585 /* Info.plist */,
 			);
@@ -237,14 +237,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8610CA6E21E3EB8E006E66F5 /* earth_diffuse_4k.jpg in Resources */,
-				8610CA6C21E3D79B006E66F5 /* com.ramsaycons.earth.scn in Resources */,
-				868751D21BB5D57200939585 /* Assets.xcassets in Resources */,
 				86280CBE1DDD5A2300BE3B6F /* spark.png in Resources */,
+				8676693C22D155F900695202 /* com.ramsaycons.earth.scn in Resources */,
 				868751D51BB5D57200939585 /* Main.storyboard in Resources */,
 				861610E72259BAF8000D65B1 /* Vectors.xcassets in Resources */,
 				863478001D135B7E0058F510 /* OverlayScene.sks in Resources */,
+				8676693622D13D1900695202 /* Assets.xcassets in Resources */,
 				86280CBD1DDD5A2300BE3B6F /* Fire.scnp in Resources */,
+				8676693A22D1555600695202 /* earth_diffuse_4k.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

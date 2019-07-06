@@ -39,11 +39,11 @@ class ViewController: NSViewController, SCNSceneRendererDelegate {
         if Debug.clock { FakeClock.shared.reset() }
 
         let scene = SCNScene()
-//        scene.background.contents = "TychoSkymap"
-        scene.background.contents = ["xpos512", "xneg512",
-                                     "ypos512", "yneg512",
-                                     "zpos512", "zneg512"]
-//        scene.background.contents = ["+X", "-X", "+Y", "-Y", "+Z", "-Z"]
+        scene.background.contents = "TychoSkymap"
+//        scene.background.contents = ["xpos2048", "xneg2048",
+//                                     "ypos2048", "yneg2048",
+//                                     "zpos2048", "zneg2048"]
+//        scene.background.contents = ["Tile+X", "Tile-X", "Tile+Y", "Tile-Y", "Tile+Z", "Tile-Z"]
 
         sceneView.scene = scene
         sceneView.backgroundColor = #colorLiteral(red: 0.0, green: 0.0, blue: 0.5, alpha: 1)

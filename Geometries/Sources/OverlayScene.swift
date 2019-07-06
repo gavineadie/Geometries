@@ -4,8 +4,6 @@
   ║ Created by Gavin Eadie on Feb25/15 ... Copyright 2015-17 Ramsay Consulting. All rights reserved. ║
   ╚══════════════════════════════════════════════════════════════════════════════════════════════════╝*/
 
-// swiftlint:disable statement_position
-
 import SpriteKit
 
 class OverlayScene: SKScene {
@@ -21,8 +19,7 @@ class OverlayScene: SKScene {
 
             print("  OverlayScene: SKNode 'touch' interactive (click inside)")
 
-        }
-        else {
+        } else {
 
             print("  OverlayScene: SKNode 'touch' interactive (click missed)")
 

@@ -230,7 +230,7 @@ func makeViewpoint() -> SCNNode {
     camera.zNear = cameraDistance-cameraBracket
 
     if #available(iOS 11.0, OSX 10.13, *) {
-        camera.fieldOfView = 60.0
+        camera.fieldOfView = 10.0
     } else {
         camera.xFov = 7.5
         camera.yFov = 7.5
