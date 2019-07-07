@@ -2,7 +2,7 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "TychoSkymap.jpg",
+      "filename" : "starmap_16k.jpg",
       "scale" : "1x"
     },
     {
@@ -12,14 +12,6 @@
     {
       "idiom" : "universal",
       "scale" : "3x"
-    },
-    {
-      "idiom" : "mac",
-      "scale" : "1x"
-    },
-    {
-      "idiom" : "mac",
-      "scale" : "2x"
     }
   ],
   "info" : {
