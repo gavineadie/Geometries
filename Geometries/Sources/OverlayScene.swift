@@ -1,7 +1,6 @@
 /*╔══════════════════════════════════════════════════════════════════════════════════════════════════╗
   ║ OverlayScene.swift                                                                    Geometries ║
-  ║                                                                                                  ║
-  ║ Created by Gavin Eadie on Feb25/15 ... Copyright 2015-17 Ramsay Consulting. All rights reserved. ║
+  ║ Created by Gavin Eadie on Feb25/15 ... Copyright 2015-19 Ramsay Consulting. All rights reserved. ║
   ╚══════════════════════════════════════════════════════════════════════════════════════════════════╝*/
 
 import SpriteKit

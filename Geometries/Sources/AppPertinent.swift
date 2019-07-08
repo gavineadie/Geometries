@@ -161,7 +161,7 @@ extension SatelliteStore {
 
             SatelliteStore.shared.setGroup(named: satCollectionKey, group: satelliteGroup)
         } catch {
-            print("error")
+            print("error: \(error)")
         }
 
     }
