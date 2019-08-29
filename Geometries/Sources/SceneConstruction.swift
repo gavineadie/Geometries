@@ -62,7 +62,7 @@ func makeFrame() -> SCNNode {
     if Debug.scene { print("       SceneConstruction| makeFrame()") }
 
     let frameNode = SCNNode(name: "frame")              	// frameNode
-    frameNode.eulerAngles = SCNVector3(-Float.π/2.0, -Float.π/2.0, 0.0)
+    frameNode.eulerAngles = SCNVector3(-Float.π/2.0, -Float.π/2.0, 0.0) // "X" forward; "Z" up
 
 /*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
   ┆ contruct the "earth" node .. this is the sphere of the Earth plus anything that rotates with it. ┆
@@ -92,8 +92,13 @@ func makeFrame() -> SCNNode {
     }
 
     earthNode.scale = SCNVector3(1.0, 1.0, 6356.752/6378.135)   // oblate squish
+#if os(iOS) || os(tvOS) || os(watchOS)
+    earthNode.eulerAngles.z = Float(zeroMeanSiderealTime(     	// turn for time
+                                        julianDate: FakeClock.shared.julianDaysNow()) * deg2rad)
+#else
     earthNode.eulerAngles.z = CGFloat(zeroMeanSiderealTime(     // turn for time
-                                            julianDate: FakeClock.shared.julianDaysNow()) * deg2rad)
+                                        julianDate: FakeClock.shared.julianDaysNow()) * deg2rad)
+#endif
     frameNode <<< earthNode                                     //           "frame" << "earth"
 
 /*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
@@ -103,8 +108,11 @@ func makeFrame() -> SCNNode {
     solarNode.childNodes[0].constraints = [SCNLookAtConstraint(target: earthNode)]
     frameNode <<< solarNode                             	    //           "frame" << "solar"
 
-    if Debug.scene { earthNode <<< addMarkerSpot(color: #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1), at: Vector(7000.0, 0.0, 0.0)) }
-
+    if Debug.scene { earthNode <<< addMarkerSpot(color: #colorLiteral(red: 0.95,
+                                                                      green: 0.85,
+                                                                      blue: 0.55,
+                                                                      alpha: 1),
+                                                 at: Vector(7500.0, 0.0, 0.0)) }
     return frameNode
 }
 
@@ -230,7 +238,7 @@ func makeViewpoint() -> SCNNode {
     camera.zNear = cameraDistance-cameraBracket
 
     if #available(iOS 11.0, OSX 10.13, *) {
-        camera.fieldOfView = 10.0
+        camera.fieldOfView = 7.5
     } else {
         camera.xFov = 7.5
         camera.yFov = 7.5

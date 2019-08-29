@@ -40,10 +40,11 @@ class ViewController: NSViewController, SCNSceneRendererDelegate {
 
         let scene = SCNScene()
         scene.background.contents = "starmap_16k"                   // http://svs.gsfc.nasa.gov/3572
-//        scene.background.contents = ["xpos2048", "xneg2048",
-//                                     "ypos2048", "yneg2048",
-//                                     "zpos2048", "zneg2048"]
-//        scene.background.contents = ["Tile+X", "Tile-X", "Tile+Y", "Tile-Y", "Tile+Z", "Tile-Z"]
+
+//      scene.background.contents = ["xpos2048", "xneg2048",
+//                                   "ypos2048", "yneg2048",
+//                                   "zpos2048", "zneg2048"]
+//      scene.background.contents = ["Tile+X", "Tile-X", "Tile+Y", "Tile-Y", "Tile+Z", "Tile-Z"]
 
         sceneView.scene = scene
         sceneView.backgroundColor = #colorLiteral(red: 0.0, green: 0.0, blue: 0.5, alpha: 1)
@@ -83,7 +84,7 @@ class ViewController: NSViewController, SCNSceneRendererDelegate {
   ┆  .. start the model driving timer                                                                ┆
   ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
         _ = SceneDynamics(sceneNode: sceneNode)
-}
+    }
 
     override func viewWillAppear() {
         super.viewWillAppear()

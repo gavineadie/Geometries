@@ -14,6 +14,8 @@ class SceneView: SCNView {
     var prevXRatio: CGFloat = 0.0
     var prevYRatio: CGFloat = 0.0
 
+    var prevFieldV: CGFloat = 7.5
+
     @IBAction func swipeAction(_ sender: NSPanGestureRecognizer) {
 
         if let view = sender.view {
@@ -44,14 +46,30 @@ class SceneView: SCNView {
         prevXRatio = 0.0
         prevYRatio = 0.0
 
+        prevFieldV = 7.5
+
+        if #available(iOS 11.0, OSX 10.13, *) {
+            camraNode.camera?.fieldOfView = prevFieldV
+        } else {
+            camraNode.camera?.xFov = Double(prevFieldV)
+            camraNode.camera?.yFov = Double(prevFieldV)
+        }
+
     }
 
     @IBAction func scaleAction(_ sender: NSMagnificationGestureRecognizer) {
 
-        Swift.print("     SceneView: scaleAction - viewPoint \(sender.magnification)")
+        var fieldOfView = prevFieldV - (sender.magnification * 4.0)
+        fieldOfView = min(max(fieldOfView, 2.0), 30.0)
 
-        camraNode.position.z *= (sender.magnification + 1.0)
+        if #available(iOS 11.0, OSX 10.13, *) {
+            camraNode.camera?.fieldOfView = fieldOfView
+        } else {
+            camraNode.camera?.xFov = Double(fieldOfView)
+            camraNode.camera?.yFov = Double(fieldOfView)
+        }
 
+        prevFieldV = fieldOfView
     }
 
 }

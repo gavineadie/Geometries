@@ -70,6 +70,7 @@
 		869AC32A221FA7C1009C702E /* SatelliteExtra.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SatelliteExtra.swift; path = ../../DEMOS/DemosKit/SatelliteExtra.swift; sourceTree = "<group>"; };
 		869CA3441FBFF67400C1636F /* FakeClock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeClock.swift; sourceTree = "<group>"; };
 		86B5D13F1E751260002DB9B1 /* SceneConstruction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneConstruction.swift; sourceTree = "<group>"; };
+		86D08F0522FCA9CA0084626C /* Geometries.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Geometries.entitlements; sourceTree = "<group>"; };
 		86D31DE11EECDCAA00577042 /* Geometries.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Geometries.swift; sourceTree = "<group>"; };
 		86D55FFE22D1635100011FAF /* CacheManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CacheManager.swift; path = ../../DEMOS/DemosKit/CacheManager.swift; sourceTree = "<group>"; };
 		86E5582C1F22A3E200931A8D /* SpriteConstruction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpriteConstruction.swift; sourceTree = "<group>"; };
@@ -154,6 +155,7 @@
 		868751CC1BB5D57200939585 /* Geometries */ = {
 			isa = PBXGroup;
 			children = (
+				86D08F0522FCA9CA0084626C /* Geometries.entitlements */,
 				861707EA1EECDF4300FD67EC /* Sources */,
 				8654A2D51DCEA6E700D72606 /* DemosKit */,
 				8676693B22D155F900695202 /* com.ramsaycons.earth.scn */,
@@ -205,7 +207,6 @@
 				TargetAttributes = {
 					868751C91BB5D57200939585 = {
 						CreatedOnToolsVersion = 7.0;
-						DevelopmentTeam = CXE9ZR7J3U;
 						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 					};
@@ -401,8 +402,11 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_WEAK = YES;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_ENTITLEMENTS = Geometries/Geometries.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = F8R52RXJ3S;
+				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = Geometries/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -420,8 +424,11 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_WEAK = YES;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_ENTITLEMENTS = Geometries/Geometries.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = F8R52RXJ3S;
+				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = Geometries/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
