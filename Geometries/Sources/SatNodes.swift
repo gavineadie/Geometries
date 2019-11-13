@@ -125,7 +125,7 @@ public extension Satellite {
 
             let eciVector = geo2xyz(julianDays: (fakeClock.ep1950DaysNow() - self.t₀Days1950) * 1440.0 *
                                                         TimeConstants.min2day + self.t₀Days1950 + JD.epoch1950,
-                                    geodetic: GeoVector(lat: footDelta * rad2deg,
+                                    geodetic: LatLonAlt(lat: footDelta * rad2deg,
                                                         lon: footAlpha * rad2deg,
                                                         alt: 0.0))
 

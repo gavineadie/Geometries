@@ -9,7 +9,7 @@ import CoreLocation
 import SceneKit
 import SatelliteKit
 
-let USE_SCENE_FILE = true
+let USE_SCENE_FILE = false
 let Rₑ: Double = 6378.135                // equatorial radius (polar radius = 6356.752 Kms)
 
 /*┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
@@ -76,19 +76,17 @@ func makeFrame() -> SCNNode {
         earthNode = makeEarth()                                 // earthNode ("globe", "grids", coast")
     }
 
-    let globeNode = earthNode.childNode(withName: "globe", recursively: true)
-    let globeMaterial = SCNMaterial()
-    globeMaterial.diffuse.contents = Image(named: "earth_diffuse_4k.jpg")
-
-    if let globeGeom = globeNode?.geometry {
-        globeGeom.firstMaterial = globeMaterial
-
-        if #available(iOS 10, *) {
-            globeGeom.firstMaterial?.lightingModel = .physicallyBased
-            globeGeom.firstMaterial?.roughness.contents = Color.lightGray
+    if let globeNode = earthNode.childNode(withName: "globe", recursively: true) {
+        let globeMaterial = SCNMaterial()
+        if #available(iOS 10, OSX 10.12, *) {
+            globeMaterial.lightingModel = .physicallyBased
+            globeMaterial.roughness.contents = Color.lightGray
         } else {
-            globeGeom.firstMaterial?.lightingModel = .lambert
+            globeMaterial.lightingModel = .lambert
         }
+
+        globeMaterial.diffuse.contents = Image(named: "earth_diffuse_4k")
+        globeNode.geometry?.materials = [globeMaterial]
     }
 
     earthNode.scale = SCNVector3(1.0, 1.0, 6356.752/6378.135)   // oblate squish
@@ -108,10 +106,7 @@ func makeFrame() -> SCNNode {
     solarNode.childNodes[0].constraints = [SCNLookAtConstraint(target: earthNode)]
     frameNode <<< solarNode                             	    //           "frame" << "solar"
 
-    if Debug.scene { earthNode <<< addMarkerSpot(color: #colorLiteral(red: 0.95,
-                                                                      green: 0.85,
-                                                                      blue: 0.55,
-                                                                      alpha: 1),
+    if Debug.scene { earthNode <<< addMarkerSpot(color: #colorLiteral(red: 0.95, green: 0.85, blue: 0.55, alpha: 1),
                                                  at: Vector(7500.0, 0.0, 0.0)) }
     return frameNode
 }
@@ -170,7 +165,7 @@ func makeEarth() -> SCNNode {
   ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
     let obsvrNode = makeObserver()
         obsvrNode.position = SCNVector3(geo2eci(julianDays: -1.0,
-                                    geodetic: GeoVector(lat: annArborLocation.coordinate.latitude,
+                                    geodetic: LatLonAlt(lat: annArborLocation.coordinate.latitude,
                                                         lon: annArborLocation.coordinate.longitude,
                                                         alt: annArborLocation.altitude/1000.0)))
     earthNode <<< obsvrNode

@@ -11,7 +11,9 @@ import SatelliteKit
 let  AnnArborLatitude = +42.2755
 let AnnArborLongitude = -83.7521
 let  AnnArborAltitude =   0.1       // Kms
-let  AnnArborLocation = Vector(AnnArborLatitude, AnnArborLongitude, AnnArborAltitude)
+let  AnnArborLocation = LatLonAlt(lat: AnnArborLatitude,
+                                  lon: AnnArborLongitude,
+                                  alt: AnnArborAltitude)
 
 class ViewController: NSViewController, SCNSceneRendererDelegate {
 
