@@ -41,7 +41,7 @@ class ViewController: NSViewController, SCNSceneRendererDelegate {
         if Debug.clock { FakeClock.shared.reset() }
 
         let scene = SCNScene()
-        scene.background.contents = "starmap_16k"                   // http://svs.gsfc.nasa.gov/3572
+        scene.background.contents = "starmap_4k"                // http://svs.gsfc.nasa.gov/3895
 
 //      scene.background.contents = ["xpos2048", "xneg2048",
 //                                   "ypos2048", "yneg2048",
