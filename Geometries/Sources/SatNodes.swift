@@ -6,6 +6,7 @@
 // swiftlint:disable statement_position
 // swiftlint:disable function_body_length
 
+import AppExtras
 import SceneKit
 import SatelliteKit
 
@@ -233,4 +234,27 @@ public extension Satellite {
             }
         }
     }
+}
+
+extension SatelliteStore {
+
+    func downloadLocal() {
+
+        let localFile = "file:///Users/gavin/Library/Application%20Support/com.ramsaycons.tle/visual.txt"
+        do {
+            let localURL = URL(string: localFile)!
+            let satCollectionKey = localURL.deletingPathExtension().lastPathComponent
+
+            let tleChunk = try String(contentsOf: localURL)
+
+            var satelliteGroup = SatelliteGroup()
+            satelliteGroup.processTLEs(tleChunk) // .components(separatedBy: "\n"))
+
+            SatelliteStore.shared.setGroup(named: satCollectionKey, group: satelliteGroup)
+        } catch {
+            print("error: \(error)")
+        }
+
+    }
+
 }

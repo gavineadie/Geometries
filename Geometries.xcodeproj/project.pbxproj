@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		861610E72259BAF8000D65B1 /* Vectors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 861610E62259BAF8000D65B1 /* Vectors.xcassets */; };
-		8622183F2000330D003D7F7F /* AppPertinent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8622183D2000330D003D7F7F /* AppPertinent.swift */; };
 		862218462000441C003D7F7F /* SceneDynamics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 862218442000441C003D7F7F /* SceneDynamics.swift */; };
 		86280CBD1DDD5A2300BE3B6F /* Fire.scnp in Resources */ = {isa = PBXBuildFile; fileRef = 86280CBB1DDD5A2300BE3B6F /* Fire.scnp */; };
 		86280CBE1DDD5A2300BE3B6F /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = 86280CBC1DDD5A2300BE3B6F /* spark.png */; };
@@ -24,13 +23,13 @@
 		868751D51BB5D57200939585 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 868751D31BB5D57200939585 /* Main.storyboard */; };
 		86890D6C1C8010820046CF12 /* OverlayScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86890D6B1C8010820046CF12 /* OverlayScene.swift */; };
 		86890F3423D271CB00BF1E99 /* SatelliteKit in Frameworks */ = {isa = PBXBuildFile; productRef = 86890F3323D271CB00BF1E99 /* SatelliteKit */; };
+		86890F3A23D27B6000BF1E99 /* AppExtras in Frameworks */ = {isa = PBXBuildFile; productRef = 86890F3923D27B6000BF1E99 /* AppExtras */; };
 		869AC32B221FA7C1009C702E /* SatelliteExtra.swift in Sources */ = {isa = PBXBuildFile; fileRef = 869AC32A221FA7C1009C702E /* SatelliteExtra.swift */; };
 		869CA3461FBFF67400C1636F /* FakeClock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 869CA3441FBFF67400C1636F /* FakeClock.swift */; };
 		86AF6AE61EECE3AD004EBEFA /* SceneConstruction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86B5D13F1E751260002DB9B1 /* SceneConstruction.swift */; };
 		86D31DE21EECDCAA00577042 /* Geometries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86D31DE11EECDCAA00577042 /* Geometries.swift */; };
 		86D55FFF22D1635100011FAF /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86D55FFE22D1635100011FAF /* CacheManager.swift */; };
 		86E5582D1F22A3E200931A8D /* SpriteConstruction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86E5582C1F22A3E200931A8D /* SpriteConstruction.swift */; };
-		86EDDC5122A8C2EC00520890 /* Platform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86EDDC4822A8C2EC00520890 /* Platform.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -48,7 +47,6 @@
 
 /* Begin PBXFileReference section */
 		861610E62259BAF8000D65B1 /* Vectors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Vectors.xcassets; sourceTree = "<group>"; };
-		8622183D2000330D003D7F7F /* AppPertinent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppPertinent.swift; sourceTree = "<group>"; };
 		862218442000441C003D7F7F /* SceneDynamics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDynamics.swift; sourceTree = "<group>"; };
 		86280CBB1DDD5A2300BE3B6F /* Fire.scnp */ = {isa = PBXFileReference; lastKnownFileType = file.scp; path = Fire.scnp; sourceTree = "<group>"; };
 		86280CBC1DDD5A2300BE3B6F /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
@@ -72,7 +70,6 @@
 		86D31DE11EECDCAA00577042 /* Geometries.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Geometries.swift; sourceTree = "<group>"; };
 		86D55FFE22D1635100011FAF /* CacheManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CacheManager.swift; path = ../../DEMOS/DemosKit/CacheManager.swift; sourceTree = "<group>"; };
 		86E5582C1F22A3E200931A8D /* SpriteConstruction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpriteConstruction.swift; sourceTree = "<group>"; };
-		86EDDC4822A8C2EC00520890 /* Platform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Platform.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +78,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				86890F3423D271CB00BF1E99 /* SatelliteKit in Frameworks */,
+				86890F3A23D27B6000BF1E99 /* AppExtras in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -91,7 +89,6 @@
 			isa = PBXGroup;
 			children = (
 				868751CD1BB5D57200939585 /* AppDelegate.swift */,
-				8622183D2000330D003D7F7F /* AppPertinent.swift */,
 				868751CF1BB5D57200939585 /* ViewController.swift */,
 				864A60031C82940D009D6C72 /* SceneView.swift */,
 				86B5D13F1E751260002DB9B1 /* SceneConstruction.swift */,
@@ -126,7 +123,6 @@
 		8654A2D51DCEA6E700D72606 /* DemosKit */ = {
 			isa = PBXGroup;
 			children = (
-				86EDDC4822A8C2EC00520890 /* Platform.swift */,
 				869AC32A221FA7C1009C702E /* SatelliteExtra.swift */,
 				866B422E1EB3BD6B0010D973 /* SatStore.swift */,
 				86D55FFE22D1635100011FAF /* CacheManager.swift */,
@@ -196,6 +192,7 @@
 			name = Geometries;
 			packageProductDependencies = (
 				86890F3323D271CB00BF1E99 /* SatelliteKit */,
+				86890F3923D27B6000BF1E99 /* AppExtras */,
 			);
 			productName = Geometries;
 			productReference = 868751CA1BB5D57200939585 /* Geometries.app */;
@@ -228,6 +225,7 @@
 			mainGroup = 868751C11BB5D57200939585;
 			packageReferences = (
 				8612A92C22B5968E005AC338 /* XCRemoteSwiftPackageReference "SatelliteKit" */,
+				86890F3823D27B6000BF1E99 /* XCRemoteSwiftPackageReference "AppExtras" */,
 			);
 			productRefGroup = 868751CB1BB5D57200939585 /* Products */;
 			projectDirPath = "";
@@ -300,11 +298,9 @@
 				864A60041C82940D009D6C72 /* SceneView.swift in Sources */,
 				866B422F1EB3BD6B0010D973 /* SatStore.swift in Sources */,
 				86E5582D1F22A3E200931A8D /* SpriteConstruction.swift in Sources */,
-				8622183F2000330D003D7F7F /* AppPertinent.swift in Sources */,
 				86890D6C1C8010820046CF12 /* OverlayScene.swift in Sources */,
 				86D55FFF22D1635100011FAF /* CacheManager.swift in Sources */,
 				868751CE1BB5D57200939585 /* AppDelegate.swift in Sources */,
-				86EDDC5122A8C2EC00520890 /* Platform.swift in Sources */,
 				869CA3461FBFF67400C1636F /* FakeClock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -480,6 +476,14 @@
 				minimumVersion = 1.0.1;
 			};
 		};
+		86890F3823D27B6000BF1E99 /* XCRemoteSwiftPackageReference "AppExtras" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "file:///Users/gavin/Development/AppExtras";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -487,6 +491,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 8612A92C22B5968E005AC338 /* XCRemoteSwiftPackageReference "SatelliteKit" */;
 			productName = SatelliteKit;
+		};
+		86890F3923D27B6000BF1E99 /* AppExtras */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 86890F3823D27B6000BF1E99 /* XCRemoteSwiftPackageReference "AppExtras" */;
+			productName = AppExtras;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

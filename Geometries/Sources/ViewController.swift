@@ -5,6 +5,7 @@
 
 // swiftlint:disable identifier_name
 
+import AppExtras
 import SceneKit
 import SatelliteKit
 
@@ -39,6 +40,8 @@ class ViewController: NSViewController, SCNSceneRendererDelegate {
 
         if Debug.views { print("     OrbitViewController| viewDidLoad()") }
         if Debug.clock { FakeClock.shared.reset() }
+
+        if SatelliteStore.shared.visualGroup == nil { SatelliteStore.shared.downloadLocal() }
 
         let scene = SCNScene()
         scene.background.contents = "starmap_4k"                // http://svs.gsfc.nasa.gov/3895

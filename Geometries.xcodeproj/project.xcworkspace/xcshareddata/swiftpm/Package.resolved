@@ -2,6 +2,15 @@
   "object": {
     "pins": [
       {
+        "package": "AppExtras",
+        "repositoryURL": "/Users/gavin/Development/AppExtras",
+        "state": {
+          "branch": "master",
+          "revision": "133bd2e4ecd7a2d336a4faa7c5f43c3e502dea47",
+          "version": null
+        }
+      },
+      {
         "package": "SatelliteKit",
         "repositoryURL": "https://github.com/gavineadie/SatelliteKit.git",
         "state": {

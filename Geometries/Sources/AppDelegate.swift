@@ -11,6 +11,8 @@
     import Cocoa
 #endif
 
+import AppExtras
+
 @NSApplicationMain
 
 class AppDelegate: NSObject, NSApplicationDelegate {
