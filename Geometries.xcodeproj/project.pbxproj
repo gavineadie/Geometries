@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8612A92E22B5968E005AC338 /* SatelliteKit in Frameworks */ = {isa = PBXBuildFile; productRef = 8612A92D22B5968E005AC338 /* SatelliteKit */; };
 		861610E72259BAF8000D65B1 /* Vectors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 861610E62259BAF8000D65B1 /* Vectors.xcassets */; };
 		8622183F2000330D003D7F7F /* AppPertinent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8622183D2000330D003D7F7F /* AppPertinent.swift */; };
 		862218462000441C003D7F7F /* SceneDynamics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 862218442000441C003D7F7F /* SceneDynamics.swift */; };
@@ -24,6 +23,7 @@
 		868751D01BB5D57200939585 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 868751CF1BB5D57200939585 /* ViewController.swift */; };
 		868751D51BB5D57200939585 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 868751D31BB5D57200939585 /* Main.storyboard */; };
 		86890D6C1C8010820046CF12 /* OverlayScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86890D6B1C8010820046CF12 /* OverlayScene.swift */; };
+		86890F3423D271CB00BF1E99 /* SatelliteKit in Frameworks */ = {isa = PBXBuildFile; productRef = 86890F3323D271CB00BF1E99 /* SatelliteKit */; };
 		869AC32B221FA7C1009C702E /* SatelliteExtra.swift in Sources */ = {isa = PBXBuildFile; fileRef = 869AC32A221FA7C1009C702E /* SatelliteExtra.swift */; };
 		869CA3461FBFF67400C1636F /* FakeClock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 869CA3441FBFF67400C1636F /* FakeClock.swift */; };
 		86AF6AE61EECE3AD004EBEFA /* SceneConstruction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86B5D13F1E751260002DB9B1 /* SceneConstruction.swift */; };
@@ -80,7 +80,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8612A92E22B5968E005AC338 /* SatelliteKit in Frameworks */,
+				86890F3423D271CB00BF1E99 /* SatelliteKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -134,11 +134,19 @@
 			name = DemosKit;
 			sourceTree = "<group>";
 		};
+		866B98BC23B319DC0063DEB6 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		868751C11BB5D57200939585 = {
 			isa = PBXGroup;
 			children = (
 				868751CC1BB5D57200939585 /* Geometries */,
 				868751CB1BB5D57200939585 /* Products */,
+				866B98BC23B319DC0063DEB6 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -187,7 +195,7 @@
 			);
 			name = Geometries;
 			packageProductDependencies = (
-				8612A92D22B5968E005AC338 /* SatelliteKit */,
+				86890F3323D271CB00BF1E99 /* SatelliteKit */,
 			);
 			productName = Geometries;
 			productReference = 868751CA1BB5D57200939585 /* Geometries.app */;
@@ -401,7 +409,8 @@
 				CODE_SIGN_ENTITLEMENTS = Geometries/Geometries.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = F8R52RXJ3S;
+				CURRENT_PROJECT_VERSION = 103;
+				DEVELOPMENT_TEAM = CXE9ZR7J3U;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = Geometries/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -423,7 +432,8 @@
 				CODE_SIGN_ENTITLEMENTS = Geometries/Geometries.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = F8R52RXJ3S;
+				CURRENT_PROJECT_VERSION = 103;
+				DEVELOPMENT_TEAM = CXE9ZR7J3U;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = Geometries/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -473,7 +483,7 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		8612A92D22B5968E005AC338 /* SatelliteKit */ = {
+		86890F3323D271CB00BF1E99 /* SatelliteKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 8612A92C22B5968E005AC338 /* XCRemoteSwiftPackageReference "SatelliteKit" */;
 			productName = SatelliteKit;

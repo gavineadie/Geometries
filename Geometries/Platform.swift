@@ -1,6 +1,6 @@
 /*╔══════════════════════════════════════════════════════════════════════════════════════════════════╗
   ║ Platform.swift                                                                          DemosKit ║
-  ║ Created by Gavin Eadie on Dec08/18 .. Copyright 2018-19 Ramsay Consulting.  All rights reserved. ║
+  ║ Created by Gavin Eadie on Dec08/18 .. Copyright 2018-20 Ramsay Consulting.  All rights reserved. ║
   ╚══════════════════════════════════════════════════════════════════════════════════════════════════╝*/
 
 #if os(iOS) || os(tvOS) || os(watchOS)

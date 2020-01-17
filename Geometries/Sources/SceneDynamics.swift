@@ -1,6 +1,6 @@
 /*╔══════════════════════════════════════════════════════════════════════════════════════════════════╗
   ║ SceneDynamics.swift                                                                   Satellites ║
-  ║ Created by Gavin Eadie on Nov17/17.. Copyright © 2017-19 Ramsay Consulting. All rights reserved. ║
+  ║ Created by Gavin Eadie on Nov17/17.. Copyright © 2017-20 Ramsay Consulting. All rights reserved. ║
   ╚══════════════════════════════════════════════════════════════════════════════════════════════════╝*/
 
 import SceneKit

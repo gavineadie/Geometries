@@ -1,6 +1,6 @@
 /*╔══════════════════════════════════════════════════════════════════════════════════════════════════╗
   ║ AppPertinent.swift                                                                    Satellites ║
-  ║ Created by Gavin Eadie on Nov27/17         Copyright © 2017-18 Gavin Eadie. All rights reserved. ║
+  ║ Created by Gavin Eadie on Nov27/17         Copyright © 2017-20 Gavin Eadie. All rights reserved. ║
   ╚══════════════════════════════════════════════════════════════════════════════════════════════════╝*/
 
 // swiftlint:disable discarded_notification_center_observer
@@ -25,11 +25,17 @@ enum Debug {
 
 }
 
+/*┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+  ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛*/
 class AppSupport {
 
     static let shared = AppSupport()                // application support singleton ..
 
+/*┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
+  └──────────────────────────────────────────────────────────────────────────────────────────────────┘*/
     private init() {
+        if Debug.trace { print("              AppSupport| .. init") }
+
 #if DEBUG
     print("""
                 AppSupport| DEBUG BUILD

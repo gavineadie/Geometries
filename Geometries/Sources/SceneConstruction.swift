@@ -1,6 +1,6 @@
 /*╔══════════════════════════════════════════════════════════════════════════════════════════════════╗
   ║ SceneConstruction.swift                                                               Geometries ║
-  ║ Created by Gavin Eadie on Mar12/17   Copyright © 2017-19 Ramsay Consulting. All rights reserved. ║
+  ║ Created by Gavin Eadie on Mar12/17   Copyright © 2017-20 Ramsay Consulting. All rights reserved. ║
   ╚══════════════════════════════════════════════════════════════════════════════════════════════════╝*/
 
 // swiftlint:disable identifier_name
@@ -225,8 +225,8 @@ func makeObserver() -> SCNNode {
   │ that distance.  Attach the camera to it.                                                         │
   │                                                      http://stackoverflow.com/questions/25654772 │
   └──────────────────────────────────────────────────────────────────────────────────────────────────┘*/
-let cameraDistance = 120_000.0
-let cameraBracket  =  60_000.0
+let cameraDistance = 25_000.0
+let cameraBracket  = 10_000.0
 
 func makeViewpoint() -> SCNNode {
     if Debug.scene { print("       SceneConstruction| makeCameraView()") }
@@ -236,7 +236,7 @@ func makeViewpoint() -> SCNNode {
     camera.zNear = cameraDistance-cameraBracket
 
     if #available(iOS 11.0, OSX 10.13, *) {
-        camera.fieldOfView = 7.5
+        camera.fieldOfView = 45.0
     } else {
         camera.xFov = 7.5
         camera.yFov = 7.5

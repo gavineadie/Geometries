@@ -1,6 +1,6 @@
 /*╔══════════════════════════════════════════════════════════════════════════════════════════════════╗
   ║ Geometries.swift                                                                      Geometries ║
-  ║ Created by Gavin Eadie on Jun10/17   Copyright © 2017-19 Ramsay Consulting. All rights reserved. ║
+  ║ Created by Gavin Eadie on Jun10/17   Copyright © 2017-20 Ramsay Consulting. All rights reserved. ║
   ╚══════════════════════════════════════════════════════════════════════════════════════════════════╝*/
 
 // swiftlint:disable variable_name

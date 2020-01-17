@@ -1,6 +1,6 @@
 /*╔══════════════════════════════════════════════════════════════════════════════════════════════════╗
   ║ AppDelegate.swift                                                                     Geometries ║
-  ║ Created by Gavin Eadie on Sep25/15 ... Copyright 2015-19 Ramsay Consulting. All rights reserved. ║
+  ║ Created by Gavin Eadie on Sep25/15 ... Copyright 2015-20 Ramsay Consulting. All rights reserved. ║
   ╚══════════════════════════════════════════════════════════════════════════════════════════════════╝*/
 
 // swiftlint:disable force_cast
