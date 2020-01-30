@@ -6,7 +6,7 @@
         "repositoryURL": "/Users/gavin/Development/AppExtras",
         "state": {
           "branch": "master",
-          "revision": "133bd2e4ecd7a2d336a4faa7c5f43c3e502dea47",
+          "revision": "105bcac207281a49d0e50d4b9ab5a119e29a389e",
           "version": null
         }
       },
@@ -15,8 +15,8 @@
         "repositoryURL": "https://github.com/gavineadie/SatelliteKit.git",
         "state": {
           "branch": null,
-          "revision": "0f919494248c5f39685e82edc84ed23be432f87c",
-          "version": "1.0.15"
+          "revision": "340a578591e2f1af7ef5a58bd2eba947b96f022c",
+          "version": "1.0.16"
         }
       }
     ]

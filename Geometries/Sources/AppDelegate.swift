@@ -5,17 +5,12 @@
 
 // swiftlint:disable force_cast
 
-#if os(iOS) || os(tvOS) || os(watchOS)
-    import UIKit
-#else
-    import Cocoa
-#endif
-
+import Cocoa
 import AppExtras
 
 @NSApplicationMain
 
-class AppDelegate: NSObject, NSApplicationDelegate {
+class AppDelegate: NSObject, ApplicationDelegate {
 
     @IBOutlet weak var window: NSWindow!
 

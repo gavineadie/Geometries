@@ -4,9 +4,11 @@
   ╚══════════════════════════════════════════════════════════════════════════════════════════════════╝*/
 
 // swiftlint:disable identifier_name
+// swiftlint:disable force_try
 
 import AppExtras
 import SceneKit
+import MetalKit
 import SatelliteKit
 
 let  AnnArborLatitude = +42.2755
@@ -15,6 +17,10 @@ let  AnnArborAltitude =   0.1       // Kms
 let  AnnArborLocation = LatLonAlt(lat: AnnArborLatitude,
                                   lon: AnnArborLongitude,
                                   alt: AnnArborAltitude)
+
+extension Debug {
+    static let scene = false
+}
 
 class ViewController: NSViewController, SCNSceneRendererDelegate {
 
@@ -41,15 +47,21 @@ class ViewController: NSViewController, SCNSceneRendererDelegate {
         if Debug.views { print("     OrbitViewController| viewDidLoad()") }
         if Debug.clock { FakeClock.shared.reset() }
 
-        if SatelliteStore.shared.visualGroup == nil { SatelliteStore.shared.downloadLocal() }
+// TODO following might load some other group, not 'visualGroup'
+        if SatelliteStore.shared.visualGroup == nil {
+            SatelliteStore.shared.downloadFile(from:
+                            "/Users/gavin/Library/Application Support/com.ramsaycons.tle/visual.txt")
+        }
 
         let scene = SCNScene()
-        scene.background.contents = "starmap_4k"                // http://svs.gsfc.nasa.gov/3895
 
-//      scene.background.contents = ["xpos2048", "xneg2048",
-//                                   "ypos2048", "yneg2048",
-//                                   "zpos2048", "zneg2048"]
-//      scene.background.contents = ["Tile+X", "Tile-X", "Tile+Y", "Tile-Y", "Tile+Z", "Tile-Z"]
+        let textureLoader = MTKTextureLoader(device: sceneView.device!)
+if #available(OSX 10.12, *) {
+        scene.background.contents = try! textureLoader.newTexture(name: "Star0512", scaleFactor: 1.0,
+                                                                  bundle: .main, options: nil)
+} else {
+// TODO Fallback on earlier versions
+}
 
         sceneView.scene = scene
         sceneView.backgroundColor = #colorLiteral(red: 0.0, green: 0.0, blue: 0.5, alpha: 1)
