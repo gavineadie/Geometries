@@ -55,10 +55,14 @@ class ViewController: NSViewController, SCNSceneRendererDelegate {
 
         let scene = SCNScene()
 
+if #available(OSX 10.11, *) {
         let textureLoader = MTKTextureLoader(device: sceneView.device!)
 if #available(OSX 10.12, *) {
-        scene.background.contents = try! textureLoader.newTexture(name: "Star0512", scaleFactor: 1.0,
+        scene.background.contents = try! textureLoader.newTexture(name: "Star1024", scaleFactor: 1.0,
                                                                   bundle: .main, options: nil)
+} else {
+        // Fallback on earlier versions
+}
 } else {
 // TODO Fallback on earlier versions
 }

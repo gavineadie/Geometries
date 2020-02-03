@@ -165,7 +165,7 @@ func makeEarth() -> SCNNode {
   ┆ "statn" .. get the observer's position -- add it to "earth" ..                                   ┆
   ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
     let obsvrNode = makeObserver()
-        obsvrNode.position = SCNVector3(geo2eci(julianDays: -1.0,
+        obsvrNode.position = SCNVector3(geo2eci(
                                     geodetic: LatLonAlt(lat: annArborLocation.coordinate.latitude,
                                                         lon: annArborLocation.coordinate.longitude,
                                                         alt: annArborLocation.altitude/1000.0)))
@@ -315,6 +315,7 @@ let vertexStride = MemoryLayout<Vertex>.stride
   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛*/
 func geometry(from vectorAssetName: String) -> SCNGeometry? {
 
+if #available(OSX 10.11, *) {
     let vectorAsset = NSDataAsset(name: vectorAssetName)
     guard let vectorData = vectorAsset?.data else {
         print("mesh file '\(vectorAssetName)' missing")
@@ -333,4 +334,7 @@ func geometry(from vectorAssetName: String) -> SCNGeometry? {
                                      bytesPerIndex: MemoryLayout<UInt16>.size)
 
     return SCNGeometry(sources: [vertexSource], elements: [element])
+} else {
+    return nil
+}
 }

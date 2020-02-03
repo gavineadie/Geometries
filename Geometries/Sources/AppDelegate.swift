@@ -3,6 +3,18 @@
   ║ Created by Gavin Eadie on Sep25/15 ... Copyright 2015-20 Ramsay Consulting. All rights reserved. ║
   ╚══════════════════════════════════════════════════════════════════════════════════════════════════╝*/
 
+/*╔══════════════════════════════════════════════════════════════════════════════════════════════════╗
+  ║ This application runs on Mac OS 10.10 or above because of certain SceneKit and Recognizer usage. ║
+  ╚══════════════════════════════════════════════════════════════════════════════════════════════════╝*/
+
+/*╔══════════════════════════════════════════════════════════════════════════════════════════════════╗
+  ║ This application runs on Mac OS 10.11 due to NSDataAsset, MTKTextureLoader and SceneView.device. ║
+  ╚══════════════════════════════════════════════════════════════════════════════════════════════════╝*/
+
+/*╔══════════════════════════════════════════════════════════════════════════════════════════════════╗
+  ║ This application runs on Mac OS 10.12 due to texture access from Asset Catalog.                  ║
+  ╚══════════════════════════════════════════════════════════════════════════════════════════════════╝*/
+
 // swiftlint:disable force_cast
 
 import Cocoa
@@ -14,35 +26,44 @@ class AppDelegate: NSObject, ApplicationDelegate {
 
     @IBOutlet weak var window: NSWindow!
 
+    let appSupport = AppSupport.shared
+
 /*┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
   ┃     Insert code here to initialize your application                                              ┃
   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛*/
-    func applicationDidFinishLaunching(_ aNotification: Notification) {
+    func applicationWillFinishLaunching(_ notification: Notification) {
+        if Debug.trace { print("             Application| applicationWillFinishLaunching()") }
+
+        appSupport.prestart(notification.object as! Application)
+
+    }
+
+    func applicationDidFinishLaunching(_ notification: Notification) {
         if Debug.trace { print("             Application| DidFinishLaunching()") }
 
-        AppSupport.shared.starting(Application.shared)
+        appSupport.starting(notification.object as! Application)
 
     }
 
     func applicationDidResignActive( _ notification: Notification) {
 
-        AppSupport.shared.resigned(notification.object as! Application)
+        appSupport.resigned(notification.object as! Application)
 
     }
 
     func applicationWillBecomeActive( _ notification: Notification) {
 
-        AppSupport.shared.energize(notification.object as! Application)
+        appSupport.energize(notification.object as! Application)
 
     }
 
 /*┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
   ┃     Insert code here to tear down your application                                               ┃
   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛*/
-    func applicationWillTerminate(_ aNotification: Notification) {
+    func applicationWillTerminate(_ notification: Notification) {
         if Debug.trace { print("             Application| WillTerminate()") }
 
-        AppSupport.shared.shutdown(Application.shared)
+        appSupport.shutdown(notification.object as! Application)
 
     }
 
@@ -66,7 +87,3 @@ class AppDelegate: NSObject, ApplicationDelegate {
 
     }
 }
-
-/*╔══════════════════════════════════════════════════════════════════════════════════════════════════╗
-  ║ This application runs on Mac OS 10.10 or above because of certain SceneKit and Recognizer usage. ║
-  ╚══════════════════════════════════════════════════════════════════════════════════════════════════╝*/

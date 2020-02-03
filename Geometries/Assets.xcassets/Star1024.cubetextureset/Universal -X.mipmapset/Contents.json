@@ -1,0 +1,12 @@
+{
+  "info" : {
+    "version" : 1,
+    "author" : "xcode"
+  },
+  "levels" : [
+    {
+      "filename" : "Tile18-X.png",
+      "mipmap-level" : "base"
+    }
+  ]
+}
