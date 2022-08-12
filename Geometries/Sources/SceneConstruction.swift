@@ -226,22 +226,16 @@ func makeObserver() -> SCNNode {
   │ that distance.  Attach the camera to it.                                                         │
   │                                                      http://stackoverflow.com/questions/25654772 │
   └──────────────────────────────────────────────────────────────────────────────────────────────────┘*/
-let cameraDistance = 25_000.0
+let cameraDistance = 40_000.0
 let cameraBracket  = 10_000.0
 
 func makeViewpoint() -> SCNNode {
     if Debug.scene { print("       SceneConstruction| makeCameraView()") }
 
     let camera = SCNCamera()                                    // create a camera
-    camera.zFar  = cameraDistance+cameraBracket                 // z-Range brackets geo
-    camera.zNear = cameraDistance-cameraBracket
-
-    if #available(iOS 11.0, OSX 10.13, *) {
-        camera.fieldOfView = 45.0
-    } else {
-        camera.xFov = 7.5
-        camera.yFov = 7.5
-    }
+    camera.zFar  = cameraDistance + cameraBracket               // z-Range brackets geo
+    camera.zNear = cameraDistance - cameraBracket
+    camera.fieldOfView = 30.0
 
     let camraNode = SCNNode(name: "camra")
     camraNode.position = SCNVector3(0, 0, Float(cameraDistance))

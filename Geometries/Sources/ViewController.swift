@@ -5,11 +5,15 @@
 
 // swiftlint:disable identifier_name
 // swiftlint:disable force_try
+// swiftlint:disable todo
 
 import AppExtras
 import SceneKit
 import MetalKit
+import DemosKit
 import SatelliteKit
+
+import os.log
 
 let  AnnArborLatitude = +42.2755
 let AnnArborLongitude = -83.7521
@@ -44,10 +48,11 @@ class ViewController: NSViewController, SCNSceneRendererDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if Debug.views { print("     OrbitViewController| viewDidLoad()") }
+        Logger.everything.info("          ViewController| viewDidLoad()")
+
         if Debug.clock { FakeClock.shared.reset() }
 
-// TODO following might load some other group, not 'visualGroup'
+// FIXME: following might load some other group, not 'visualGroup'
         if SatelliteStore.shared.visualGroup == nil {
             SatelliteStore.shared.downloadFile(from:
                             "/Users/gavin/Library/Application Support/com.ramsaycons.tle/visual.txt")
@@ -56,7 +61,7 @@ class ViewController: NSViewController, SCNSceneRendererDelegate {
         let scene = SCNScene()
 
 if #available(OSX 10.11, *) {
-        let textureLoader = MTKTextureLoader(device: sceneView.device!)
+        let textureLoader = MTKTextureLoader(device: MTLCreateSystemDefaultDevice()!) // sceneView.device!)
 if #available(OSX 10.12, *) {
         scene.background.contents = try! textureLoader.newTexture(name: "Star1024", scaleFactor: 1.0,
                                                                   bundle: .main, options: nil)
@@ -64,7 +69,7 @@ if #available(OSX 10.12, *) {
         // Fallback on earlier versions
 }
 } else {
-// TODO Fallback on earlier versions
+// FIXME: Fallback on earlier versions
 }
 
         sceneView.scene = scene
@@ -109,7 +114,7 @@ if #available(OSX 10.12, *) {
 
     override func viewWillAppear() {
         super.viewWillAppear()
-        if Debug.views { print("     OrbitViewController| viewWillAppear()") }
+        Logger.everything.info("          ViewController| viewWillAppear()")
 
 /*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
   ┆ .. once every seconds: update the time placard                                                   ┆
@@ -130,7 +135,7 @@ if #available(OSX 10.12, *) {
   └──────────────────────────────────────────────────────────────────────────────────────────────────┘*/
     override func viewDidAppear() {
         super.viewDidAppear()
-        if Debug.views { print("     OrbitViewController| viewDidAppear()") }
+        Logger.everything.info("          ViewController| viewDidAppear()")
     }
 
 /*┌──────────────────────────────────────────────────────────────────────────────────────────────────┐

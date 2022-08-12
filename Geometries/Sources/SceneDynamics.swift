@@ -4,6 +4,7 @@
   ╚══════════════════════════════════════════════════════════════════════════════════════════════════╝*/
 
 import SceneKit
+import DemosKit
 import SatelliteKit
 
 class SceneDynamics {
@@ -45,7 +46,7 @@ class SceneDynamics {
   ┆ guard for satellites available ..                                                                ┆
   ┆                                         .. specifically, we have a non-zero "visible" collection ┆
   ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
-        guard let visualGroup = SatelliteStore.shared.getGroup(named: "visual"),
+        guard let visualGroup = SatelliteStore.shared.visualGroup,
                   visualGroup.sats.count > 0 else { return }
 
 /*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮

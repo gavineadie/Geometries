@@ -14,21 +14,17 @@
 		863478001D135B7E0058F510 /* OverlayScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8672CC221C83CC2500E1DD5E /* OverlayScene.sks */; };
 		86386F441E1A1468003B018D /* SatNodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86386F431E1A1468003B018D /* SatNodes.swift */; };
 		864A60041C82940D009D6C72 /* SceneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 864A60031C82940D009D6C72 /* SceneView.swift */; };
-		866B422F1EB3BD6B0010D973 /* SatelliteStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 866B422E1EB3BD6B0010D973 /* SatelliteStore.swift */; };
 		86757FAB1E46832500DD6780 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86757FAA1E46832500DD6780 /* Extensions.swift */; };
-		8676693C22D155F900695202 /* com.ramsaycons.earth.scn in Resources */ = {isa = PBXBuildFile; fileRef = 8676693B22D155F900695202 /* com.ramsaycons.earth.scn */; };
 		868751CE1BB5D57200939585 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 868751CD1BB5D57200939585 /* AppDelegate.swift */; };
 		868751D01BB5D57200939585 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 868751CF1BB5D57200939585 /* ViewController.swift */; };
 		868751D51BB5D57200939585 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 868751D31BB5D57200939585 /* Main.storyboard */; };
 		86890D6C1C8010820046CF12 /* OverlayScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86890D6B1C8010820046CF12 /* OverlayScene.swift */; };
-		86890F3423D271CB00BF1E99 /* SatelliteKit in Frameworks */ = {isa = PBXBuildFile; productRef = 86890F3323D271CB00BF1E99 /* SatelliteKit */; };
 		86890F3A23D27B6000BF1E99 /* AppExtras in Frameworks */ = {isa = PBXBuildFile; productRef = 86890F3923D27B6000BF1E99 /* AppExtras */; };
-		869AC32B221FA7C1009C702E /* SatelliteExtra.swift in Sources */ = {isa = PBXBuildFile; fileRef = 869AC32A221FA7C1009C702E /* SatelliteExtra.swift */; };
 		869CA3461FBFF67400C1636F /* FakeClock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 869CA3441FBFF67400C1636F /* FakeClock.swift */; };
+		86AC5AA3242DB418009D8B7F /* DemosKit in Frameworks */ = {isa = PBXBuildFile; productRef = 86AC5AA2242DB418009D8B7F /* DemosKit */; };
 		86AF6AE61EECE3AD004EBEFA /* SceneConstruction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86B5D13F1E751260002DB9B1 /* SceneConstruction.swift */; };
 		86C3B75423E24F8F0044AAC0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8676693522D13D1900695202 /* Assets.xcassets */; };
 		86D31DE21EECDCAA00577042 /* Geometries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86D31DE11EECDCAA00577042 /* Geometries.swift */; };
-		86D55FFF22D1635100011FAF /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86D55FFE22D1635100011FAF /* CacheManager.swift */; };
 		86E5582D1F22A3E200931A8D /* SpriteConstruction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86E5582C1F22A3E200931A8D /* SpriteConstruction.swift */; };
 /* End PBXBuildFile section */
 
@@ -52,23 +48,19 @@
 		86280CBC1DDD5A2300BE3B6F /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
 		86386F431E1A1468003B018D /* SatNodes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SatNodes.swift; sourceTree = "<group>"; };
 		864A60031C82940D009D6C72 /* SceneView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneView.swift; sourceTree = "<group>"; };
-		866B422E1EB3BD6B0010D973 /* SatelliteStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SatelliteStore.swift; path = ../../DEMOS/DemosKit/SatelliteStore.swift; sourceTree = "<group>"; };
 		8672CC221C83CC2500E1DD5E /* OverlayScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = OverlayScene.sks; sourceTree = "<group>"; };
 		86757FAA1E46832500DD6780 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		8676693522D13D1900695202 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		8676693B22D155F900695202 /* com.ramsaycons.earth.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = com.ramsaycons.earth.scn; sourceTree = "<group>"; };
 		868751CA1BB5D57200939585 /* Geometries.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Geometries.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		868751CD1BB5D57200939585 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		868751CF1BB5D57200939585 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		868751D41BB5D57200939585 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		868751D61BB5D57200939585 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		86890D6B1C8010820046CF12 /* OverlayScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayScene.swift; sourceTree = "<group>"; };
-		869AC32A221FA7C1009C702E /* SatelliteExtra.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SatelliteExtra.swift; path = ../../DEMOS/DemosKit/SatelliteExtra.swift; sourceTree = "<group>"; };
 		869CA3441FBFF67400C1636F /* FakeClock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeClock.swift; sourceTree = "<group>"; };
 		86B5D13F1E751260002DB9B1 /* SceneConstruction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneConstruction.swift; sourceTree = "<group>"; };
 		86D08F0522FCA9CA0084626C /* Geometries.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Geometries.entitlements; sourceTree = "<group>"; };
 		86D31DE11EECDCAA00577042 /* Geometries.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Geometries.swift; sourceTree = "<group>"; };
-		86D55FFE22D1635100011FAF /* CacheManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CacheManager.swift; path = ../../DEMOS/DemosKit/CacheManager.swift; sourceTree = "<group>"; };
 		86E5582C1F22A3E200931A8D /* SpriteConstruction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpriteConstruction.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -77,7 +69,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				86890F3423D271CB00BF1E99 /* SatelliteKit in Frameworks */,
+				86AC5AA3242DB418009D8B7F /* DemosKit in Frameworks */,
 				86890F3A23D27B6000BF1E99 /* AppExtras in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -120,16 +112,6 @@
 			name = Particles;
 			sourceTree = "<group>";
 		};
-		8654A2D51DCEA6E700D72606 /* DemosKit */ = {
-			isa = PBXGroup;
-			children = (
-				869AC32A221FA7C1009C702E /* SatelliteExtra.swift */,
-				866B422E1EB3BD6B0010D973 /* SatelliteStore.swift */,
-				86D55FFE22D1635100011FAF /* CacheManager.swift */,
-			);
-			name = DemosKit;
-			sourceTree = "<group>";
-		};
 		866B98BC23B319DC0063DEB6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -159,8 +141,6 @@
 			children = (
 				86D08F0522FCA9CA0084626C /* Geometries.entitlements */,
 				861707EA1EECDF4300FD67EC /* Sources */,
-				8654A2D51DCEA6E700D72606 /* DemosKit */,
-				8676693B22D155F900695202 /* com.ramsaycons.earth.scn */,
 				8672CC221C83CC2500E1DD5E /* OverlayScene.sks */,
 				868751D31BB5D57200939585 /* Main.storyboard */,
 				861610E62259BAF8000D65B1 /* Vectors.xcassets */,
@@ -191,8 +171,8 @@
 			);
 			name = Geometries;
 			packageProductDependencies = (
-				86890F3323D271CB00BF1E99 /* SatelliteKit */,
 				86890F3923D27B6000BF1E99 /* AppExtras */,
+				86AC5AA2242DB418009D8B7F /* DemosKit */,
 			);
 			productName = Geometries;
 			productReference = 868751CA1BB5D57200939585 /* Geometries.app */;
@@ -204,7 +184,7 @@
 		868751C21BB5D57200939585 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1100;
+				LastUpgradeCheck = 1330;
 				ORGANIZATIONNAME = "Gavin Eadie";
 				TargetAttributes = {
 					868751C91BB5D57200939585 = {
@@ -224,8 +204,8 @@
 			);
 			mainGroup = 868751C11BB5D57200939585;
 			packageReferences = (
-				8612A92C22B5968E005AC338 /* XCRemoteSwiftPackageReference "SatelliteKit" */,
 				86890F3823D27B6000BF1E99 /* XCRemoteSwiftPackageReference "AppExtras" */,
+				86AC5AA1242DB418009D8B7F /* XCRemoteSwiftPackageReference "DemosKit" */,
 			);
 			productRefGroup = 868751CB1BB5D57200939585 /* Products */;
 			projectDirPath = "";
@@ -242,7 +222,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				86280CBE1DDD5A2300BE3B6F /* spark.png in Resources */,
-				8676693C22D155F900695202 /* com.ramsaycons.earth.scn in Resources */,
 				868751D51BB5D57200939585 /* Main.storyboard in Resources */,
 				861610E72259BAF8000D65B1 /* Vectors.xcassets in Resources */,
 				86C3B75423E24F8F0044AAC0 /* Assets.xcassets in Resources */,
@@ -294,12 +273,9 @@
 				86AF6AE61EECE3AD004EBEFA /* SceneConstruction.swift in Sources */,
 				862218462000441C003D7F7F /* SceneDynamics.swift in Sources */,
 				86386F441E1A1468003B018D /* SatNodes.swift in Sources */,
-				869AC32B221FA7C1009C702E /* SatelliteExtra.swift in Sources */,
 				864A60041C82940D009D6C72 /* SceneView.swift in Sources */,
-				866B422F1EB3BD6B0010D973 /* SatelliteStore.swift in Sources */,
 				86E5582D1F22A3E200931A8D /* SpriteConstruction.swift in Sources */,
 				86890D6C1C8010820046CF12 /* OverlayScene.swift in Sources */,
-				86D55FFF22D1635100011FAF /* CacheManager.swift in Sources */,
 				868751CE1BB5D57200939585 /* AppDelegate.swift in Sources */,
 				869CA3461FBFF67400C1636F /* FakeClock.swift in Sources */,
 			);
@@ -336,6 +312,7 @@
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -352,7 +329,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_SWIFT_FLAGS = "-DDEBUG";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -377,6 +354,7 @@
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -391,7 +369,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
@@ -468,14 +446,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		8612A92C22B5968E005AC338 /* XCRemoteSwiftPackageReference "SatelliteKit" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/gavineadie/SatelliteKit.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.1;
-			};
-		};
 		86890F3823D27B6000BF1E99 /* XCRemoteSwiftPackageReference "AppExtras" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "file:///Users/gavin/Development/AppExtras";
@@ -484,18 +454,26 @@
 				kind = branch;
 			};
 		};
+		86AC5AA1242DB418009D8B7F /* XCRemoteSwiftPackageReference "DemosKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/gavineadie/DemosKit.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		86890F3323D271CB00BF1E99 /* SatelliteKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 8612A92C22B5968E005AC338 /* XCRemoteSwiftPackageReference "SatelliteKit" */;
-			productName = SatelliteKit;
-		};
 		86890F3923D27B6000BF1E99 /* AppExtras */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 86890F3823D27B6000BF1E99 /* XCRemoteSwiftPackageReference "AppExtras" */;
 			productName = AppExtras;
+		};
+		86AC5AA2242DB418009D8B7F /* DemosKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 86AC5AA1242DB418009D8B7F /* XCRemoteSwiftPackageReference "DemosKit" */;
+			productName = DemosKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

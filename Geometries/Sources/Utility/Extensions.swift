@@ -167,6 +167,6 @@ extension DispatchTime: ExpressibleByFloatLiteral {
 
 }
 
-//Now I can use async dispatch the way God intended:
+// Now I can use async dispatch the way God intended:
 //
-//DispatchQueue.main.asyncAfter(deadline: 5) { /* ... */ }
+// DispatchQueue.main.asyncAfter(deadline: 5) { /* ... */ }

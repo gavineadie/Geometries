@@ -1,25 +1,32 @@
 {
-  "object": {
-    "pins": [
-      {
-        "package": "AppExtras",
-        "repositoryURL": "/Users/gavin/Development/AppExtras",
-        "state": {
-          "branch": "master",
-          "revision": "105bcac207281a49d0e50d4b9ab5a119e29a389e",
-          "version": null
-        }
-      },
-      {
-        "package": "SatelliteKit",
-        "repositoryURL": "https://github.com/gavineadie/SatelliteKit.git",
-        "state": {
-          "branch": null,
-          "revision": "340a578591e2f1af7ef5a58bd2eba947b96f022c",
-          "version": "1.0.16"
-        }
+  "pins" : [
+    {
+      "identity" : "appextras",
+      "kind" : "localSourceControl",
+      "location" : "/Users/gavin/Development/AppExtras",
+      "state" : {
+        "branch" : "master",
+        "revision" : "a7954f5dca8303b525e2c40a8d2b73b0638ebd61"
       }
-    ]
-  },
-  "version": 1
+    },
+    {
+      "identity" : "demoskit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/gavineadie/DemosKit.git",
+      "state" : {
+        "branch" : "master",
+        "revision" : "eb72f832f8fa4dbc8b5bf213037c26f96eca0859"
+      }
+    },
+    {
+      "identity" : "satellitekit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/gavineadie/SatelliteKit.git",
+      "state" : {
+        "revision" : "39adee96d4defbb47f67f97aa15a605501deb4b6",
+        "version" : "1.1.2"
+      }
+    }
+  ],
+  "version" : 2
 }

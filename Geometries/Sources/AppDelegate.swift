@@ -19,6 +19,7 @@
 
 import Cocoa
 import AppExtras
+import os.log
 
 @NSApplicationMain
 
@@ -32,14 +33,14 @@ class AppDelegate: NSObject, ApplicationDelegate {
   ┃     Insert code here to initialize your application                                              ┃
   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛*/
     func applicationWillFinishLaunching(_ notification: Notification) {
-        if Debug.trace { print("             Application| applicationWillFinishLaunching()") }
+        Logger.everything.info("             Application| applicationWillFinishLaunching()")
 
         appSupport.prestart(notification.object as! Application)
 
     }
 
     func applicationDidFinishLaunching(_ notification: Notification) {
-        if Debug.trace { print("             Application| DidFinishLaunching()") }
+        Logger.everything.info("             Application| DidFinishLaunching()")
 
         appSupport.starting(notification.object as! Application)
 
@@ -61,7 +62,7 @@ class AppDelegate: NSObject, ApplicationDelegate {
   ┃     Insert code here to tear down your application                                               ┃
   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛*/
     func applicationWillTerminate(_ notification: Notification) {
-        if Debug.trace { print("             Application| WillTerminate()") }
+        Logger.everything.info("             Application| WillTerminate()")
 
         appSupport.shutdown(notification.object as! Application)
 
@@ -76,14 +77,14 @@ class AppDelegate: NSObject, ApplicationDelegate {
 
     }
 
-/*┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-  ┃     Insert code here to to request that the file filename be opened as a linked file             ┃
-  ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛*/
-    func application(_ sender: Any, openFileWithoutUI filename: String) -> Bool {
-
-        print("application.openFileWithoutUI: \(filename) from \(sender)")
-
-        return true
-
-    }
+///*┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+//  ┃     Insert code here to to request that the file filename be opened as a linked file             ┃
+//  ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛*/
+//    func application(_ sender: Any, openFileWithoutUI filename: String) -> Bool {
+//
+//        Logger.everything.info("application.openFileWithoutUI: \(filename) from \(sender)")
+//
+//        return true
+//
+//    }
 }
