@@ -77,14 +77,14 @@ class AppDelegate: NSObject, ApplicationDelegate {
 
     }
 
-///*┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-//  ┃     Insert code here to to request that the file filename be opened as a linked file             ┃
-//  ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛*/
-//    func application(_ sender: Any, openFileWithoutUI filename: String) -> Bool {
-//
-//        Logger.everything.info("application.openFileWithoutUI: \(filename) from \(sender)")
-//
-//        return true
-//
-//    }
+/*┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+  ┃     Insert code here to to request that the file filename be opened as a linked file             ┃
+  ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛*/
+    func application(_ sender: Any, openFileWithoutUI filename: String) -> Bool {
+
+        Logger.everything.info("application.openFileWithoutUI: \(filename)")
+
+        return true
+
+    }
 }

@@ -46,20 +46,18 @@ class SceneDynamics {
   ┆ guard for satellites available ..                                                                ┆
   ┆                                         .. specifically, we have a non-zero "visible" collection ┆
   ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
-        guard let visualGroup = SatelliteStore.shared.visualGroup,
-                  visualGroup.sats.count > 0 else { return }
+        guard let visualGroup = ElementsStore.shared.getGroup(named: "visual"),
+              visualGroup.table.count > 0 else { return }
 
 /*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
   ┆ for the satellite(s) we want to display ..                                                       ┆
   ┆                                  .. search the scene for the "O" (orbital) base of the dot nodes ┆
   ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
-        for (_, satellite) in visualGroup.sats {                // 42684
-            if let satellite = visualGroup.sats["25544"] {
-                satellite.horizonNode(inFrame: frameNode)
-                satellite.orbitalNode(inFrame: frameNode)
-            }
-//            satellite.surfaceNode(inFrame: frameNode)
-
+        if let elements = visualGroup.table[25544] {  // 42684
+            let satellite = Satellite(elements: elements)
+            satellite.horizonNode(inFrame: frameNode)
+            satellite.orbitalNode(inFrame: frameNode)
+//          satellite.surfaceNode(inFrame: frameNode)
             satellite.everySecond(inFrame: frameNode)
         }
 

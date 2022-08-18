@@ -42,6 +42,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		861461DE28ADC4DF003F88E0 /* AppExtras */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = AppExtras; path = ../../AppExtras; sourceTree = "<group>"; };
+		861461DF28ADC510003F88E0 /* DemosKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = DemosKit; path = ../DEMOS/DemosKit; sourceTree = "<group>"; };
+		861461E028ADC529003F88E0 /* SatelliteKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SatelliteKit; path = ../SatelliteKit; sourceTree = "<group>"; };
 		861610E62259BAF8000D65B1 /* Vectors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Vectors.xcassets; sourceTree = "<group>"; };
 		862218442000441C003D7F7F /* SceneDynamics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDynamics.swift; sourceTree = "<group>"; };
 		86280CBB1DDD5A2300BE3B6F /* Fire.scnp */ = {isa = PBXFileReference; lastKnownFileType = file.scp; path = Fire.scnp; sourceTree = "<group>"; };
@@ -77,6 +80,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		861461DD28ADC4DF003F88E0 /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				861461DE28ADC4DF003F88E0 /* AppExtras */,
+				861461DF28ADC510003F88E0 /* DemosKit */,
+				861461E028ADC529003F88E0 /* SatelliteKit */,
+			);
+			name = Packages;
+			sourceTree = "<group>";
+		};
 		861707EA1EECDF4300FD67EC /* Sources */ = {
 			isa = PBXGroup;
 			children = (
@@ -125,6 +138,7 @@
 				868751CC1BB5D57200939585 /* Geometries */,
 				868751CB1BB5D57200939585 /* Products */,
 				866B98BC23B319DC0063DEB6 /* Frameworks */,
+				861461DD28ADC4DF003F88E0 /* Packages */,
 			);
 			sourceTree = "<group>";
 		};
@@ -329,7 +343,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_SWIFT_FLAGS = "-DDEBUG";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -369,7 +383,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				SWIFT_VERSION = 4.0;
 			};
 			name = Release;

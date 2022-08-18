@@ -52,11 +52,9 @@ class ViewController: NSViewController, SCNSceneRendererDelegate {
 
         if Debug.clock { FakeClock.shared.reset() }
 
-// FIXME: following might load some other group, not 'visualGroup'
-        if SatelliteStore.shared.visualGroup == nil {
-            SatelliteStore.shared.downloadFile(from:
-                            "/Users/gavin/Library/Application Support/com.ramsaycons.tle/visual.txt")
-        }
+        ElementsStore.shared.downloadFile(
+            from: "/Users/gavin/Library/Application Support/com.ramsaycons.tle/visual.txt",
+            for: "visual")
 
         let scene = SCNScene()
 
