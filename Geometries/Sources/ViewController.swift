@@ -48,7 +48,7 @@ class ViewController: NSViewController, SCNSceneRendererDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        Logger.everything.info("          ViewController| viewDidLoad()")
+        print("          ViewController| viewDidLoad()")
 
         if Debug.clock { FakeClock.shared.reset() }
 
@@ -112,7 +112,7 @@ if #available(OSX 10.12, *) {
 
     override func viewWillAppear() {
         super.viewWillAppear()
-        Logger.everything.info("          ViewController| viewWillAppear()")
+        print("          ViewController| viewWillAppear()")
 
 /*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
   ┆ .. once every seconds: update the time placard                                                   ┆
@@ -133,7 +133,7 @@ if #available(OSX 10.12, *) {
   └──────────────────────────────────────────────────────────────────────────────────────────────────┘*/
     override func viewDidAppear() {
         super.viewDidAppear()
-        Logger.everything.info("          ViewController| viewDidAppear()")
+        print("          ViewController| viewDidAppear()")
     }
 
 /*┌──────────────────────────────────────────────────────────────────────────────────────────────────┐

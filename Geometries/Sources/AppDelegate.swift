@@ -33,14 +33,14 @@ class AppDelegate: NSObject, ApplicationDelegate {
   ┃     Insert code here to initialize your application                                              ┃
   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛*/
     func applicationWillFinishLaunching(_ notification: Notification) {
-        Logger.everything.info("             Application| applicationWillFinishLaunching()")
+        print("             Application| applicationWillFinishLaunching()")
 
         appSupport.prestart(notification.object as! Application)
 
     }
 
     func applicationDidFinishLaunching(_ notification: Notification) {
-        Logger.everything.info("             Application| DidFinishLaunching()")
+        print("             Application| DidFinishLaunching()")
 
         appSupport.starting(notification.object as! Application)
 
@@ -62,7 +62,7 @@ class AppDelegate: NSObject, ApplicationDelegate {
   ┃     Insert code here to tear down your application                                               ┃
   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛*/
     func applicationWillTerminate(_ notification: Notification) {
-        Logger.everything.info("             Application| WillTerminate()")
+        print("             Application| WillTerminate()")
 
         appSupport.shutdown(notification.object as! Application)
 
@@ -82,7 +82,7 @@ class AppDelegate: NSObject, ApplicationDelegate {
   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛*/
     func application(_ sender: Any, openFileWithoutUI filename: String) -> Bool {
 
-        Logger.everything.info("application.openFileWithoutUI: \(filename)")
+        print("application.openFileWithoutUI: \(filename)")
 
         return true
 

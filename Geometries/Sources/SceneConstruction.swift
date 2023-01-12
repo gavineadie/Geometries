@@ -309,26 +309,26 @@ let vertexStride = MemoryLayout<Vertex>.stride
   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛*/
 func geometry(from vectorAssetName: String) -> SCNGeometry? {
 
-if #available(OSX 10.11, *) {
-    let vectorAsset = NSDataAsset(name: vectorAssetName)
-    guard let vectorData = vectorAsset?.data else {
-        print("mesh file '\(vectorAssetName)' missing")
+    if #available(OSX 10.11, *) {
+        let vectorAsset = NSDataAsset(name: vectorAssetName)
+        guard let vectorData = vectorAsset?.data else {
+            print("mesh file '\(vectorAssetName)' missing")
+            return nil
+        }
+
+        let vertexSource = SCNGeometrySource(data: vectorData,
+                                             semantic: SCNGeometrySource.Semantic.vertex,
+                                             vectorCount: vectorData.count/(vertexStride*2),
+                                             usesFloatComponents: true, componentsPerVector: 3,
+                                             bytesPerComponent: MemoryLayout<Float>.size,
+                                             dataOffset: 0, dataStride: vertexStride)
+
+        let element = SCNGeometryElement(data: nil, primitiveType: .line,
+                                         primitiveCount: vectorData.count/(vertexStride*2),
+                                         bytesPerIndex: MemoryLayout<UInt16>.size)
+
+        return SCNGeometry(sources: [vertexSource], elements: [element])
+    } else {
         return nil
     }
-
-    let vertexSource = SCNGeometrySource(data: vectorData,
-                                         semantic: SCNGeometrySource.Semantic.vertex,
-                                         vectorCount: vectorData.count/(vertexStride*2),
-                                         usesFloatComponents: true, componentsPerVector: 3,
-                                         bytesPerComponent: MemoryLayout<Float>.size,
-                                         dataOffset: 0, dataStride: vertexStride)
-
-    let element = SCNGeometryElement(data: nil, primitiveType: .line,
-                                     primitiveCount: vectorData.count/(vertexStride*2),
-                                     bytesPerIndex: MemoryLayout<UInt16>.size)
-
-    return SCNGeometry(sources: [vertexSource], elements: [element])
-} else {
-    return nil
-}
 }
