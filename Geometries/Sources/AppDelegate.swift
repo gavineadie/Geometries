@@ -18,7 +18,6 @@
 // swiftlint:disable force_cast
 
 import Cocoa
-import AppExtras
 import os.log
 
 @NSApplicationMain

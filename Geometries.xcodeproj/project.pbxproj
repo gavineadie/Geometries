@@ -3,10 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 53;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8614B7DC2A74CE1C00365580 /* DemosKit in Frameworks */ = {isa = PBXBuildFile; productRef = 8614B7DB2A74CE1C00365580 /* DemosKit */; };
+		8614B7DE2A74D01300365580 /* AppPertinent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8614B7DD2A74D01300365580 /* AppPertinent.swift */; };
 		861610E72259BAF8000D65B1 /* Vectors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 861610E62259BAF8000D65B1 /* Vectors.xcassets */; };
 		862218462000441C003D7F7F /* SceneDynamics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 862218442000441C003D7F7F /* SceneDynamics.swift */; };
 		86280CBD1DDD5A2300BE3B6F /* Fire.scnp in Resources */ = {isa = PBXBuildFile; fileRef = 86280CBB1DDD5A2300BE3B6F /* Fire.scnp */; };
@@ -19,9 +21,7 @@
 		868751D01BB5D57200939585 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 868751CF1BB5D57200939585 /* ViewController.swift */; };
 		868751D51BB5D57200939585 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 868751D31BB5D57200939585 /* Main.storyboard */; };
 		86890D6C1C8010820046CF12 /* OverlayScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86890D6B1C8010820046CF12 /* OverlayScene.swift */; };
-		86890F3A23D27B6000BF1E99 /* AppExtras in Frameworks */ = {isa = PBXBuildFile; productRef = 86890F3923D27B6000BF1E99 /* AppExtras */; };
 		869CA3461FBFF67400C1636F /* FakeClock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 869CA3441FBFF67400C1636F /* FakeClock.swift */; };
-		86AC5AA3242DB418009D8B7F /* DemosKit in Frameworks */ = {isa = PBXBuildFile; productRef = 86AC5AA2242DB418009D8B7F /* DemosKit */; };
 		86AF6AE61EECE3AD004EBEFA /* SceneConstruction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86B5D13F1E751260002DB9B1 /* SceneConstruction.swift */; };
 		86C3B75423E24F8F0044AAC0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8676693522D13D1900695202 /* Assets.xcassets */; };
 		86E5582D1F22A3E200931A8D /* SpriteConstruction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86E5582C1F22A3E200931A8D /* SpriteConstruction.swift */; };
@@ -41,9 +41,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		861461DE28ADC4DF003F88E0 /* AppExtras */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = AppExtras; path = ../../AppExtras; sourceTree = "<group>"; };
 		861461DF28ADC510003F88E0 /* DemosKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = DemosKit; path = ../DEMOS/DemosKit; sourceTree = "<group>"; };
 		861461E028ADC529003F88E0 /* SatelliteKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SatelliteKit; path = ../SatelliteKit; sourceTree = "<group>"; };
+		8614B7DD2A74D01300365580 /* AppPertinent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppPertinent.swift; sourceTree = "<group>"; };
 		861610E62259BAF8000D65B1 /* Vectors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Vectors.xcassets; sourceTree = "<group>"; };
 		862218442000441C003D7F7F /* SceneDynamics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDynamics.swift; sourceTree = "<group>"; };
 		86280CBB1DDD5A2300BE3B6F /* Fire.scnp */ = {isa = PBXFileReference; lastKnownFileType = file.scp; path = Fire.scnp; sourceTree = "<group>"; };
@@ -70,8 +70,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				86AC5AA3242DB418009D8B7F /* DemosKit in Frameworks */,
-				86890F3A23D27B6000BF1E99 /* AppExtras in Frameworks */,
+				8614B7DC2A74CE1C00365580 /* DemosKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,7 +80,6 @@
 		861461DD28ADC4DF003F88E0 /* Packages */ = {
 			isa = PBXGroup;
 			children = (
-				861461DE28ADC4DF003F88E0 /* AppExtras */,
 				861461DF28ADC510003F88E0 /* DemosKit */,
 				861461E028ADC529003F88E0 /* SatelliteKit */,
 			);
@@ -107,6 +105,7 @@
 		861707EB1EECDF7900FD67EC /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				8614B7DD2A74D01300365580 /* AppPertinent.swift */,
 				86757FAA1E46832500DD6780 /* Extensions.swift */,
 				869CA3441FBFF67400C1636F /* FakeClock.swift */,
 			);
@@ -169,11 +168,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 868751D91BB5D57200939585 /* Build configuration list for PBXNativeTarget "Geometries" */;
 			buildPhases = (
+				8613487B1E3CD83000195B6F /* ShellScript */,
 				868751C61BB5D57200939585 /* Sources */,
 				868751C71BB5D57200939585 /* Frameworks */,
+				86FB3E5F20227A01003E084A /* Run Script */,
 				868751C81BB5D57200939585 /* Resources */,
-				8613487B1E3CD83000195B6F /* ShellScript */,
-				86FB3E5F20227A01003E084A /* ShellScript */,
 				86862ECF22010D2A0037BB8A /* Embed Frameworks */,
 			);
 			buildRules = (
@@ -182,8 +181,7 @@
 			);
 			name = Geometries;
 			packageProductDependencies = (
-				86890F3923D27B6000BF1E99 /* AppExtras */,
-				86AC5AA2242DB418009D8B7F /* DemosKit */,
+				8614B7DB2A74CE1C00365580 /* DemosKit */,
 			);
 			productName = Geometries;
 			productReference = 868751CA1BB5D57200939585 /* Geometries.app */;
@@ -196,7 +194,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
-				LastUpgradeCheck = 1400;
+				LastUpgradeCheck = 1500;
 				ORGANIZATIONNAME = "Gavin Eadie";
 				TargetAttributes = {
 					868751C91BB5D57200939585 = {
@@ -216,8 +214,7 @@
 			);
 			mainGroup = 868751C11BB5D57200939585;
 			packageReferences = (
-				86890F3823D27B6000BF1E99 /* XCRemoteSwiftPackageReference "AppExtras" */,
-				86AC5AA1242DB418009D8B7F /* XCRemoteSwiftPackageReference "DemosKit" */,
+				8614B7DA2A74CE1C00365580 /* XCRemoteSwiftPackageReference "DemosKit" */,
 			);
 			productRefGroup = 868751CB1BB5D57200939585 /* Products */;
 			projectDirPath = "";
@@ -247,8 +244,11 @@
 /* Begin PBXShellScriptBuildPhase section */
 		8613487B1E3CD83000195B6F /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			alwaysOutOfDate = 1;
+			buildActionMask = 12;
 			files = (
+			);
+			inputFileListPaths = (
 			);
 			inputPaths = (
 			);
@@ -257,20 +257,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if which swiftlint >/dev/null; then\n   swiftlint\nelse\n   echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+			showEnvVarsInLog = 0;
 		};
-		86FB3E5F20227A01003E084A /* ShellScript */ = {
+		86FB3E5F20227A01003E084A /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
-				"\"${BUILT_PRODUCTS_DIR}/${INFOPLIST_PATH}\"",
 			);
+			name = "Run Script";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "export PLIST_PATH=\"${BUILT_PRODUCTS_DIR}/${INFOPLIST_PATH}\"\necho $PLIST_PATH\n\ndefaults write \"$PLIST_PATH\" AppBuildDate -string \"`date +\"%b%d/%y\"`\"\ndefaults write \"$PLIST_PATH\" AppBuildTime -string \"`date +\"%H:%M:%S\"`\"\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -287,6 +290,7 @@
 				864A60041C82940D009D6C72 /* SceneView.swift in Sources */,
 				86E5582D1F22A3E200931A8D /* SpriteConstruction.swift in Sources */,
 				86890D6C1C8010820046CF12 /* OverlayScene.swift in Sources */,
+				8614B7DE2A74D01300365580 /* AppPertinent.swift in Sources */,
 				868751CE1BB5D57200939585 /* AppDelegate.swift in Sources */,
 				869CA3461FBFF67400C1636F /* FakeClock.swift in Sources */,
 			);
@@ -310,42 +314,20 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = arm64;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = CXE9ZR7J3U;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_TESTABILITY = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				ONLY_ACTIVE_ARCH = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				OTHER_SWIFT_FLAGS = "-DDEBUG";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -353,37 +335,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = arm64;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = CXE9ZR7J3U;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				SWIFT_VERSION = 4.0;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
 			};
 			name = Release;
 		};
@@ -461,33 +423,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		86890F3823D27B6000BF1E99 /* XCRemoteSwiftPackageReference "AppExtras" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "file:///Users/gavin/Development/AppExtras";
-			requirement = {
-				branch = master;
-				kind = branch;
-			};
-		};
-		86AC5AA1242DB418009D8B7F /* XCRemoteSwiftPackageReference "DemosKit" */ = {
+		8614B7DA2A74CE1C00365580 /* XCRemoteSwiftPackageReference "DemosKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/gavineadie/DemosKit.git";
 			requirement = {
-				branch = master;
+				branch = main;
 				kind = branch;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		86890F3923D27B6000BF1E99 /* AppExtras */ = {
+		8614B7DB2A74CE1C00365580 /* DemosKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 86890F3823D27B6000BF1E99 /* XCRemoteSwiftPackageReference "AppExtras" */;
-			productName = AppExtras;
-		};
-		86AC5AA2242DB418009D8B7F /* DemosKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 86AC5AA1242DB418009D8B7F /* XCRemoteSwiftPackageReference "DemosKit" */;
+			package = 8614B7DA2A74CE1C00365580 /* XCRemoteSwiftPackageReference "DemosKit" */;
 			productName = DemosKit;
 		};
 /* End XCSwiftPackageProductDependency section */

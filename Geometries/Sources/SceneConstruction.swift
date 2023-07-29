@@ -5,7 +5,6 @@
 
 // swiftlint:disable identifier_name
 
-import AppExtras
 import CoreLocation
 import SceneKit
 import SatelliteKit
@@ -166,9 +165,9 @@ func makeEarth() -> SCNNode {
   ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
     let obsvrNode = makeObserver()
         obsvrNode.position = SCNVector3(geo2eci(
-                                    geodetic: LatLonAlt(lat: annArborLocation.coordinate.latitude,
-                                                        lon: annArborLocation.coordinate.longitude,
-                                                        alt: annArborLocation.altitude/1000.0)))
+            geodetic: LatLonAlt(annArborLocation.coordinate.latitude,
+                                annArborLocation.coordinate.longitude,
+                                annArborLocation.altitude/1000.0)))
     earthNode <<< obsvrNode
 
     return earthNode

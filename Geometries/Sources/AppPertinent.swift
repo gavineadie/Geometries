@@ -3,8 +3,6 @@
   ║ Created by Gavin Eadie on Nov27/17         Copyright © 2017-20 Gavin Eadie. All rights reserved. ║
   ╚══════════════════════════════════════════════════════════════════════════════════════════════════╝*/
 
-// swiftlint:disable discarded_notification_center_observer
-
 #if os(iOS) || os(tvOS) || os(watchOS)
     import UIKit
 #else

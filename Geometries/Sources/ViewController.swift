@@ -3,11 +3,11 @@
   ║ Created by Gavin Eadie on Sep25/15 ... Copyright 2015-20 Ramsay Consulting. All rights reserved. ║
   ╚══════════════════════════════════════════════════════════════════════════════════════════════════╝*/
 
+// swiftlint:disable blanket_disable_command
 // swiftlint:disable identifier_name
 // swiftlint:disable force_try
 // swiftlint:disable todo
 
-import AppExtras
 import SceneKit
 import MetalKit
 import DemosKit
@@ -18,9 +18,9 @@ import os.log
 let  AnnArborLatitude = +42.2755
 let AnnArborLongitude = -83.7521
 let  AnnArborAltitude =   0.1       // Kms
-let  AnnArborLocation = LatLonAlt(lat: AnnArborLatitude,
-                                  lon: AnnArborLongitude,
-                                  alt: AnnArborAltitude)
+let  AnnArborLocation = LatLonAlt(AnnArborLatitude,
+                                  AnnArborLongitude,
+                                  AnnArborAltitude)
 
 extension Debug {
     static let scene = false
@@ -58,17 +58,17 @@ class ViewController: NSViewController, SCNSceneRendererDelegate {
 
         let scene = SCNScene()
 
-if #available(OSX 10.11, *) {
-        let textureLoader = MTKTextureLoader(device: MTLCreateSystemDefaultDevice()!) // sceneView.device!)
-if #available(OSX 10.12, *) {
-        scene.background.contents = try! textureLoader.newTexture(name: "Star1024", scaleFactor: 1.0,
-                                                                  bundle: .main, options: nil)
-} else {
-        // Fallback on earlier versions
-}
-} else {
-// FIXME: Fallback on earlier versions
-}
+        if #available(OSX 10.11, *) {
+            let textureLoader = MTKTextureLoader(device: MTLCreateSystemDefaultDevice()!) // sceneView.device!)
+            if #available(OSX 10.12, *) {
+                scene.background.contents = try! textureLoader.newTexture(name: "Star1024", scaleFactor: 1.0,
+                                                                          bundle: .main, options: nil)
+            } else {
+                // Fallback on earlier versions
+            }
+        } else {
+                // FIXME: Fallback on earlier versions
+        }
 
         sceneView.scene = scene
         sceneView.backgroundColor = #colorLiteral(red: 0.0, green: 0.0, blue: 0.5, alpha: 1)
@@ -155,3 +155,5 @@ public func dumpNode(_ node: SCNNode) {
         dumpNode(child)
     }
 }
+
+// swiftlint:enable blanket_disable_command

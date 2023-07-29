@@ -4,9 +4,8 @@
   ╚══════════════════════════════════════════════════════════════════════════════════════════════════╝*/
 
 // swiftlint:disable statement_position
-// swiftlint:disable function_body_length
+/// swiftlint:disable function_body_length
 
-import AppExtras
 import SceneKit
 import SatelliteKit
 
@@ -126,9 +125,9 @@ public extension Satellite {
 
             let eciVector = geo2xyz(julianDays: (fakeClock.ep1950DaysNow() - self.t₀Days1950) * 1440.0 *
                                                         TimeConstants.min2day + self.t₀Days1950 + JD.epoch1950,
-                                    geodetic: LatLonAlt(lat: footDelta * rad2deg,
-                                                        lon: footAlpha * rad2deg,
-                                                        alt: 0.0))
+                                    geodetic: LatLonAlt(footDelta * rad2deg,
+                                                        footAlpha * rad2deg,
+                                                        0.0))
 
             var eciVertex = Vertex(x: Float(eciVector.x), y: Float(eciVector.y), z: Float(eciVector.z))
 
@@ -158,8 +157,7 @@ public extension Satellite {
 
         if let oldHorizonNode = frameNode.childNode(withName: "H-" + self.noradIdent, recursively: true) {
             frameNode.replaceChildNode(oldHorizonNode, with: newHorizonNode)
-        }
-        else {
+        } else {
             frameNode.addChildNode(newHorizonNode)
         }
 

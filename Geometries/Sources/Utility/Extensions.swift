@@ -3,8 +3,6 @@
   ║ Created by Gavin Eadie on Feb04/17 .. Copyright 2018-16 Ramsay Consulting. All rights reserved.  ║
   ╚══════════════════════════════════════════════════════════════════════════════════════════════════╝*/
 
-// swiftlint:disable identifier_name
-
 import SceneKit
 import SatelliteKit
 
@@ -36,6 +34,8 @@ extension NSObject: Then {}
 
 /*┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
   └──────────────────────────────────────────────────────────────────────────────────────────────────┘*/
+// swiftlint:disable identifier_name
+
 extension SCNVector3 {
 
     public init(_ v: Vector) {
@@ -170,3 +170,44 @@ extension DispatchTime: ExpressibleByFloatLiteral {
 // Now I can use async dispatch the way God intended:
 //
 // DispatchQueue.main.asyncAfter(deadline: 5) { /* ... */ }
+
+/*╔══════════════════════════════════════════════════════════════════════════════════════════════════╗
+  ║ Extensions.swift                                                                       AppExtras ║
+  ║ Created by Gavin Eadie on Jan17/20 ... Copyright 2020-23 Ramsay Consulting. All rights reserved. ║
+  ╚══════════════════════════════════════════════════════════════════════════════════════════════════╝*/
+
+import Foundation
+
+#if os(iOS) || os(tvOS) || os(watchOS)
+
+    import UIKit
+
+    public typealias Application = UIApplication
+    public typealias ApplicationDelegate = UIApplicationDelegate
+
+    public typealias ViewController = UIViewController
+    public typealias View = UIView
+    public typealias Image = UIImage
+
+    public typealias Font = UIFont
+    public typealias Color = UIColor
+    public typealias BezierPath = UIBezierPath
+
+    extension BezierPath { public func line(to point: CGPoint) { addLine(to: point) } }
+
+#else
+
+    import AppKit
+
+    public typealias Application = NSApplication
+    public typealias ApplicationDelegate = NSApplicationDelegate
+
+//    public typealias ViewController = NSViewController
+    public typealias View = NSView
+    public typealias Image = NSImage
+
+    public typealias Font = NSFont
+    public typealias Color = NSColor
+    public typealias BezierPath = NSBezierPath
+
+#endif
