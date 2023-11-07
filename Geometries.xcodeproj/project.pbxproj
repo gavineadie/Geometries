@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		8614B7DC2A74CE1C00365580 /* DemosKit in Frameworks */ = {isa = PBXBuildFile; productRef = 8614B7DB2A74CE1C00365580 /* DemosKit */; };
-		8614B7DE2A74D01300365580 /* AppPertinent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8614B7DD2A74D01300365580 /* AppPertinent.swift */; };
 		861610E72259BAF8000D65B1 /* Vectors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 861610E62259BAF8000D65B1 /* Vectors.xcassets */; };
 		862218462000441C003D7F7F /* SceneDynamics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 862218442000441C003D7F7F /* SceneDynamics.swift */; };
 		86280CBD1DDD5A2300BE3B6F /* Fire.scnp in Resources */ = {isa = PBXBuildFile; fileRef = 86280CBB1DDD5A2300BE3B6F /* Fire.scnp */; };
@@ -43,7 +42,6 @@
 /* Begin PBXFileReference section */
 		861461DF28ADC510003F88E0 /* DemosKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = DemosKit; path = ../DEMOS/DemosKit; sourceTree = "<group>"; };
 		861461E028ADC529003F88E0 /* SatelliteKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SatelliteKit; path = ../SatelliteKit; sourceTree = "<group>"; };
-		8614B7DD2A74D01300365580 /* AppPertinent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppPertinent.swift; sourceTree = "<group>"; };
 		861610E62259BAF8000D65B1 /* Vectors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Vectors.xcassets; sourceTree = "<group>"; };
 		862218442000441C003D7F7F /* SceneDynamics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDynamics.swift; sourceTree = "<group>"; };
 		86280CBB1DDD5A2300BE3B6F /* Fire.scnp */ = {isa = PBXFileReference; lastKnownFileType = file.scp; path = Fire.scnp; sourceTree = "<group>"; };
@@ -105,7 +103,6 @@
 		861707EB1EECDF7900FD67EC /* Utility */ = {
 			isa = PBXGroup;
 			children = (
-				8614B7DD2A74D01300365580 /* AppPertinent.swift */,
 				86757FAA1E46832500DD6780 /* Extensions.swift */,
 				869CA3441FBFF67400C1636F /* FakeClock.swift */,
 			);
@@ -168,7 +165,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 868751D91BB5D57200939585 /* Build configuration list for PBXNativeTarget "Geometries" */;
 			buildPhases = (
-				8613487B1E3CD83000195B6F /* ShellScript */,
 				868751C61BB5D57200939585 /* Sources */,
 				868751C71BB5D57200939585 /* Frameworks */,
 				86FB3E5F20227A01003E084A /* Run Script */,
@@ -194,7 +190,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
-				LastUpgradeCheck = 1500;
+				LastUpgradeCheck = 1510;
 				ORGANIZATIONNAME = "Gavin Eadie";
 				TargetAttributes = {
 					868751C91BB5D57200939585 = {
@@ -242,27 +238,10 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		8613487B1E3CD83000195B6F /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
-			buildActionMask = 12;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\n   swiftlint\nelse\n   echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
-			showEnvVarsInLog = 0;
-		};
 		86FB3E5F20227A01003E084A /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
+			buildActionMask = 8;
 			files = (
 			);
 			inputPaths = (
@@ -270,7 +249,7 @@
 			name = "Run Script";
 			outputPaths = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
+			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/sh;
 			shellScript = "export PLIST_PATH=\"${BUILT_PRODUCTS_DIR}/${INFOPLIST_PATH}\"\necho $PLIST_PATH\n\ndefaults write \"$PLIST_PATH\" AppBuildDate -string \"`date +\"%b%d/%y\"`\"\ndefaults write \"$PLIST_PATH\" AppBuildTime -string \"`date +\"%H:%M:%S\"`\"\n";
 			showEnvVarsInLog = 0;
@@ -290,7 +269,6 @@
 				864A60041C82940D009D6C72 /* SceneView.swift in Sources */,
 				86E5582D1F22A3E200931A8D /* SpriteConstruction.swift in Sources */,
 				86890D6C1C8010820046CF12 /* OverlayScene.swift in Sources */,
-				8614B7DE2A74D01300365580 /* AppPertinent.swift in Sources */,
 				868751CE1BB5D57200939585 /* AppDelegate.swift in Sources */,
 				869CA3461FBFF67400C1636F /* FakeClock.swift in Sources */,
 			);
@@ -314,18 +292,40 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = arm64;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = CXE9ZR7J3U;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_SWIFT_FLAGS = "-DDEBUG";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -335,16 +335,36 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = arm64;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = CXE9ZR7J3U;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
 			};
 			name = Release;

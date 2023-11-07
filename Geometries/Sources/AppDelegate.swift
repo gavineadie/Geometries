@@ -26,51 +26,68 @@ class AppDelegate: NSObject, ApplicationDelegate {
 
     @IBOutlet weak var window: NSWindow!
 
-    let appSupport = AppSupport.shared
-
 /*┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+  │ P R E S T A R T                                                                      application │
   ┃     Insert code here to initialize your application                                              ┃
   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛*/
     func applicationWillFinishLaunching(_ notification: Notification) {
         print("             Application| applicationWillFinishLaunching()")
 
-        appSupport.prestart(notification.object as! Application)
+#if DEBUG
+        print("""
+               Application| DEBUG BUILD
+                          | Debug.clock=\(Debug.clock)
+                          | Debug.error=\(Debug.error)
+                          | Debug.https=\(Debug.https)
+                          | Debug.other=\(Debug.other)
+                          | Debug.scene=\(Debug.scene)
+                          | Debug.trace=\(Debug.trace)
+                          | Debug.views=\(Debug.views)
+  """)
+#else
+        print("             Application| RELEASE BUILD")
+#endif
 
     }
 
+/*┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ S T A R T I N G                                                                      application │
+  └──────────────────────────────────────────────────────────────────────────────────────────────────┘*/
     func applicationDidFinishLaunching(_ notification: Notification) {
         print("             Application| DidFinishLaunching()")
 
-        appSupport.starting(notification.object as! Application)
-
     }
 
+/*┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ R E S I G N E D                                                                      application │
+  └──────────────────────────────────────────────────────────────────────────────────────────────────┘*/
     func applicationDidResignActive( _ notification: Notification) {
 
-        appSupport.resigned(notification.object as! Application)
-
     }
 
+/*┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ E N E R G I Z E                                                                      application │
+  └──────────────────────────────────────────────────────────────────────────────────────────────────┘*/
     func applicationWillBecomeActive( _ notification: Notification) {
-
-        appSupport.energize(notification.object as! Application)
 
     }
 
 /*┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+  │ S H U T D O W N                                                                      application │
   ┃     Insert code here to tear down your application                                               ┃
   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛*/
     func applicationWillTerminate(_ notification: Notification) {
         print("             Application| WillTerminate()")
 
-        appSupport.shutdown(notification.object as! Application)
-
     }
+
+// swiftlint:enable force_cast
 
 /*┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
   ┃     When the last window closes, it's time to say Goodbye (and thanks for all the fish!) ..      ┃
   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛*/
     func applicationShouldTerminateAfterLastWindowClosed(_ app: Application) -> Bool {
+        print("             Application| ShouldTerminateAfterLastWindowClosed")
 
         return true
 
@@ -80,8 +97,7 @@ class AppDelegate: NSObject, ApplicationDelegate {
   ┃     Insert code here to to request that the file filename be opened as a linked file             ┃
   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛*/
     func application(_ sender: Any, openFileWithoutUI filename: String) -> Bool {
-
-        print("application.openFileWithoutUI: \(filename)")
+        print("             Application| openFileWithoutUI: \(filename)")
 
         return true
 

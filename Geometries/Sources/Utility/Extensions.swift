@@ -8,6 +8,31 @@ import SatelliteKit
 
 let deg2rad = Double(π / 180.0)
 
+/*╔══════════════════════════════════════════════════════════════════════════════════════════════════╗
+  ║ AppPertinent.swift                                                                     AppExtras ║
+  ║ Created by Gavin Eadie on Nov27/17         Copyright © 2017-23 Gavin Eadie. All rights reserved. ║
+  ╚══════════════════════════════════════════════════════════════════════════════════════════════════╝*/
+
+#if os(iOS) || os(tvOS) || os(watchOS)
+    import UIKit
+#else
+    import AppKit
+#endif
+
+import OSLog
+
+public enum Debug {
+
+    public static let clock = false
+    public static let error = true                         // debug error code
+    public static let https = false
+    public static let other = false
+//    public static let scene = false
+    public static let trace = true
+    public static let views = true
+
+}
+
 /*┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
   │ Copyright (c) 2015 Suyeol Jeon (xoul.kr)                                                         │
   └──────────────────────────────────────────────────────────────────────────────────────────────────┘*/
