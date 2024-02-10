@@ -1,6 +1,6 @@
 /*╔══════════════════════════════════════════════════════════════════════════════════════════════════╗
   ║ AppDelegate.swift                                                                     Geometries ║
-  ║ Created by Gavin Eadie on Sep25/15 ... Copyright 2015-20 Ramsay Consulting. All rights reserved. ║
+  ║ Created by Gavin Eadie on Sep25/15 ... Copyright 2015-24 Ramsay Consulting. All rights reserved. ║
   ╚══════════════════════════════════════════════════════════════════════════════════════════════════╝*/
 
 /*╔══════════════════════════════════════════════════════════════════════════════════════════════════╗
@@ -17,11 +17,21 @@
 
 // swiftlint:disable force_cast
 
-import Cocoa
-import os.log
+#if os(iOS) || os(tvOS) || os(watchOS) || os(visionOS)
 
-@NSApplicationMain
+import UIKit
 
+#else
+
+import AppKit
+
+//public typealias ApplicationMain = NSApplicationMain
+
+#endif
+
+import OSLog
+
+@main
 class AppDelegate: NSObject, ApplicationDelegate {
 
     @IBOutlet weak var window: NSWindow!
@@ -31,7 +41,6 @@ class AppDelegate: NSObject, ApplicationDelegate {
   ┃     Insert code here to initialize your application                                              ┃
   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛*/
     func applicationWillFinishLaunching(_ notification: Notification) {
-        print("             Application| applicationWillFinishLaunching()")
 
 #if DEBUG
         print("""
@@ -54,7 +63,6 @@ class AppDelegate: NSObject, ApplicationDelegate {
   │ S T A R T I N G                                                                      application │
   └──────────────────────────────────────────────────────────────────────────────────────────────────┘*/
     func applicationDidFinishLaunching(_ notification: Notification) {
-        print("             Application| DidFinishLaunching()")
 
     }
 
@@ -77,7 +85,6 @@ class AppDelegate: NSObject, ApplicationDelegate {
   ┃     Insert code here to tear down your application                                               ┃
   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛*/
     func applicationWillTerminate(_ notification: Notification) {
-        print("             Application| WillTerminate()")
 
     }
 
@@ -87,19 +94,15 @@ class AppDelegate: NSObject, ApplicationDelegate {
   ┃     When the last window closes, it's time to say Goodbye (and thanks for all the fish!) ..      ┃
   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛*/
     func applicationShouldTerminateAfterLastWindowClosed(_ app: Application) -> Bool {
-        print("             Application| ShouldTerminateAfterLastWindowClosed")
 
         return true
-
     }
 
 /*┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
   ┃     Insert code here to to request that the file filename be opened as a linked file             ┃
   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛*/
     func application(_ sender: Any, openFileWithoutUI filename: String) -> Bool {
-        print("             Application| openFileWithoutUI: \(filename)")
 
         return true
-
     }
 }

@@ -1,6 +1,6 @@
 /*╔══════════════════════════════════════════════════════════════════════════════════════════════════╗
   ║ SceneConstruction.swift                                                               Geometries ║
-  ║ Created by Gavin Eadie on Mar12/17   Copyright © 2017-20 Ramsay Consulting. All rights reserved. ║
+  ║ Created by Gavin Eadie on Mar12/17   Copyright © 2017-24 Ramsay Consulting. All rights reserved. ║
   ╚══════════════════════════════════════════════════════════════════════════════════════════════════╝*/
 
 // swiftlint:disable identifier_name

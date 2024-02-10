@@ -1,6 +1,6 @@
 /*╔══════════════════════════════════════════════════════════════════════════════════════════════════╗
   ║ Extensions.swift                                                                      Geometries ║
-  ║ Created by Gavin Eadie on Feb04/17 .. Copyright 2018-16 Ramsay Consulting. All rights reserved.  ║
+  ║ Created by Gavin Eadie on Feb04/17 .. Copyright 2018-24 Ramsay Consulting. All rights reserved.  ║
   ╚══════════════════════════════════════════════════════════════════════════════════════════════════╝*/
 
 import SceneKit
@@ -10,10 +10,10 @@ let deg2rad = Double(π / 180.0)
 
 /*╔══════════════════════════════════════════════════════════════════════════════════════════════════╗
   ║ AppPertinent.swift                                                                     AppExtras ║
-  ║ Created by Gavin Eadie on Nov27/17         Copyright © 2017-23 Gavin Eadie. All rights reserved. ║
+  ║ Created by Gavin Eadie on Nov27/17         Copyright © 2017-24 Gavin Eadie. All rights reserved. ║
   ╚══════════════════════════════════════════════════════════════════════════════════════════════════╝*/
 
-#if os(iOS) || os(tvOS) || os(watchOS)
+#if os(iOS) || os(tvOS) || os(watchOS) || os(visionOS)
     import UIKit
 #else
     import AppKit
@@ -27,35 +27,10 @@ public enum Debug {
     public static let error = true                         // debug error code
     public static let https = false
     public static let other = false
-//    public static let scene = false
     public static let trace = true
     public static let views = true
 
 }
-
-/*┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
-  │ Copyright (c) 2015 Suyeol Jeon (xoul.kr)                                                         │
-  └──────────────────────────────────────────────────────────────────────────────────────────────────┘*/
-public protocol Then { }
-
-extension Then where Self: AnyObject {
-
-/// Makes it possible to set properties with closures just after initializing.
-///
-///     let label = UILabel().then {
-///       $0.textAlignment = .Center
-///       $0.textColor = UIColor.blackColor()
-///       $0.text = "Hello, World!"
-///     }
-
-    public func then(_ block: (Self) throws -> Void) rethrows -> Self {
-        try block(self)
-        return self
-    }
-
-}
-
-extension NSObject: Then {}
 
 /*┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
   └──────────────────────────────────────────────────────────────────────────────────────────────────┘*/
@@ -163,7 +138,7 @@ extension Comparable {
 
 /*╔══════════════════════════════════════════════════════════════════════════════════════════════════╗
   ║ Environment.swift                                                                     Satellites ║
-  ║ Created by Gavin Eadie on Sep03/17         Copyright © 2017-19 Gavin Eadie. All rights reserved. ║
+  ║ Created by Gavin Eadie on Sep03/17         Copyright © 2017-24 Gavin Eadie. All rights reserved. ║
   ╚══════════════════════════════════════════════════════════════════════════════════════════════════╝*/
 
 #if os(iOS) || os(tvOS) || os(watchOS)
@@ -198,19 +173,19 @@ extension DispatchTime: ExpressibleByFloatLiteral {
 
 /*╔══════════════════════════════════════════════════════════════════════════════════════════════════╗
   ║ Extensions.swift                                                                       AppExtras ║
-  ║ Created by Gavin Eadie on Jan17/20 ... Copyright 2020-23 Ramsay Consulting. All rights reserved. ║
+  ║ Created by Gavin Eadie on Jan17/20 ... Copyright 2020-24 Ramsay Consulting. All rights reserved. ║
   ╚══════════════════════════════════════════════════════════════════════════════════════════════════╝*/
 
 import Foundation
 
-#if os(iOS) || os(tvOS) || os(watchOS)
+#if os(iOS) || os(tvOS) || os(watchOS) || os(visionOS)
 
     import UIKit
 
     public typealias Application = UIApplication
     public typealias ApplicationDelegate = UIApplicationDelegate
 
-    public typealias ViewController = UIViewController
+//    public typealias ViewController = UIViewController
     public typealias View = UIView
     public typealias Image = UIImage
 
@@ -236,3 +211,26 @@ import Foundation
     public typealias BezierPath = NSBezierPath
 
 #endif
+
+public struct Geometries {
+
+    var staticVersion = "~~VersionBuild~~"          // v1.1.0 (321)
+    var staticLibDate = "~~AppBuildDate~~"          // Feb27/22
+    var staticLibTime = "~~AppBuildTime~~"          // 20:15:10
+    var staticLibInfo = "~~CopyrightText~~"         // Copyright 2016-24 Ramsay Consulting
+
+    public static var version: String {
+        guard let satelliteKitBundle = Bundle(identifier: "com.ramsaycons.Geometries"),
+              let plistDictionary = satelliteKitBundle.infoDictionary else {
+            return "No 'Geometries' Info.plist"
+        }
+
+        return String(format: "%@ v%@ (#%@) [%@ @ %@]",
+                      plistDictionary["CFBundleName"] as? String ?? "Library",
+                      plistDictionary["CFBundleShortVersionString"] as? String ?? "v0.0",
+                      plistDictionary["CFBundleVersion"] as? String  ?? "0",
+                      plistDictionary["AppBuildDate"] as? String ?? "BuildDate",
+                      plistDictionary["AppBuildTime"] as? String ?? "BuildTime")
+    }
+
+}

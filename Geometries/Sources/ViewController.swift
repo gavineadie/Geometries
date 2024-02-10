@@ -1,6 +1,6 @@
 /*╔══════════════════════════════════════════════════════════════════════════════════════════════════╗
   ║ ViewController.swift                                                                  Geometries ║
-  ║ Created by Gavin Eadie on Sep25/15 ... Copyright 2015-20 Ramsay Consulting. All rights reserved. ║
+  ║ Created by Gavin Eadie on Sep25/15 ... Copyright 2015-24 Ramsay Consulting. All rights reserved. ║
   ╚══════════════════════════════════════════════════════════════════════════════════════════════════╝*/
 
 // swiftlint:disable blanket_disable_command
@@ -23,7 +23,7 @@ let  AnnArborLocation = LatLonAlt(AnnArborLatitude,
                                   AnnArborAltitude)
 
 extension Debug {
-    static let scene = false
+    static let scene = true
 }
 
 class ViewController: NSViewController, SCNSceneRendererDelegate {
@@ -52,19 +52,17 @@ class ViewController: NSViewController, SCNSceneRendererDelegate {
 
         if Debug.clock { FakeClock.shared.reset() }
 
-        ElementsStore.shared.downloadFile(
-            from: "/Users/gavin/Library/Application Support/com.ramsaycons.tle/visual.txt",
-            for: "visual")
-
         let scene = SCNScene()
 
         if #available(OSX 10.11, *) {
             let textureLoader = MTKTextureLoader(device: MTLCreateSystemDefaultDevice()!) // sceneView.device!)
             if #available(OSX 10.12, *) {
-                scene.background.contents = try! textureLoader.newTexture(name: "Star1024", scaleFactor: 1.0,
-                                                                          bundle: .main, options: nil)
+                scene.background.contents = try! textureLoader.newTexture(name: "Star1024", 
+                                                                          scaleFactor: 1.0,
+                                                                          bundle: .main, 
+                                                                          options: nil)
             } else {
-                // Fallback on earlier versions
+                // FIXME: Fallback on earlier versions
             }
         } else {
                 // FIXME: Fallback on earlier versions

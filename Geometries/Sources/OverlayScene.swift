@@ -1,6 +1,6 @@
 /*╔══════════════════════════════════════════════════════════════════════════════════════════════════╗
   ║ OverlayScene.swift                                                                    Geometries ║
-  ║ Created by Gavin Eadie on Feb25/15 ... Copyright 2015-20 Ramsay Consulting. All rights reserved. ║
+  ║ Created by Gavin Eadie on Feb25/15 ... Copyright 2015-24 Ramsay Consulting. All rights reserved. ║
   ╚══════════════════════════════════════════════════════════════════════════════════════════════════╝*/
 
 import SpriteKit
@@ -23,7 +23,5 @@ class OverlayScene: SKScene {
             print("  OverlayScene: SKNode 'touch' interactive (click missed)")
 
         }
-
     }
-
 }

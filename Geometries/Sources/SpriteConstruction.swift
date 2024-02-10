@@ -1,6 +1,6 @@
 /*╔══════════════════════════════════════════════════════════════════════════════════════════════════╗
   ║ SpriteConstruction.swift                                                              Geometries ║
-  ║ Created by Gavin Eadie on Jul21/17   Copyright © 2017-20 Ramsay Consulting. All rights reserved. ║
+  ║ Created by Gavin Eadie on Jul21/17   Copyright © 2017-24 Ramsay Consulting. All rights reserved. ║
   ╚══════════════════════════════════════════════════════════════════════════════════════════════════╝*/
 
 import SpriteKit
@@ -30,7 +30,7 @@ func constructSpriteView() -> OverlayScene {
     cred.fontSize = 12.0
     cred.position = CGPoint(x: 300, y: 580)
     cred.name = "CRED"
-    cred.text = SatelliteKit.version
+    cred.text = Geometries.version
     baseNode <<< cred
 
     let rectNodeA = SKSpriteNode(color: #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1), size: CGSize(width: 80, height: 80))

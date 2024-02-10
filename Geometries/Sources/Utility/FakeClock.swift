@@ -1,6 +1,6 @@
 /*╔══════════════════════════════════════════════════════════════════════════════════════════════════╗
   ║ FakeClock.swift                                                                       Satellites ║
-  ║ Created by Gavin Eadie on Aug26/17.. Copyright © 2017-19 Ramsay Consulting. All rights reserved. ║
+  ║ Created by Gavin Eadie on Aug26/17.. Copyright © 2017-24 Ramsay Consulting. All rights reserved. ║
   ╚══════════════════════════════════════════════════════════════════════════════════════════════════╝*/
 
 import Foundation

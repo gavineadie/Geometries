@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8614B7DC2A74CE1C00365580 /* DemosKit in Frameworks */ = {isa = PBXBuildFile; productRef = 8614B7DB2A74CE1C00365580 /* DemosKit */; };
 		861610E72259BAF8000D65B1 /* Vectors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 861610E62259BAF8000D65B1 /* Vectors.xcassets */; };
 		862218462000441C003D7F7F /* SceneDynamics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 862218442000441C003D7F7F /* SceneDynamics.swift */; };
 		86280CBD1DDD5A2300BE3B6F /* Fire.scnp in Resources */ = {isa = PBXBuildFile; fileRef = 86280CBB1DDD5A2300BE3B6F /* Fire.scnp */; };
@@ -15,6 +14,8 @@
 		863478001D135B7E0058F510 /* OverlayScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8672CC221C83CC2500E1DD5E /* OverlayScene.sks */; };
 		86386F441E1A1468003B018D /* SatNodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86386F431E1A1468003B018D /* SatNodes.swift */; };
 		864A60041C82940D009D6C72 /* SceneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 864A60031C82940D009D6C72 /* SceneView.swift */; };
+		8660C6762B5A358300C8180E /* DemosKit in Frameworks */ = {isa = PBXBuildFile; productRef = 8660C6752B5A358300C8180E /* DemosKit */; };
+		866B418B2B4FCE0D00CE647B /* SatelliteKit in Frameworks */ = {isa = PBXBuildFile; productRef = 866B418A2B4FCE0D00CE647B /* SatelliteKit */; };
 		86757FAB1E46832500DD6780 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86757FAA1E46832500DD6780 /* Extensions.swift */; };
 		868751CE1BB5D57200939585 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 868751CD1BB5D57200939585 /* AppDelegate.swift */; };
 		868751D01BB5D57200939585 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 868751CF1BB5D57200939585 /* ViewController.swift */; };
@@ -40,8 +41,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		861461DF28ADC510003F88E0 /* DemosKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = DemosKit; path = ../DEMOS/DemosKit; sourceTree = "<group>"; };
-		861461E028ADC529003F88E0 /* SatelliteKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SatelliteKit; path = ../SatelliteKit; sourceTree = "<group>"; };
 		861610E62259BAF8000D65B1 /* Vectors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Vectors.xcassets; sourceTree = "<group>"; };
 		862218442000441C003D7F7F /* SceneDynamics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDynamics.swift; sourceTree = "<group>"; };
 		86280CBB1DDD5A2300BE3B6F /* Fire.scnp */ = {isa = PBXFileReference; lastKnownFileType = file.scp; path = Fire.scnp; sourceTree = "<group>"; };
@@ -68,7 +67,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8614B7DC2A74CE1C00365580 /* DemosKit in Frameworks */,
+				8660C6762B5A358300C8180E /* DemosKit in Frameworks */,
+				866B418B2B4FCE0D00CE647B /* SatelliteKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,8 +78,6 @@
 		861461DD28ADC4DF003F88E0 /* Packages */ = {
 			isa = PBXGroup;
 			children = (
-				861461DF28ADC510003F88E0 /* DemosKit */,
-				861461E028ADC529003F88E0 /* SatelliteKit */,
 			);
 			name = Packages;
 			sourceTree = "<group>";
@@ -177,7 +175,8 @@
 			);
 			name = Geometries;
 			packageProductDependencies = (
-				8614B7DB2A74CE1C00365580 /* DemosKit */,
+				866B418A2B4FCE0D00CE647B /* SatelliteKit */,
+				8660C6752B5A358300C8180E /* DemosKit */,
 			);
 			productName = Geometries;
 			productReference = 868751CA1BB5D57200939585 /* Geometries.app */;
@@ -190,7 +189,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
-				LastUpgradeCheck = 1510;
+				LastUpgradeCheck = 1520;
 				ORGANIZATIONNAME = "Gavin Eadie";
 				TargetAttributes = {
 					868751C91BB5D57200939585 = {
@@ -210,7 +209,8 @@
 			);
 			mainGroup = 868751C11BB5D57200939585;
 			packageReferences = (
-				8614B7DA2A74CE1C00365580 /* XCRemoteSwiftPackageReference "DemosKit" */,
+				866B41892B4FCE0D00CE647B /* XCRemoteSwiftPackageReference "SatelliteKit" */,
+				8660C6742B5A358300C8180E /* XCRemoteSwiftPackageReference "DemosKit" */,
 			);
 			productRefGroup = 868751CB1BB5D57200939585 /* Products */;
 			projectDirPath = "";
@@ -252,7 +252,6 @@
 			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/sh;
 			shellScript = "export PLIST_PATH=\"${BUILT_PRODUCTS_DIR}/${INFOPLIST_PATH}\"\necho $PLIST_PATH\n\ndefaults write \"$PLIST_PATH\" AppBuildDate -string \"`date +\"%b%d/%y\"`\"\ndefaults write \"$PLIST_PATH\" AppBuildTime -string \"`date +\"%H:%M:%S\"`\"\n";
-			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -324,7 +323,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_SWIFT_FLAGS = "-DDEBUG";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -365,7 +364,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 			};
 			name = Release;
 		};
@@ -383,13 +382,17 @@
 				DEVELOPMENT_TEAM = CXE9ZR7J3U;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = Geometries/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.ramsaycons.Geometries;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "macosx xros xrsimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 7;
 			};
 			name = Debug;
 		};
@@ -407,15 +410,19 @@
 				DEVELOPMENT_TEAM = CXE9ZR7J3U;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = Geometries/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.ramsaycons.Geometries;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "macosx xros xrsimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 7;
 			};
 			name = Release;
 		};
@@ -443,21 +450,34 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		8614B7DA2A74CE1C00365580 /* XCRemoteSwiftPackageReference "DemosKit" */ = {
+		8660C6742B5A358300C8180E /* XCRemoteSwiftPackageReference "DemosKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/gavineadie/DemosKit.git";
 			requirement = {
-				branch = main;
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.3.0;
+			};
+		};
+		866B41892B4FCE0D00CE647B /* XCRemoteSwiftPackageReference "SatelliteKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/gavineadie/SatelliteKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		8614B7DB2A74CE1C00365580 /* DemosKit */ = {
+		8660C6752B5A358300C8180E /* DemosKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 8614B7DA2A74CE1C00365580 /* XCRemoteSwiftPackageReference "DemosKit" */;
+			package = 8660C6742B5A358300C8180E /* XCRemoteSwiftPackageReference "DemosKit" */;
 			productName = DemosKit;
+		};
+		866B418A2B4FCE0D00CE647B /* SatelliteKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 866B41892B4FCE0D00CE647B /* XCRemoteSwiftPackageReference "SatelliteKit" */;
+			productName = SatelliteKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
