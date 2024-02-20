@@ -1,6 +1,6 @@
 /*╔══════════════════════════════════════════════════════════════════════════════════════════════════╗
   ║ Satellite.swift                                                                       Satellites ║
-  ║ Created by Gavin Eadie on Jan01/17.. Copyright © 2017-20 Ramsay Consulting. All rights reserved. ║
+  ║ Created by Gavin Eadie on Jan01/17.. Copyright © 2017-24 Ramsay Consulting. All rights reserved. ║
   ╚══════════════════════════════════════════════════════════════════════════════════════════════════╝*/
 
 // swiftlint:disable statement_position
@@ -22,8 +22,8 @@ public extension Satellite {
 /*┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
   └──────────────────────────────────────────────────────────────────────────────────────────────────┘*/
     var trailNode: SCNNode {
-        let basicNode = SCNNode()
-        basicNode.name = self.noradIdent
+        let node = SCNNode()
+        node.name = self.noradIdent
 
         for _ in 0...orbTickRange.count {
             let dottyGeom = SCNSphere(radius: 10.0)         //
@@ -34,10 +34,10 @@ public extension Satellite {
             let dottyNode = SCNNode(geometry: dottyGeom)
             dottyNode.position = SCNVector3(0.0, 0.0, 0.0)
 
-            basicNode <<< dottyNode                         //                      "trail" << "dotty"
+            node <<< dottyNode                              //                      "trail" << "dotty"
         }
 
-        return basicNode
+        return node
     }
 
 /*┌──────────────────────────────────────────────────────────────────────────────────────────────────┐

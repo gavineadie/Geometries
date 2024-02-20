@@ -111,19 +111,6 @@ class ViewController: NSViewController, SCNSceneRendererDelegate {
     override func viewWillAppear() {
         super.viewWillAppear()
         print("          ViewController| viewWillAppear()")
-
-/*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
-  ┆ .. once every seconds: update the time placard                                                   ┆
-  ╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╯*/
-//        NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: "OneSecond"),
-//                                               object: nil, queue: nil, using: {_ in
-//                if self.satelliteTime != nil {
-//                    DispatchQueue.main.async {
-//                        self.satelliteTime.text = self.dateFormatter.string(from: FakeClock.shared.date())
-//                    }
-//                }
-//        })
-
 	}
 
 /*┌──────────────────────────────────────────────────────────────────────────────────────────────────┐

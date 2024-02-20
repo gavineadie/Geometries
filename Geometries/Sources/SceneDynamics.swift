@@ -17,10 +17,8 @@ class SceneDynamics {
     var earthNode: SCNNode!
 
     init() {
-        sceneTimer.schedule(deadline: .now(), repeating: .milliseconds(milliSeconds))
+        sceneTimer.schedule(deadline: .now(), repeating: .milliseconds(500))
         sceneTimer.setEventHandler {
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "OneSecond"),
-                                            object: nil)
             DispatchQueue.main.async(execute: { self.sceneChange() })
         }
         sceneTimer.resume()
