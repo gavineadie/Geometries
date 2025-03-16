@@ -4,7 +4,7 @@
   ╚══════════════════════════════════════════════════════════════════════════════════════════════════╝*/
 
 // swiftlint:disable statement_position
-/// swiftlint:disable function_body_length
+// swiftlint:disable function_body_length
 
 import SceneKit
 import SatelliteKit
@@ -88,7 +88,7 @@ public extension Satellite {
     func horizonNode(inFrame frameNode: SCNNode) {
         var horizonVertices = Data(capacity: MemoryLayout<Vertex>.stride * horizonVertexCount * 2)
         horizonVertices.removeAll()
-        let satNowLatLonAlt = self.geoPosition(minsAfterEpoch:
+        let satNowLatLonAlt = try! self.geoPosition(minsAfterEpoch:
                                             (fakeClock.ep1950DaysNow() - self.t₀Days1950) * 1440.0)
 
         let satLatitudeRads = satNowLatLonAlt.lat * deg2rad
@@ -177,7 +177,7 @@ public extension Satellite {
         for index in orbTickRange {
 
 		let tickMinutes = nowMinsAfterEpoch + Double(orbTickDelta*index) / 60.0
-		let oSatCel = self.position(minsAfterEpoch: tickMinutes)
+		let oSatCel = try! self.position(minsAfterEpoch: tickMinutes)
 
 /*╭╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╮
   ┆ for 'orbital' track, is satellite in sunlight ?                                                  ┆
@@ -211,7 +211,7 @@ public extension Satellite {
         for index in surTickRange {
 
             let tickMinutes = nowMinsAfterEpoch + Double(orbTickDelta*index) / 60.0
-            let oSatCel = self.position(minsAfterEpoch: tickMinutes)
+            let oSatCel = try! self.position(minsAfterEpoch: tickMinutes)
 
             let jDate = self.t₀Days1950 + JD.epoch1950 + tickMinutes / 1440.0
             var lla = eci2geo(julianDays: jDate, celestial: oSatCel)
